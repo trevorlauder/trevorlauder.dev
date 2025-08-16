@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title>Dry Island Buffalo Jump Provincial Park</title>
+  <desc>Aurora-themed background with topographic contours and a butte outline</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070A12"/>
+      <stop offset="100%" stop-color="#0C1220"/>
+    </linearGradient>
+    <linearGradient id="aurora1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00E0FF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#7F7FD5" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="aurora2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7F7FD5" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00E0FF" stop-opacity="0.8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.06" stroke="#E6ECF1">
+    <path d="M0 90 H1200M0 180 H1200M0 270 H1200M0 360 H1200M0 450 H1200M0 540 H1200"/>
+  </g>
+
+  <!-- Aurora strokes -->
+  <g stroke-linecap="round" fill="none" filter="url(#glow)">
+    <path d="M60,450 C240,420 420,480 600,450 S960,420 1140,450" stroke="url(#aurora1)" stroke-width="6" opacity="0.8"/>
+    <path d="M60,505 C240,475 420,535 600,505 S960,475 1140,505" stroke="url(#aurora2)" stroke-width="4" opacity="0.7"/>
+  </g>
+
+  <!-- Overlapping photo stack (polaroid-style) to reflect Photography category -->
+  <g transform="translate(600,340)" filter="url(#glow)">
+    <!-- Back photo -->
+    <g transform="rotate(-8)">
+      <rect x="-330" y="-170" width="360" height="260" rx="12" fill="#0F1624" stroke="#E6ECF1" stroke-width="6"/>
+      <!-- Inner image: abstract canyon lines + river -->
+      <g transform="translate(-300,-140)">
+        <path d="M0 120 C 40 90, 80 110, 120 100 C 160 90, 200 105, 240 98" stroke="#7F7FD5" stroke-width="4" fill="none"/>
+        <path d="M0 160 C 60 150, 120 152, 180 158 C 220 162, 260 160, 300 156" stroke="#00E0FF" stroke-width="3.5" fill="none"/>
+        <path d="M-20 190 C 40 210, 100 205, 160 195 C 220 185, 280 192, 340 208" stroke="#00E0FF" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.9"/>
+      </g>
+    </g>
+    <!-- Front photo -->
+    <g transform="translate(60,20) rotate(6)">
+      <rect x="-280" y="-150" width="320" height="230" rx="12" fill="#0F1624" stroke="#E6ECF1" stroke-width="5"/>
+      <!-- Inner image: simplified butte ridge -->
+      <g transform="translate(-250,-125)">
+        <path d="M0 90 C 30 70, 60 75, 90 78 C 120 81, 150 76, 180 82 C 210 88, 240 88, 270 92" stroke="#E6ECF1" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+        <path d="M20 120 C 60 116, 100 118, 140 122 C 180 126, 220 124, 260 120" stroke="#7F7FD5" stroke-width="3.5" fill="none" opacity="0.95"/>
+      </g>
+      <!-- Aperture badge -->
+      <g transform="translate(18,-128)" fill="none" stroke="#7F7FD5" stroke-width="3" opacity="0.9">
+        <circle cx="0" cy="0" r="14"/>
+        <path d="M0 -12 L 6 -2 L -6 -2 Z"/>
+        <path d="M6 -2 L 12 6 L 0 6 Z"/>
+        <path d="M0 6 L -12 6 L -6 -2 Z"/>
+      </g>
+    </g>
+  </g>
+
+  <!-- Footer stripe -->
+  <rect x="0" y="600" width="1200" height="30" fill="#121417"/>
+</svg>

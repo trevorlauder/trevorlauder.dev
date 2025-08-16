@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title>Milky Way</title>
+  <desc>Aurora-themed background with nebula glows, scattered stars, and constellation lines</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#070A12"/>
+      <stop offset="100%" stop-color="#0C1220"/>
+    </linearGradient>
+    <linearGradient id="aurora1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00E0FF" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#7F7FD5" stop-opacity="0.9"/>
+    </linearGradient>
+    <linearGradient id="aurora2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7F7FD5" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#00E0FF" stop-opacity="0.8"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="b"/>
+      <feMerge>
+        <feMergeNode in="b"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <!-- Nebula gradients -->
+    <radialGradient id="nebulaCyan" cx="25%" cy="30%" r="35%">
+      <stop offset="0%" stop-color="#00E0FF" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#00E0FF" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#00E0FF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="nebulaPurple" cx="70%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#7F7FD5" stop-opacity="0.20"/>
+      <stop offset="60%" stop-color="#7F7FD5" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#7F7FD5" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.06" stroke="#E6ECF1">
+    <path d="M0 90 H1200M0 180 H1200M0 270 H1200M0 360 H1200M0 450 H1200M0 540 H1200"/>
+    <path d="M100 0 V630M250 0 V630M400 0 V630M550 0 V630M700 0 V630M850 0 V630M1000 0 V630"/>
+  </g>
+
+  <!-- Aurora strokes (subtle, lower) -->
+  <g stroke-linecap="round" fill="none" filter="url(#glow)" opacity="0.35">
+    <path d="M60,520 C240,490 420,550 600,520 S960,490 1140,520" stroke="url(#aurora1)" stroke-width="4.5"/>
+    <path d="M60,560 C240,530 420,590 600,560 S960,530 1140,560" stroke="url(#aurora2)" stroke-width="3"/>
+  </g>
+
+  <!-- Nebula glows -->
+  <rect x="0" y="0" width="1200" height="630" fill="url(#nebulaCyan)"/>
+  <rect x="0" y="0" width="1200" height="630" fill="url(#nebulaPurple)"/>
+
+  <!-- Scattered stars -->
+  <g fill="#E6ECF1" opacity="0.9">
+    <circle cx="120" cy="120" r="1.6"/>
+    <circle cx="180" cy="160" r="1.2"/>
+    <circle cx="240" cy="100" r="1.4"/>
+    <circle cx="310" cy="150" r="1.0"/>
+    <circle cx="370" cy="110" r="1.5"/>
+    <circle cx="430" cy="160" r="1.1"/>
+    <circle cx="500" cy="130" r="1.3"/>
+    <circle cx="560" cy="90"  r="1.6"/>
+    <circle cx="620" cy="140" r="1.2"/>
+    <circle cx="680" cy="110" r="1.4"/>
+    <circle cx="740" cy="150" r="1.1"/>
+    <circle cx="800" cy="120" r="1.3"/>
+    <circle cx="860" cy="100" r="1.5"/>
+    <circle cx="920" cy="140" r="1.2"/>
+    <circle cx="980" cy="110" r="1.4"/>
+    <circle cx="1040" cy="150" r="1.1"/>
+  </g>
+
+  <!-- Constellation lines and nodes -->
+  <g stroke="#E6ECF1" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.9" filter="url(#glow)">
+    <polyline points="150 140, 220 120, 300 150, 360 110, 420 135"/>
+    <polyline points="780 115, 840 135, 900 100, 970 140, 1030 120"/>
+    <polyline points="520 200, 560 175, 600 205, 640 185"/>
+  </g>
+  <g fill="#9EEAF9" opacity="0.95" filter="url(#glow)">
+    <circle cx="150" cy="140" r="2"/>
+    <circle cx="220" cy="120" r="2"/>
+    <circle cx="300" cy="150" r="2"/>
+    <circle cx="360" cy="110" r="2"/>
+    <circle cx="420" cy="135" r="2"/>
+    <circle cx="780" cy="115" r="2"/>
+    <circle cx="840" cy="135" r="2"/>
+    <circle cx="900" cy="100" r="2"/>
+    <circle cx="970" cy="140" r="2"/>
+    <circle cx="1030" cy="120" r="2"/>
+    <circle cx="520" cy="200" r="2"/>
+    <circle cx="560" cy="175" r="2"/>
+    <circle cx="600" cy="205" r="2"/>
+    <circle cx="640" cy="185" r="2"/>
+  </g>
+
+  <!-- Footer stripe -->
+  <rect x="0" y="600" width="1200" height="30" fill="#121417"/>
+</svg>

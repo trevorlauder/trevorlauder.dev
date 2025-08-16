@@ -1,0 +1,20 @@
+{
+  "name": "trevorlauder-dev",
+  "workers_dev": false,
+  "preview_urls": false,
+  "send_metrics": false,
+  "assets": {
+    "directory": "./_site",
+    "not_found_handling": "404-page"
+  },
+  "compatibility_date": "2025-08-15",
+  "build": {
+    "command": "npm run build:jekyll"
+  },
+  "routes": [
+    {
+      "pattern": "trevorlauder.dev",
+      "custom_domain": true
+    }
+  ]
+}

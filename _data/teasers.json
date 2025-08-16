@@ -1,0 +1,306 @@
+{
+  "milky-way": {
+    "aspect": 0.525,
+    "png": {
+      "files": [
+        "milky-way-400.png",
+        "milky-way-600.png",
+        "milky-way-800.png",
+        "milky-way-1200.png"
+      ],
+      "srcset": "milky-way-400.png 400w, milky-way-600.png 600w, milky-way-800.png 800w, milky-way-1200.png 1200w"
+    },
+    "webp": {
+      "files": [
+        "milky-way-400.webp",
+        "milky-way-600.webp",
+        "milky-way-800.webp",
+        "milky-way-1200.webp"
+      ],
+      "srcset": "milky-way-400.webp 400w, milky-way-600.webp 600w, milky-way-800.webp 800w, milky-way-1200.webp 1200w"
+    },
+    "avif": {
+      "files": [
+        "milky-way-400.avif",
+        "milky-way-600.avif",
+        "milky-way-800.avif",
+        "milky-way-1200.avif"
+      ],
+      "srcset": "milky-way-400.avif 400w, milky-way-600.avif 600w, milky-way-800.avif 800w, milky-way-1200.avif 1200w"
+    },
+    "thumbnail": {
+      "size": 300,
+      "files": [
+        "thumbnails/milky-way-thumb-300.png",
+        "thumbnails/milky-way-thumb-300.webp",
+        "thumbnails/milky-way-thumb-300.avif"
+      ]
+    }
+  },
+  "dry-island": {
+    "aspect": 0.525,
+    "png": {
+      "files": [
+        "dry-island-400.png",
+        "dry-island-600.png",
+        "dry-island-800.png",
+        "dry-island-1200.png"
+      ],
+      "srcset": "dry-island-400.png 400w, dry-island-600.png 600w, dry-island-800.png 800w, dry-island-1200.png 1200w"
+    },
+    "webp": {
+      "files": [
+        "dry-island-400.webp",
+        "dry-island-600.webp",
+        "dry-island-800.webp",
+        "dry-island-1200.webp"
+      ],
+      "srcset": "dry-island-400.webp 400w, dry-island-600.webp 600w, dry-island-800.webp 800w, dry-island-1200.webp 1200w"
+    },
+    "avif": {
+      "files": [
+        "dry-island-400.avif",
+        "dry-island-600.avif",
+        "dry-island-800.avif",
+        "dry-island-1200.avif"
+      ],
+      "srcset": "dry-island-400.avif 400w, dry-island-600.avif 600w, dry-island-800.avif 800w, dry-island-1200.avif 1200w"
+    },
+    "thumbnail": {
+      "size": 300,
+      "files": [
+        "thumbnails/dry-island-thumb-300.png",
+        "thumbnails/dry-island-thumb-300.webp",
+        "thumbnails/dry-island-thumb-300.avif"
+      ]
+    }
+  },
+  "dotfiles": {
+    "aspect": 0.525,
+    "png": {
+      "files": [
+        "dotfiles-400.png",
+        "dotfiles-600.png",
+        "dotfiles-800.png",
+        "dotfiles-1200.png"
+      ],
+      "srcset": "dotfiles-400.png 400w, dotfiles-600.png 600w, dotfiles-800.png 800w, dotfiles-1200.png 1200w"
+    },
+    "webp": {
+      "files": [
+        "dotfiles-400.webp",
+        "dotfiles-600.webp",
+        "dotfiles-800.webp",
+        "dotfiles-1200.webp"
+      ],
+      "srcset": "dotfiles-400.webp 400w, dotfiles-600.webp 600w, dotfiles-800.webp 800w, dotfiles-1200.webp 1200w"
+    },
+    "avif": {
+      "files": [
+        "dotfiles-400.avif",
+        "dotfiles-600.avif",
+        "dotfiles-800.avif",
+        "dotfiles-1200.avif"
+      ],
+      "srcset": "dotfiles-400.avif 400w, dotfiles-600.avif 600w, dotfiles-800.avif 800w, dotfiles-1200.avif 1200w"
+    },
+    "thumbnail": {
+      "size": 300,
+      "files": [
+        "thumbnails/dotfiles-thumb-300.png",
+        "thumbnails/dotfiles-thumb-300.webp",
+        "thumbnails/dotfiles-thumb-300.avif"
+      ]
+    }
+  },
+  "doh-avoidance": {
+    "aspect": 0.525,
+    "png": {
+      "files": [
+        "doh-avoidance-400.png",
+        "doh-avoidance-600.png",
+        "doh-avoidance-800.png",
+        "doh-avoidance-1200.png"
+      ],
+      "srcset": "doh-avoidance-400.png 400w, doh-avoidance-600.png 600w, doh-avoidance-800.png 800w, doh-avoidance-1200.png 1200w"
+    },
+    "webp": {
+      "files": [
+        "doh-avoidance-400.webp",
+        "doh-avoidance-600.webp",
+        "doh-avoidance-800.webp",
+        "doh-avoidance-1200.webp"
+      ],
+      "srcset": "doh-avoidance-400.webp 400w, doh-avoidance-600.webp 600w, doh-avoidance-800.webp 800w, doh-avoidance-1200.webp 1200w"
+    },
+    "avif": {
+      "files": [
+        "doh-avoidance-400.avif",
+        "doh-avoidance-600.avif",
+        "doh-avoidance-800.avif",
+        "doh-avoidance-1200.avif"
+      ],
+      "srcset": "doh-avoidance-400.avif 400w, doh-avoidance-600.avif 600w, doh-avoidance-800.avif 800w, doh-avoidance-1200.avif 1200w"
+    },
+    "thumbnail": {
+      "size": 300,
+      "files": [
+        "thumbnails/doh-avoidance-thumb-300.png",
+        "thumbnails/doh-avoidance-thumb-300.webp",
+        "thumbnails/doh-avoidance-thumb-300.avif"
+      ]
+    }
+  },
+  "default": {
+    "aspect": 0.525,
+    "png": {
+      "files": [
+        "default-400.png",
+        "default-600.png",
+        "default-800.png",
+        "default-1200.png"
+      ],
+      "srcset": "default-400.png 400w, default-600.png 600w, default-800.png 800w, default-1200.png 1200w"
+    },
+    "webp": {
+      "files": [
+        "default-400.webp",
+        "default-600.webp",
+        "default-800.webp",
+        "default-1200.webp"
+      ],
+      "srcset": "default-400.webp 400w, default-600.webp 600w, default-800.webp 800w, default-1200.webp 1200w"
+    },
+    "avif": {
+      "files": [
+        "default-400.avif",
+        "default-600.avif",
+        "default-800.avif",
+        "default-1200.avif"
+      ],
+      "srcset": "default-400.avif 400w, default-600.avif 600w, default-800.avif 800w, default-1200.avif 1200w"
+    },
+    "thumbnail": {
+      "size": 300,
+      "files": [
+        "thumbnails/default-thumb-300.png",
+        "thumbnails/default-thumb-300.webp",
+        "thumbnails/default-thumb-300.avif"
+      ]
+    }
+  },
+  "dbeaver-rds-iam": {
+    "aspect": 0.525,
+    "png": {
+      "files": [
+        "dbeaver-rds-iam-400.png",
+        "dbeaver-rds-iam-600.png",
+        "dbeaver-rds-iam-800.png",
+        "dbeaver-rds-iam-1200.png"
+      ],
+      "srcset": "dbeaver-rds-iam-400.png 400w, dbeaver-rds-iam-600.png 600w, dbeaver-rds-iam-800.png 800w, dbeaver-rds-iam-1200.png 1200w"
+    },
+    "webp": {
+      "files": [
+        "dbeaver-rds-iam-400.webp",
+        "dbeaver-rds-iam-600.webp",
+        "dbeaver-rds-iam-800.webp",
+        "dbeaver-rds-iam-1200.webp"
+      ],
+      "srcset": "dbeaver-rds-iam-400.webp 400w, dbeaver-rds-iam-600.webp 600w, dbeaver-rds-iam-800.webp 800w, dbeaver-rds-iam-1200.webp 1200w"
+    },
+    "avif": {
+      "files": [
+        "dbeaver-rds-iam-400.avif",
+        "dbeaver-rds-iam-600.avif",
+        "dbeaver-rds-iam-800.avif",
+        "dbeaver-rds-iam-1200.avif"
+      ],
+      "srcset": "dbeaver-rds-iam-400.avif 400w, dbeaver-rds-iam-600.avif 600w, dbeaver-rds-iam-800.avif 800w, dbeaver-rds-iam-1200.avif 1200w"
+    },
+    "thumbnail": {
+      "size": 300,
+      "files": [
+        "thumbnails/dbeaver-rds-iam-thumb-300.png",
+        "thumbnails/dbeaver-rds-iam-thumb-300.webp",
+        "thumbnails/dbeaver-rds-iam-thumb-300.avif"
+      ]
+    }
+  },
+  "comet-neowise": {
+    "aspect": 0.525,
+    "png": {
+      "files": [
+        "comet-neowise-400.png",
+        "comet-neowise-600.png",
+        "comet-neowise-800.png",
+        "comet-neowise-1200.png"
+      ],
+      "srcset": "comet-neowise-400.png 400w, comet-neowise-600.png 600w, comet-neowise-800.png 800w, comet-neowise-1200.png 1200w"
+    },
+    "webp": {
+      "files": [
+        "comet-neowise-400.webp",
+        "comet-neowise-600.webp",
+        "comet-neowise-800.webp",
+        "comet-neowise-1200.webp"
+      ],
+      "srcset": "comet-neowise-400.webp 400w, comet-neowise-600.webp 600w, comet-neowise-800.webp 800w, comet-neowise-1200.webp 1200w"
+    },
+    "avif": {
+      "files": [
+        "comet-neowise-400.avif",
+        "comet-neowise-600.avif",
+        "comet-neowise-800.avif",
+        "comet-neowise-1200.avif"
+      ],
+      "srcset": "comet-neowise-400.avif 400w, comet-neowise-600.avif 600w, comet-neowise-800.avif 800w, comet-neowise-1200.avif 1200w"
+    },
+    "thumbnail": {
+      "size": 300,
+      "files": [
+        "thumbnails/comet-neowise-thumb-300.png",
+        "thumbnails/comet-neowise-thumb-300.webp",
+        "thumbnails/comet-neowise-thumb-300.avif"
+      ]
+    }
+  },
+  "adjustable-bed-api": {
+    "aspect": 0.525,
+    "png": {
+      "files": [
+        "adjustable-bed-api-400.png",
+        "adjustable-bed-api-600.png",
+        "adjustable-bed-api-800.png",
+        "adjustable-bed-api-1200.png"
+      ],
+      "srcset": "adjustable-bed-api-400.png 400w, adjustable-bed-api-600.png 600w, adjustable-bed-api-800.png 800w, adjustable-bed-api-1200.png 1200w"
+    },
+    "webp": {
+      "files": [
+        "adjustable-bed-api-400.webp",
+        "adjustable-bed-api-600.webp",
+        "adjustable-bed-api-800.webp",
+        "adjustable-bed-api-1200.webp"
+      ],
+      "srcset": "adjustable-bed-api-400.webp 400w, adjustable-bed-api-600.webp 600w, adjustable-bed-api-800.webp 800w, adjustable-bed-api-1200.webp 1200w"
+    },
+    "avif": {
+      "files": [
+        "adjustable-bed-api-400.avif",
+        "adjustable-bed-api-600.avif",
+        "adjustable-bed-api-800.avif",
+        "adjustable-bed-api-1200.avif"
+      ],
+      "srcset": "adjustable-bed-api-400.avif 400w, adjustable-bed-api-600.avif 600w, adjustable-bed-api-800.avif 800w, adjustable-bed-api-1200.avif 1200w"
+    },
+    "thumbnail": {
+      "size": 300,
+      "files": [
+        "thumbnails/adjustable-bed-api-thumb-300.png",
+        "thumbnails/adjustable-bed-api-thumb-300.webp",
+        "thumbnails/adjustable-bed-api-thumb-300.avif"
+      ]
+    }
+  }
+}

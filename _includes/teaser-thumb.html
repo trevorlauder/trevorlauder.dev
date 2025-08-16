@@ -1,0 +1,26 @@
+{%- comment -%}
+Square thumbnail component.
+Parameters:
+  name (required)
+  alt  (optional)
+  size (optional) default 300
+  class (optional)
+Attempts AVIF -> WebP -> PNG.
+{%- endcomment -%}
+{%- assign base = include.name -%}
+{%- assign alt_text = include.alt | default: base -%}
+{%- assign size = include.size | default: 300 -%}
+{%- assign root = '/assets/images/teasers/thumbnails/' -%}
+{%- assign png = root | append: base | append: '-thumb-' | append: size | append: '.png' -%}
+{%- assign webp = png | replace: '.png', '.webp' -%}
+{%- assign avif = png | replace: '.png', '.avif' -%}
+{%- assign png_file = site.static_files | where: 'path', png | first -%}
+{%- if png_file -%}
+<picture class="{{ include.class | default: 'teaser-thumb' }}">
+  {%- assign avif_file = site.static_files | where: 'path', avif | first -%}
+  {%- if avif_file %}<source type="image/avif" srcset="{{ avif }}" width="{{ size }}" height="{{ size }}">{%- endif -%}
+  {%- assign webp_file = site.static_files | where: 'path', webp | first -%}
+  {%- if webp_file %}<source type="image/webp" srcset="{{ webp }}" width="{{ size }}" height="{{ size }}">{%- endif -%}
+  <img loading="lazy" decoding="async" src="{{ png }}" width="{{ size }}" height="{{ size }}" alt="{{ alt_text | escape }}">
+</picture>
+{%- endif -%}

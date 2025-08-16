@@ -1,0 +1,36 @@
+// Hero overlay utilities generated via data-* attributes.
+// Usage: add data-hero-overlay-bg and optionally data-hero-overlay-img to the .page__hero element.
+// This avoids Liquid inside style attributes and keeps linter quiet.
+
+.page__hero[data-hero-overlay-bg],
+.page__hero[data-hero-overlay-img] {
+  position: relative;
+  overflow: hidden;
+}
+
+.page__hero[data-hero-overlay-bg]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--hero-overlay-bg);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page__hero[data-hero-overlay-img]::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: var(--hero-overlay-img);
+  mix-blend-mode: normal;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.page__hero .wrapper {
+  position: relative;
+  z-index: 1; // above pseudo elements
+}

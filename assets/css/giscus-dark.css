@@ -1,0 +1,85 @@
+/* Custom Giscus theme matching site dark palette (#0B0D0F bg, #E6ECF1 text, #00A3FF accent) */
+/* Based on GitHub Primer variables used by giscus */
+:root {
+  /* Base foreground/background */
+  --color-fg-default: #E6ECF1;
+  --color-fg-muted: #B7C3CD;
+  --color-fg-subtle: #92A1AE;
+  --color-canvas-default: #0B0D0F;
+  --color-canvas-subtle: #121417;
+  --color-border-default: #1a1e22;
+  --color-border-muted: #1a1e22;
+
+  /* Accents and states */
+  --color-accent-fg: #00A3FF;
+  --color-accent-emphasis: #00A3FF;
+  --color-accent-muted: rgba(0, 163, 255, 0.25);
+  --color-accent-subtle: rgba(0, 163, 255, 0.1);
+
+  --color-success-fg: #3fb950;
+  --color-attention-fg: #d29922;
+  --color-danger-fg: #f85149;
+
+  /* Neutrals */
+  --color-neutral-muted: rgba(230, 236, 241, 0.2);
+  --color-neutral-subtle: rgba(230, 236, 241, 0.1);
+
+  /* Links and buttons */
+  --color-btn-text: #FFFFFF;
+  --color-btn-primary-text: #FFFFFF;
+  --color-btn-primary-bg: #00A3FF;
+  --color-btn-primary-hover-bg: #0088D6;
+  --color-btn-primary-selected-bg: #0088D6;
+  --color-btn-primary-border: #0088D6;
+
+  /* Inputs */
+  --color-input-bg: #121417;
+  --color-input-contrast-bg: #121417;
+  --color-input-border: #1a1e22;
+  --color-input-shadow: 0 0 0 3px rgba(0, 163, 255, 0.25);
+
+  /* Code/inline */
+  --color-prettylights-syntax-comment: #8b949e;
+  --color-prettylights-syntax-constant: #79c0ff;
+  --color-prettylights-syntax-entity: #d2a8ff;
+  --color-prettylights-syntax-storage-modifier-import: #c9d1d9;
+  --color-prettylights-syntax-entity-tag: #7ee787;
+  --color-prettylights-syntax-keyword: #ff7b72;
+  --color-prettylights-syntax-string: #a5d6ff;
+  --color-prettylights-syntax-variable: #ffa657;
+  --color-prettylights-syntax-brackethighlighter-unmatched: #f85149;
+  --color-prettylights-syntax-invalid-illegal-text: #f0f6fc;
+  --color-prettylights-syntax-invalid-illegal-bg: #8e1519;
+  --color-prettylights-syntax-carriage-return-text: #f0f6fc;
+  --color-prettylights-syntax-carriage-return-bg: #b62324;
+  --color-prettylights-syntax-string-regexp: #7ee787;
+  --color-prettylights-syntax-markup-list: #f2cc60;
+  --color-prettylights-syntax-markup-heading: #1f6feb;
+  --color-prettylights-syntax-markup-italic: #c9d1d9;
+  --color-prettylights-syntax-markup-bold: #c9d1d9;
+  --color-prettylights-syntax-markup-deleted-text: #ffdcd7;
+  --color-prettylights-syntax-markup-deleted-bg: #67060c;
+  --color-prettylights-syntax-markup-inserted-text: #aff5b4;
+  --color-prettylights-syntax-markup-inserted-bg: #033a16;
+  --color-prettylights-syntax-markup-changed-text: #ffdfb6;
+  --color-prettylights-syntax-markup-changed-bg: #5a1e02;
+  --color-prettylights-syntax-markup-ignored-text: #c9d1d9;
+  --color-prettylights-syntax-markup-ignored-bg: #1158c7;
+}
+
+/* Optional tweaks inside the iframe root (scoped by giscus) */
+.gsc-main {
+  background: var(--color-canvas-default) !important;
+}
+.gsc-comment-box-textarea,
+.gsc-input {
+  background: var(--color-input-bg) !important;
+  color: var(--color-fg-default) !important;
+  border-color: var(--color-input-border) !important;
+}
+.gsc-reactions-button,
+.gsc-btn-primary {
+  background: var(--color-btn-primary-bg) !important;
+  color: var(--color-btn-primary-text) !important;
+  border-color: var(--color-btn-primary-border) !important;
+}

@@ -1,0 +1,33 @@
+---
+layout: none
+permalink: /feed.json
+---
+{%- assign absolute_base = site.url | append: site.baseurl -%}
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": {{ site.title | jsonify }},
+  "home_page_url": {{ absolute_base | jsonify }},
+  "feed_url": {{ (absolute_base | append: 'feed.json') | jsonify }},
+  "description": {{ site.description | default: site.tagline | jsonify }},
+  "icon": {{ site.og_image | default: '/assets/images/og.webp' | absolute_url | jsonify }},
+  "favicon": {{ '/assets/images/favicon.ico' | absolute_url | jsonify }},
+  "language": {{ site.locale | default: site.lang | default: 'en-CA' | jsonify }},
+  "author": {
+    "name": {{ site.author.name | jsonify }},{% if site.author.url %}
+    "url": {{ site.author.url | absolute_url | jsonify }},{% endif %}{% if site.author.avatar %}
+    "avatar": {{ site.author.avatar | absolute_url | jsonify }}{% endif %}
+  },
+  "items": [
+  {%- for post in site.posts -%}
+    {
+      "id": {{ post.url | absolute_url | jsonify }},
+      "url": {{ post.url | absolute_url | jsonify }},
+      "title": {{ post.title | jsonify }},
+      "content_html": {{ post.content | jsonify }},
+      "date_published": "{{ post.date | date_to_xmlschema }}"{% if post.last_modified_at %},
+      "date_modified": "{{ post.last_modified_at | date_to_xmlschema }}"{% endif %}{% if post.tags and post.tags.size > 0 %},
+      "tags": {{ post.tags | jsonify }}{% endif %}
+    }{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+  ]
+}

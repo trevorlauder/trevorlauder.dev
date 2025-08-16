@@ -1,0 +1,194 @@
+// Home page tweaks
+// Center hero text and entire splash page content
+.layout--splash .page__hero--overlay .wrapper {
+  text-align: center;
+}
+
+/* Left-align only the hero title on the splash (keep lead/buttons centered) */
+.layout--splash .page__hero--overlay .page__title {
+  text-align: left;
+}
+
+/* Left-align the hero excerpt/lead under the title */
+.layout--splash .page__hero--overlay .page__lead {
+  text-align: left;
+}
+
+.layout--splash .page__hero--overlay {
+  /* Show the entire overlay image without cropping */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Match the new thin SVG ratio (2400x450 => 8:1.5) */
+  aspect-ratio: 8 / 1.5;
+  /* Remove default vertical padding so aspect-ratio controls height */
+  padding: 0;
+}
+
+/* Restore comfortable spacing for the overlay text */
+.layout--splash .page__hero--overlay .wrapper {
+  padding-block: clamp(1.25rem, 4vw, 2.5rem);
+}
+
+.layout--splash .page__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; // horizontally center children
+  text-align: center;  // center inline content (e.g., paragraphs)
+}
+
+// Center the gallery on the splash index
+.layout--splash .page__content > figure.full {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-left: 0 !important; // override theme's negative gutter
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  text-align: center; // fallback centering for inline-block children
+}
+
+.layout--splash .page__content > figure.full a {
+  display: inline-block;
+  margin: 0 !important; // remove left-gutter margins from theme grid
+  float: none !important; // ensure flex layout takes effect
+  width: auto !important; // drop fixed column widths from theme grid
+  flex: 0 0 auto; // size to content, allow wrapping
+}
+
+// Make thumbnails a consistent, responsive width so centering is noticeable
+.layout--splash .page__content > figure.full img {
+  display: block;
+  width: clamp(160px, 28vw, 280px);
+  height: auto;
+}
+
+/* =============================
+   Gallery Variants for Aspect Ratios
+   ============================= */
+/* Uniform cropped tiles (add class="full uniform" to gallery include) */
+.layout--splash .page__content > figure.full.uniform {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(140px,20vw,240px), 1fr));
+  gap: 0.75rem;
+}
+.layout--splash .page__content > figure.full.uniform a {
+  position: relative;
+  width: 100% !important;
+  aspect-ratio: 4 / 3; /* adjust to 1 / 1 for squares */
+  overflow: hidden;
+  display: block;
+}
+.layout--splash .page__content > figure.full.uniform img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover; /* crops to fill tile */
+  object-position: 50% 50%;
+  transition: transform .4s ease;
+}
+.layout--splash .page__content > figure.full.uniform a:hover img {
+  transform: scale(1.04);
+}
+
+/* Masonry (waterfall) layout (add class="full masonry") */
+.layout--splash .page__content > figure.full.masonry {
+  display: block !important; /* override base flex layout */
+  column-gap: 0.75rem;
+  column-count: 2; /* mobile default */
+}
+@media (min-width: 640px) {
+  .layout--splash .page__content > figure.full.masonry { column-count: 3; }
+}
+@media (min-width: 960px) {
+  .layout--splash .page__content > figure.full.masonry { column-count: 4; }
+}
+.layout--splash .page__content > figure.full.masonry a {
+  display: block;
+  break-inside: avoid;
+  margin: 0 0 0.75rem;
+  width: 100% !important;
+}
+.layout--splash .page__content > figure.full.masonry img {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  border-radius: 4px;
+}
+
+/* Disable default flex centering rules for variant layouts */
+.layout--splash .page__content > figure.full.uniform a,
+.layout--splash .page__content > figure.full.masonry a {
+  float: none !important;
+  margin: 0 !important;
+}
+
+/* =====================================
+   Hover Caption Overlay (uniform + masonry)
+   Uses anchor title attribute (fallback: img[alt])
+   ===================================== */
+.layout--splash .page__content > figure.full.uniform a,
+.layout--splash .page__content > figure.full.masonry a {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Create a CSS variable with caption text if title present */
+.layout--splash .page__content > figure.full.uniform a[title],
+.layout--splash .page__content > figure.full.masonry a[title] {
+  --_cap: attr(title);
+}
+
+/* Overlay element */
+.layout--splash .page__content > figure.full.uniform a::after,
+.layout--splash .page__content > figure.full.masonry a::after {
+  content: var(--_cap, '');
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.55rem 0.6rem 0.5rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: .4px;
+  color: #fff;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,.55) 65%, rgba(0,0,0,.7) 100%);
+  opacity: 0;
+  transform: translateY(6%);
+  transition: opacity .35s ease, transform .35s ease;
+  pointer-events: none;
+  text-shadow: 0 1px 2px rgba(0,0,0,.7);
+  border-radius: inherit;
+  box-sizing: border-box;
+  /* Clamp height if verbose */
+  max-height: 100%;
+  overflow: hidden;
+}
+
+/* Only show overlay if we actually have caption text */
+.layout--splash .page__content > figure.full.uniform a:not([title])::after,
+.layout--splash .page__content > figure.full.masonry a:not([title])::after { content: ''; }
+
+/* Hover / focus states */
+.layout--splash .page__content > figure.full.uniform a:focus-visible::after,
+.layout--splash .page__content > figure.full.uniform a:hover::after,
+.layout--splash .page__content > figure.full.masonry a:focus-visible::after,
+.layout--splash .page__content > figure.full.masonry a:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Subtle image scale when caption appears (optional) */
+.layout--splash .page__content > figure.full.masonry a:hover img,
+.layout--splash .page__content > figure.full.masonry a:focus-visible img,
+.layout--splash .page__content > figure.full.uniform a:hover img,
+.layout--splash .page__content > figure.full.uniform a:focus-visible img {
+  filter: brightness(.95);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layout--splash .page__content > figure.full.uniform a::after,
+  .layout--splash .page__content > figure.full.masonry a::after { transition: none; }
+}

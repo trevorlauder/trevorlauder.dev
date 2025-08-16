@@ -1,0 +1,13 @@
+source "https://rubygems.org"
+
+gem "jekyll"
+gem "minimal-mistakes-jekyll"
+gem "jekyll-paginate-v2"
+gem "jekyll-gist"
+gem "jemoji"
+gem "jekyll-sitemap"
+gem "jekyll-seo-tag"
+gem "jekyll-feed"
+gem "jekyll-include-cache"
+gem "jekyll-archives"
+gem "faraday-retry"

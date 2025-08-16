@@ -1,0 +1,157 @@
+name: Runtime Version Bump
+
+on:
+  schedule:
+    - cron: '0 8 * * 1' # Mondays at 08:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Determine latest Ruby (always latest stable)
+        id: ruby
+        run: |
+          set -euo pipefail
+          current=$(tr -d '\r\n\t ' < .ruby-version)
+          # Accept forms like 3.4.1; reject non-stable (preview, rc)
+          if ! echo "$current" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "ERROR: .ruby-version current value invalid or not stable ($current)" >&2
+            exit 1
+          fi
+          releases_yaml_url="https://raw.githubusercontent.com/ruby/www.ruby-lang.org/master/_data/releases.yml"
+          tmpfile=$(mktemp)
+          latest=""
+          if curl -fsSL "$releases_yaml_url" -o "$tmpfile"; then
+            # Highest stable version overall
+            latest=$(awk '/^- version:/ {gsub("- version: ","",$0); v=$0; if (v ~ /^[0-9]+\.[0-9]+\.[0-9]+$/) print v}' "$tmpfile" | sort -V | tail -1)
+          else
+            echo "WARNING: Failed to fetch releases.yml; falling back to current" >&2
+            latest="$current"
+          fi
+          rm -f "$tmpfile" || true
+          if ! echo "$latest" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            echo "WARNING: Parsed latest Ruby version invalid ($latest); using current" >&2
+            latest="$current"
+          fi
+          if [ "$latest" != "$current" ]; then
+            echo "Ruby update available: $current -> $latest"
+          else
+            echo "Ruby already up to date at $current"
+          fi
+          echo "current=$current" >> $GITHUB_OUTPUT
+          echo "latest=$latest" >> $GITHUB_OUTPUT
+
+      - name: Update .ruby-version if needed
+        if: steps.ruby.outputs.latest != steps.ruby.outputs.current
+        run: |
+          if [ -z "${{ steps.ruby.outputs.latest }}" ]; then
+            echo "Refusing to write empty Ruby version" >&2
+            exit 1
+          fi
+          echo "${{ steps.ruby.outputs.latest }}" > .ruby-version
+          echo "Bumped .ruby-version to ${{ steps.ruby.outputs.latest }}" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Determine latest Node (latest stable release)
+        id: node
+        run: |
+          if [ ! -f .nvmrc ]; then
+            echo "No .nvmrc present; skipping" >> $GITHUB_STEP_SUMMARY
+            echo "skip=true" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          current=$(cat .nvmrc | tr -d ' ')
+          # Capture whether original had a leading v
+          if echo "$current" | grep -q '^[vV]'; then
+            had_prefix=true
+            current_no_prefix=${current#v}
+          else
+            had_prefix=false
+            current_no_prefix=$current
+          fi
+          # Fetch JSON and choose absolute latest stable (final) release using numeric sort (avoid lexicographic mistakes like v9.9.0 > v24.x).
+          index_json=$(curl -fsSL https://nodejs.org/dist/index.json || echo '[]')
+          latest=$(echo "$index_json" | jq -r '
+            [ .[] | select(.version | test("^v[0-9]+\\.[0-9]+\\.[0-9]+$")) ]
+            | map(.version)
+            | map({raw: ., parts: (.[1:] | split(".") | map(tonumber))})
+            | sort_by(.parts[0], .parts[1], .parts[2])
+            | (last | .raw)')
+          echo "Top 5 highest Node versions (debug):" >&2
+          echo "$index_json" | jq -r '
+            [ .[] | select(.version | test("^v[0-9]+\\.[0-9]+\\.[0-9]+$")) ]
+            | map(.version)
+            | map({raw: ., parts: (.[1:] | split(".") | map(tonumber))})
+            | sort_by(.parts[0], .parts[1], .parts[2])
+            | reverse
+            | .[0:5]
+            | .[].raw' >&2
+          if [ -z "$latest" ] || [ "$latest" = "null" ]; then
+            echo "WARNING: Could not determine latest Node version; using current" >&2
+            latest=$current
+          fi
+          # latest may already have leading v (e.g. v24.5.0). Normalize to no prefix for validation, keep raw for potential write.
+          latest_no_prefix=${latest#v}
+          # Validate versions
+          if ! echo "$current_no_prefix" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+'; then
+            echo "ERROR: .nvmrc current value invalid or empty ($current)" >&2
+            exit 1
+          fi
+          if ! echo "$latest_no_prefix" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+'; then
+            latest_no_prefix=$current_no_prefix
+            latest=$current  # preserve original
+          fi
+          echo "current=$current" >> $GITHUB_OUTPUT
+          echo "latest_no_prefix=$latest_no_prefix" >> $GITHUB_OUTPUT
+          # Decide what to write: preserve original prefix style
+          if [ "$had_prefix" = true ]; then
+            latest_write="v$latest_no_prefix"
+          else
+            latest_write="$latest_no_prefix"
+          fi
+          echo "latest=$latest_write" >> $GITHUB_OUTPUT
+          echo "had_prefix=$had_prefix" >> $GITHUB_OUTPUT
+          if [ "$current" != "$latest_write" ]; then
+            echo "Node update available: $current -> $latest_write"
+          else
+            echo "Node already up to date at $current"
+          fi
+
+      - name: Update .nvmrc if needed
+        if: steps.node.outputs.skip != 'true' && steps.node.outputs.latest != steps.node.outputs.current
+        run: |
+          if [ -z "${{ steps.node.outputs.latest }}" ]; then
+            echo "Refusing to write empty Node version" >&2
+            exit 1
+          fi
+          echo "${{ steps.node.outputs.latest }}" > .nvmrc
+          echo "Bumped .nvmrc to ${{ steps.node.outputs.latest }}" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Create Pull Request if changes
+        run: |
+          if git diff --quiet; then
+            echo "No runtime version changes." >> $GITHUB_STEP_SUMMARY
+            exit 0
+          fi
+          branch="runtime-version-bump/${{ github.run_id }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add .ruby-version .nvmrc 2>/dev/null || true
+          git commit -m "chore: bump runtime versions (.ruby-version / .nvmrc)" || exit 0
+          git push origin "$branch"
+          if command -v gh >/dev/null 2>&1; then
+            gh pr create --title "chore: bump runtime versions" --body "Automated update of .ruby-version and/or .nvmrc." --base main || echo "PR creation via gh failed" >> $GITHUB_STEP_SUMMARY
+          else
+            pr_payload=$(jq -n --arg title "chore: bump runtime versions" --arg head "$branch" --arg base "main" --arg body "Automated update of .ruby-version and/or .nvmrc." '{title:$title, head:$head, base:$base, body:$body}')
+            curl -s -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/vnd.github+json" \
+              -d "$pr_payload" "https://api.github.com/repos/${GITHUB_REPOSITORY}/pulls" >> $GITHUB_STEP_SUMMARY || echo "Manual PR creation required" >> $GITHUB_STEP_SUMMARY
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,29 @@
+{
+  "name": "trevor.lauder.family",
+  "version": "0.0.0",
+  "private": true,
+  "description": "trevor.lauder.family",
+  "scripts": {
+    "render:teasers": "node scripts/render-teasers.js",
+    "render:og": "node scripts/render-og.js",
+    "ruby:version": "cat .ruby-version",
+    "ruby:install": "bash scripts/ruby-ensure.sh install-only",
+    "ruby:ensure": "bash scripts/ruby-ensure.sh",
+    "ruby:use": "bash scripts/ruby-ensure.sh use",
+    "ruby:bundle": "bash scripts/ruby-ensure.sh bundle",
+    "build:jekyll": "JEKYLL_ENV=production bundle exec jekyll build",
+    "dev": "npm run build:jekyll && wrangler dev",
+    "deploy": "wrangler deploy",
+    "start": "wrangler dev"
+  },
+  "dependencies": {
+    "dns-packet": "^5.6.1"
+  },
+  "devDependencies": {
+    "glob": "*",
+    "npm-check-updates": "^18.0.2",
+    "sharp": "*",
+    "workerd": "^1.20250816.0",
+    "wrangler": "^4.30.0"
+  }
+}
