@@ -7,7 +7,7 @@ permalink: /feed.json
   "version": "https://jsonfeed.org/version/1.1",
   "title": {{ site.title | jsonify }},
   "home_page_url": {{ absolute_base | jsonify }},
-  "feed_url": {{ (absolute_base | append: 'feed.json') | jsonify }},
+  "feed_url": {{ absolute_base | append: 'feed.json' | jsonify }},
   "description": {{ site.description | default: site.tagline | jsonify }},
   "icon": {{ site.og_image | default: '/assets/images/og.webp' | absolute_url | jsonify }},
   "favicon": {{ '/assets/images/favicon.ico' | absolute_url | jsonify }},
