@@ -19,10 +19,10 @@ image:
   height: 630
 gallery:
   - url: /assets/photos/DSC_5856.webp
-    image_path: /assets/photos/thumbnails/DSC_5856.jpg.webp
+    image_path: /assets/photos/thumbnails/DSC_5856.webp
     title: Comet C/2020 F3 (NEOWISE)
   - url: /assets/photos/P7160043.webp
-    image_path: /assets/photos/thumbnails/P7160043.jpg.webp
+    image_path: /assets/photos/thumbnails/P7160043.webp
     title: Comet C/2020 F3 (NEOWISE)
 ---
 

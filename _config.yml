@@ -39,6 +39,8 @@ plugins:
   - jemoji
   - jekyll-include-cache
   - jekyll-seo-tag
+  - jekyll-cache-bust
+  - jekyll-mentions
 
 author:
   name: Trevor Lauder
