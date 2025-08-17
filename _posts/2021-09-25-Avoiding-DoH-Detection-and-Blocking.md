@@ -11,9 +11,9 @@ tags:
 description: How to avoid DNS over HTTPS detection and blocking
 header:
   teaser: /assets/images/teasers/doh-avoidance.svg
-  og_image: /assets/images/teasers/doh-avoidance.png
+  og_image: /assets/images/teasers/doh-avoidance.svg
 image:
-  path: /assets/images/teasers/doh-avoidance.png
+  path: /assets/images/teasers/doh-avoidance.svg
   width: 1200
   height: 630
 ---

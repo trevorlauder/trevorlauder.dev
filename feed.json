@@ -9,7 +9,7 @@ permalink: /feed.json
   "home_page_url": {{ absolute_base | jsonify }},
   "feed_url": {{ absolute_base | append: 'feed.json' | jsonify }},
   "description": {{ site.description | default: site.tagline | jsonify }},
-  "icon": {{ site.og_image | default: '/assets/images/og.webp' | absolute_url | jsonify }},
+  "icon": {{ site.og_image | default: '/assets/images/og.svg' | absolute_url | bust_file_cache | jsonify }},
   "favicon": {{ '/assets/images/favicon.ico' | absolute_url | jsonify }},
   "language": {{ site.locale | default: site.lang | default: 'en-CA' | jsonify }},
   "author": {
