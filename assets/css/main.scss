@@ -2,7 +2,7 @@
 
 ---
 
-@import "minimal-mistakes/skins/custom";
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}";
 @import "minimal-mistakes";
 @import "custom/home";
 @import "custom/icons";
