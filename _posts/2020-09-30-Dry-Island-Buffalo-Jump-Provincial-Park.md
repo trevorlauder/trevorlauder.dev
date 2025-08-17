@@ -54,4 +54,4 @@ gallery:
     title: Dry Island Buffalo Jump Provincial Park
 ---
 
-{% include gallery class="full" %}
+{% include gallery class="full masonry" %}

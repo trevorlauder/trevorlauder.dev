@@ -26,4 +26,4 @@ gallery:
     title: Comet C/2020 F3 (NEOWISE)
 ---
 
-{% include gallery class="full" %}
+{% include gallery class="full masonry" %}
