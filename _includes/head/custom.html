@@ -14,7 +14,6 @@
             window.gtag = gtag;
             gtag('js', new Date());
             gtag('config', MID, { anonymize_ip: true });
-            // Consent Mode defaults
             gtag('consent', 'default', {
                 ad_storage: 'denied',
                 analytics_storage: 'granted',
@@ -42,15 +41,7 @@
     })();
 </script>
 
-<!-- Favicons: light/dark SVG with fallbacks and Safari mask icon -->
-<link rel="icon" type="image/svg+xml" href="/assets/images/favicon-dark.svg" media="(prefers-color-scheme: dark)">
-<link rel="icon" type="image/svg+xml" href="/assets/images/favicon-light.svg" media="(prefers-color-scheme: light)">
 <link rel="icon" href="/assets/images/favicon.ico" sizes="any">
 <link rel="mask-icon" href="/assets/images/safari-pinned-tab.svg" color="#00E0FF">
 
-<!-- Optional: theme-color for light/dark address bars -->
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0B0D0F">
-
-<!-- JSON Feed -->
 <link rel="alternate" type="application/feed+json" title="{{ site.title | escape }}" href="{{ site.url }}{{ site.baseurl }}feed.json">

@@ -18,7 +18,7 @@ title: About
 			if(!el) return;
 			var hQuote = String(q).replace(/&/g,'&amp;').replace(/</g,'&lt;');
 			el.innerHTML = '<p>'+ hQuote +'</p>';
-		} catch(e) { /* no-op */ }
+		} catch(e) {}
 	})();
 </script>
 

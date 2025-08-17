@@ -4,7 +4,6 @@ title: Privacy
 layout: single
 ---
 
-
 This site uses Google Analytics (GA4) and Cloudflare Web Analytics to understand aggregate usage and performance. I aim to minimize data collection and respect your choices.
 
 Cloudflare Web Analytics is injected by Cloudflare automatically, but only for users outside the European Union (EU). If you are visiting from the EU, Cloudflare does not inject its analytics script and no Cloudflare analytics data is collected for your visit.

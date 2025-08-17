@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <path d="M512,0 A512,512 0 1,1 511.999,0 Z M192.0,256 H832.0 V416 H192.0 Z M432.0,416 H592.0 V928 H432.0 Z" fill="black" fill-rule="evenodd"/>
+  <title>Safari Pinned Tab Icon</title>
+  <desc>Monochrome mask icon with circle and T cutout; Safari tints with the color attribute.</desc>
+</svg>

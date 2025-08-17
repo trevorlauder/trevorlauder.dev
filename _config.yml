@@ -97,9 +97,9 @@ comments:
   provider: giscus
   giscus:
     repo: trevorlauder/trevorlauder.dev
-    repo_id: R_kgDOPbREkA
+    repo_id: R_kgDOPfJXCw
     category_name: Announcements
-    category_id: DIC_kwDOPbREkM4Ct_S7
+    category_id: DIC_kwDOPfJXC84CuQOr
     discussion_term: pathname
     reactions_enabled: 1
     strict: 1

@@ -1,15 +1,9 @@
-/*
-  Custom icon tweaks
-  - Render GitHub icon with a white background to improve contrast on dark skins
-*/
-
-// Target common locations the icon appears in Minimal Mistakes
 .author__urls i.fab.fa-github,
 .page__footer-follow i.fab.fa-github,
 i.fab.fa-github {
   background-color: #fff;
-  color: #000 !important; // ensure the glyph stays visible on white background
+  color: #000 !important;
   border-radius: 4px;
-  padding: 0.125em 0.2em; // add a little breathing room so the white bg shows
-  display: inline-block; // so padding/background apply around the icon properly
+  padding: 0.125em 0.2em;
+  display: inline-block;
 }

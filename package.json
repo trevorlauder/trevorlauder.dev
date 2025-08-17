@@ -11,10 +11,7 @@
     "ruby:ensure": "bash scripts/ruby-ensure.sh",
     "ruby:use": "bash scripts/ruby-ensure.sh use",
     "ruby:bundle": "bash scripts/ruby-ensure.sh bundle",
-    "build:jekyll": "JEKYLL_ENV=production bundle exec jekyll build",
-    "dev": "npm run build:jekyll && wrangler dev",
-    "deploy": "wrangler deploy",
-    "start": "wrangler dev"
+    "build:jekyll": "JEKYLL_ENV=production bundle exec jekyll build"
   },
   "dependencies": {
     "dns-packet": "^5.6.1"

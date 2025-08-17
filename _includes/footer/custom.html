@@ -32,19 +32,15 @@
       function hasGtag(){ return typeof window.gtag === 'function'; }
       function updateConsent(val){ if(!hasGtag()) return; window.gtag('consent','update',{ analytics_storage: val }); }
 
-      // Public API to reset preference (used on Privacy page)
       window.privacyConsent.reset = function(){ setPref(''); show(); if(hasGtag()) updateConsent('denied'); };
 
-      // Respect Do Not Track: hide banner and deny analytics
       if(dnt){ hide(); if(MID){ window['ga-disable-' + MID] = true; } if(hasGtag()) updateConsent('denied'); return; }
 
-      // Apply stored preference if present
       var pref = getPref();
       if(pref === 'granted'){ if(hasGtag()) updateConsent('granted'); hide(); }
       else if(pref === 'denied'){ if(hasGtag()) updateConsent('denied'); hide(); }
       else { show(); }
 
-      // Wire buttons
       if($accept) $accept.addEventListener('click', function(){ setPref('granted'); if(hasGtag()) updateConsent('granted'); hide(); });
       if($reject) $reject.addEventListener('click', function(){ setPref('denied'); if(hasGtag()) updateConsent('denied'); hide(); });
     })();
@@ -56,21 +52,18 @@
     try {
       var imgs = document.querySelectorAll('img:not([loading])');
       imgs.forEach(function(img){
-        // Skip icons/logos in the masthead to avoid any chance of FOUC
         if (img.closest && img.closest('.masthead')) return;
         img.setAttribute('loading','lazy');
         if(!img.hasAttribute('decoding')) img.setAttribute('decoding','async');
       });
-    } catch(e) { /* no-op */ }
+    } catch(e) {}
   })();
 </script>
 <div style="text-align:center; margin-top:1rem; font-size:.9rem">
   <a href="/privacy/">Privacy</a>
 </div>
 
-<!-- Custom lightweight lightbox (no external library) -->
 <style>
-/* Basic lightbox overlay */
 #lb-overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.85);z-index:9999;color:#fff;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;padding:1.25rem}
 #lb-overlay[aria-hidden="false"]{display:flex}
 #lb-overlay figure{margin:0;max-width:min(96vw,1600px);max-height:90vh;display:flex;flex-direction:column;gap:.65rem}
