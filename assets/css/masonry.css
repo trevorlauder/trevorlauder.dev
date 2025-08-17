@@ -1,0 +1,12 @@
+@media (max-width: 480px) {
+  .masonry-gallery .gallery-item {
+    width: 100%;
+    max-width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .masonry-gallery {
+    justify-content: center;
+  }
+}

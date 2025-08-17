@@ -12,9 +12,9 @@ tags:
 description: How I manage my macOS development environment using a bare Git repository, a simple alias, and curated configs for Zsh, WezTerm, and more.
 header:
   teaser: /assets/images/teasers/dotfiles.svg
-  og_image: /assets/images/teasers/dotfiles.png
+  og_image: /assets/images/teasers/dotfiles.svg
 image:
-  path: /assets/images/teasers/dotfiles.png
+  path: /assets/images/teasers/dotfiles.svg
   width: 1200
   height: 630
 ---

@@ -9,9 +9,9 @@ tags:
 description: Reverse-engineered adjustable bed API
 header:
   teaser: /assets/images/teasers/adjustable-bed-api.svg
-  og_image: /assets/images/teasers/adjustable-bed-api.png
+  og_image: /assets/images/teasers/adjustable-bed-api.svg
 image:
-  path: /assets/images/teasers/adjustable-bed-api.png
+  path: /assets/images/teasers/adjustable-bed-api.svg
   width: 1200
   height: 630
 ---
