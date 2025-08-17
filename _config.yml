@@ -2,7 +2,7 @@ title: Trevor Lauder
 name: Trevor Lauder
 title_separator: "—"
 description: DevOps and SRE topics—automation, monitoring, tooling—plus a personal mix of coding projects, photography, and astrophotography.
-minimal_mistakes_skin: custom
+minimal_mistakes_skin: contrast
 search: true
 favicon: /assets/images/favicon.ico
 url: https://trevorlauder.dev
@@ -104,4 +104,3 @@ comments:
     discussion_term: pathname
     reactions_enabled: 1
     strict: 1
-    theme: https://trevorlauder.dev/assets/css/giscus-dark.css

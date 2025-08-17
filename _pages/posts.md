@@ -2,7 +2,7 @@
 title: Posts
 permalink: /posts/
 layout: home
-entries_layout: list
+entries_layout: grid
 author_profile: true
 classes: wide
 pagination:
