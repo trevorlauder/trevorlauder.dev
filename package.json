@@ -21,6 +21,6 @@
     "npm-check-updates": "^18.0.2",
     "sharp": "^0.34.3",
     "workerd": "^1.20250816.0",
-    "wrangler": "^4.30.0"
+    "wrangler": "^4.32.0"
   }
 }
