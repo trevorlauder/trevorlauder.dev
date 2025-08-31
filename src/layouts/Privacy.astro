@@ -3,7 +3,6 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
 
-
 // Support both MDX (content) and Astro (frontmatter) props
 const content = Astro.props.content || Astro.props.frontmatter || {};
 const title = content.title;
@@ -24,10 +23,39 @@ const description = content.description;
           <h1 class="mb-2 text-4xl font-bold">{title}</h1>
           <hr class="index-hr-top" />
         </div>
-          <slot />
+        <slot />
+        <button id="reset-consent" class="privacy-reset-consent" type="button"
+          >Change my choice</button
+        >
       </div>
-     
     </main>
     <Footer />
+    <script is:inline>
+      (function () {
+        var $btn = document.getElementById("reset-consent");
+        if (!$btn) {
+          console.log("reset-consent button not found");
+          return;
+        }
+        console.log("reset-consent button found");
+        $btn.addEventListener("click", function () {
+          console.log("reset-consent button clicked");
+          if (
+            window.privacyConsent &&
+            typeof window.privacyConsent.reset === "function"
+          ) {
+            window.privacyConsent.reset();
+            alert(
+              "Preference cleared. A banner will appear so you can choose again.",
+            );
+          } else {
+            try {
+              localStorage.removeItem("consent.analytics");
+              alert("Preference cleared. Reload the page.");
+            } catch (e) {}
+          }
+        });
+      })();
+    </script>
   </body>
 </html>
