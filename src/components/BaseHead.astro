@@ -5,7 +5,7 @@ import { SITE_TITLE } from "../consts";
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image } = Astro.props;
+const { title, description, image, og_type = "website", author = "Trevor Lauder" } = Astro.props;
 ---
 
 <!-- Global Metadata -->
@@ -28,9 +28,10 @@ const { title, description, image } = Astro.props;
 <title>{title}</title>
 <meta name="title" content={title} />
 <meta name="description" content={description} />
+<meta name="author" content={author} />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={og_type} />
 <meta property="og:url" content={Astro.url} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
