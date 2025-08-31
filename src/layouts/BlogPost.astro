@@ -4,21 +4,26 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
-import Comments from '../components/Comments.astro'
+import Comments from "../components/Comments.astro";
 
-const {
-  title,
-  description,
-  updatedDate,
-  date,
-  Content,
-  ogImage,
-} = Astro.props;
+const { title, description, updatedDate, date, Content, ogImage } = Astro.props;
 ---
 
 <html lang="en" class={Astro.props.class}>
   <head>
-    <BaseHead title={title} description={description} image={ogImage} />
+    <BaseHead title={title} description={description} image={ogImage}, og_type = "article" />
+    <meta
+      property="article:published_time"
+      content={new Date(date).toISOString()}
+    />
+    {
+      updatedDate && (
+        <meta
+          property="article:modified_time"
+          content={new Date(updatedDate).toISOString()}
+        />
+      )
+    }
   </head>
   <body class="theme-background-dark min-h-screen">
     <Header />
@@ -41,7 +46,7 @@ const {
               <hr class="index-hr-top" />
             </div>
             <Content components={{ Icon }} />
-            <Comments/>
+            <Comments />
           </div>
         </div>
       </article>
