@@ -29,4 +29,4 @@ const date = post.data.date ?? new Date(`${year}-${month}-${day}`);
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data} date={date} Content={Content} ogImage={post.data.indexImage} />
+<BlogPost {...post.data} date={date} Content={Content} ogImage={post.data.ogImage} />

@@ -4,7 +4,7 @@ import FormattedDate from "../../../components/FormattedDate.astro";
 import { getPosts } from "../../../utils/getPosts";
 
 export async function getStaticPaths({ paginate }) {
-  const posts = getPosts();
+  const posts = getPosts().slice(1);
 
   return paginate(posts, { pageSize: 3 });
 }
