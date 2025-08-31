@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import ogImage from "../assets/og.svg";
 
 // Support both MDX (content) and Astro (frontmatter) props
 const content = Astro.props.content || Astro.props.frontmatter || {};
@@ -11,7 +12,7 @@ const description = content.description;
 
 <html lang="en" class={Astro.props.class}>
   <head>
-    <BaseHead title={title} description={description} />
+    <BaseHead title={title} description={description} image={ogImage}/>
   </head>
   <body class="theme-background-dark min-h-screen">
     <Header />
