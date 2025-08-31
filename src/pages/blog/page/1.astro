@@ -94,8 +94,7 @@ const allTags = Array.from(new Set(posts.flatMap((p) => p.tags || [])));
           </li>
         ))}
       </ul>
-      <script type="text/javascript">
-        // Filter: hide featured post when filtering, but include it in the list if it matches
+      <script is:inline>
         const categoryFilter = document.getElementById("categoryFilter");
         const tagFilter = document.getElementById("tagFilter");
         const postList = document.getElementById("postList");
@@ -104,7 +103,6 @@ const allTags = Array.from(new Set(posts.flatMap((p) => p.tags || [])));
         function filterPosts() {
           const cat = categoryFilter.value;
           const tag = tagFilter.value;
-          // Only show featured post if no filter is applied
           if (featuredPost) {
             featuredPost.style.display = !cat && !tag ? "block" : "none";
           }
@@ -113,7 +111,6 @@ const allTags = Array.from(new Set(posts.flatMap((p) => p.tags || [])));
             const tags = post.dataset.tags.split(",");
             const catMatch = !cat || cats.includes(cat);
             const tagMatch = !tag || tags.includes(tag);
-            // Hide the first (featured) post in the list if no filter, otherwise show if matches
             if (idx === 0) {
               post.style.display = !cat && !tag ? "none" : catMatch && tagMatch ? "block" : "none";
             } else {
