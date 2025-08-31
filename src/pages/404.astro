@@ -1,0 +1,56 @@
+---
+
+import { Image } from "astro:assets";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import errorImage from "../assets/404-terminal.svg";
+import Comments from '../components/Comments.astro'
+
+const content = Astro.props.content || Astro.props.frontmatter || {};
+const title = content.title;
+const description = content.description;
+
+const heroImage = errorImage;
+const heroImageWidth = 1020;
+const heroImageHeight = 510;
+---
+
+<html lang="en" class={Astro.props.class}>
+  <head>
+    <BaseHead title={title} description={description} />
+    <script src="../scripts/404-taunts.js"></script>
+  </head>
+  <body class="theme-background-dark min-h-screen">
+    <Header />
+    <main>
+      <div
+        class={`prose dark:prose-invert mx-auto p-4 ${Astro.props.containerClass ?? "max-w-4xl"}`}
+      >
+        {
+          heroImage && (
+            <div class="flex justify-center mb-4 mt-8">
+              <div
+                class="relative inline-block overflow-hidden"
+                style="width:fit-content;"
+              >
+                <Image
+                  src={heroImage}
+                  width={heroImageWidth}
+                  height={heroImageHeight}
+                  alt="404 Error"
+                  class="shadow-lg"
+                  style="object-fit:cover;"
+                />
+              </div>
+            </div>
+          )
+        }
+        <h3 id="four-o-four-random-taunt" class="mb-4 text-center"></h3>
+        <Comments/>
+        <hr class="index-hr-bottom" />
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>

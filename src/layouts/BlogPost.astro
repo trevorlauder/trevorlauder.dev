@@ -1,0 +1,66 @@
+---
+import { Icon } from "astro-icon/components";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import FormattedDate from "../components/FormattedDate.astro";
+import Header from "../components/Header.astro";
+import Comments from '../components/Comments.astro'
+
+const {
+  title,
+  description,
+  updatedDate,
+  date,
+  Content,
+  heroImage,
+  heroImageAlt = "",
+  heroImageHeight = 510,
+  heroImageWidth = 1020,
+} = Astro.props;
+---
+
+<html lang="en" class={Astro.props.class}>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="theme-background-dark min-h-screen">
+    <Header />
+    <main>
+      <article>
+        <div class="w-full max-w-5xl mx-auto">
+          {
+            heroImage && (
+              <img
+                width={heroImageWidth}
+                height={heroImageHeight}
+                src={heroImage}
+                alt={heroImageAlt}
+                class="block mx-auto rounded-xl shadow-lg mb-8"
+              />
+            )
+          }
+          <div class="prose dark:prose-invert max-w-none mx-auto p-4">
+            <div class="text-center mb-8">
+              <div class="text-sm mb-2">
+                <FormattedDate date={date ?? new Date()} />
+                {
+                  updatedDate && (
+                    <span class="italic ml-2">
+                      Last updated on <FormattedDate date={updatedDate} />
+                    </span>
+                  )
+                }
+              </div>
+              <h1>{title}</h1>
+              <hr class="index-hr-top" />
+            </div>
+            <Content components={{ Icon }} />
+            <Comments/>
+          </div>
+          <hr class="index-hr-bottom" />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,5 +1,0 @@
-{%- assign base = include.name -%}
-{%- assign alt_text = include.alt | default: base -%}
-{%- assign teaser_path = '/assets/images/teasers/' -%}
-{%- assign svg_path = teaser_path | append: base | append: '.svg' -%}
-<img loading="lazy" decoding="async" src="{{ svg_path | bust_file_cache }}" width="300" height="300" alt="{{ alt_text | escape }}">

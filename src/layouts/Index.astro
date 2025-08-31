@@ -1,0 +1,59 @@
+---
+import { Image } from "astro:assets";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+const {
+  title,
+  description,
+  heroImage,
+  heroImageAlt = "",
+  heroImageHeight = 450,
+  heroImageWidth = 2400,
+  markdownHtml,
+} = Astro.props;
+---
+
+<html lang="en" class={Astro.props.class}>
+  <head>
+    <BaseHead title={title} description={description} />
+    <script src="../scripts/gallery-links.js"></script>
+    <script src="../scripts/quotes.js"></script>
+  </head>
+  <body class="theme-background-dark bg-white min-h-screen overflow-x-hidden">
+    <Header />
+    <main>
+      <div class="relative w-full bg-white overflow-hidden max-w-full">
+        {/* Quote overlay, absolutely positioned over hero image */}
+        <div id="quote" class="quote-overlay"></div>
+        {
+          heroImage && (
+            <Image
+              src={heroImage}
+              alt={heroImageAlt}
+              width={heroImageWidth}
+              height={heroImageHeight}
+              loading="eager"
+              class="theme-background-dark w-full h-auto object-cover aspect-[2400/450]"
+            />
+          )
+        }
+        {
+          description && (
+            <div class="absolute top-2 left-10 text-white text-shadow-lg text-2xl font-bold text-left max-w-[60vw] px-3 py-2 pointer-events-none">
+              {description}
+            </div>
+          )
+        }
+      </div>
+      <hr class="index-hr-top-index" />
+      <article>
+        <slot />
+      </article>
+      <div class="index-markdown" set:html={markdownHtml} />
+      <hr class="index-hr-bottom" />
+    </main>
+    <Footer />
+  </body>
+</html>

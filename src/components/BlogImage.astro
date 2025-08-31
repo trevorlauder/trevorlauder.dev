@@ -1,0 +1,14 @@
+---
+import { Image } from 'astro:assets';
+const { src } = Astro.props;
+---
+
+<Image 
+  src={src}
+  alt=""
+  style="maxWidth: '100%', height: 'auto', borderRadius: '8px', margin: '1em 0'"
+  format="webp"
+  loading="lazy"
+  width={src.width}
+  height={src.height}
+/>
