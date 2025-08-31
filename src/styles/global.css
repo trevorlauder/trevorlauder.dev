@@ -600,3 +600,8 @@ a svg.external-link {
 .privacy-reset-consent:hover {
   filter: brightness(1.1);
 }
+
+code::before,
+code::after {
+  content: none !important;
+}
