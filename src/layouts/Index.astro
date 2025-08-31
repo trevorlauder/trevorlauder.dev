@@ -18,7 +18,7 @@ const {
 
 <html lang="en" class={Astro.props.class}>
   <head>
-    <BaseHead title={title} description={description} image={ogImage}/>
+    <BaseHead title={title} description={description} image={ogImage} />
     <script src="../scripts/gallery-links.js"></script>
     <script src="../scripts/quotes.js"></script>
   </head>
@@ -40,9 +40,9 @@ const {
           )
         }
         {
-          description && (
+          (
             <div class="absolute top-2 left-10 text-white text-shadow-lg text-2xl font-bold text-left max-w-[60vw] px-3 py-2 pointer-events-none">
-              {description}
+              DevOps • Code • Photography
             </div>
           )
         }
