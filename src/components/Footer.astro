@@ -3,30 +3,180 @@ import { SITE_TITLE, COPYRIGHT_START_YEAR } from "../consts";
 import { Icon } from "astro-icon/components";
 const currentYear = new Date().getFullYear();
 const copyrightYears =
-	COPYRIGHT_START_YEAR === currentYear
-		? `${COPYRIGHT_START_YEAR}`
-		: `${COPYRIGHT_START_YEAR} – ${currentYear}`;
+  COPYRIGHT_START_YEAR === currentYear
+    ? `${COPYRIGHT_START_YEAR}`
+    : `${COPYRIGHT_START_YEAR} – ${currentYear}`;
 ---
 
 <footer>
-	&copy; {copyrightYears}
-	{SITE_TITLE}. All rights reserved.
-	<div class="social-links">
-		<a
-			href="https://www.linkedin.com/in/trevor-lauder"
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			<span class="sr-only">Connect with Trevor on LinkedIn</span>
-			<Icon name="fa7-brands:linkedin" width="32" height="32" />
-		</a>
-		<a
-			href="https://github.com/trevorlauder"
-			target="_blank"
-			rel="noopener noreferrer"
-		>
-			<span class="sr-only">Go to Trevor's GitHub repo</span>
-			<Icon name="fa7-brands:github" width="32" height="32" />
-		</a>
-	</div>
+  <style>
+    .consent-banner {
+      position: fixed;
+      left: 1rem;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 9999;
+      max-width: 46rem;
+      margin: 0 auto;
+      padding: 0.85rem 1rem;
+      background: #111;
+      border: 1px solid #333;
+      border-radius: 0.5rem;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
+      color: #eee;
+      font-size: 0.95rem;
+      line-height: 1.35;
+    }
+    .consent-banner a {
+      color: #9ecbff;
+      text-decoration: underline;
+    }
+    .consent-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.65rem;
+      flex-wrap: wrap;
+    }
+    .consent-btn {
+      cursor: pointer;
+      padding: 0.5rem 0.8rem;
+      border-radius: 0.35rem;
+      border: 1px solid #444;
+      background: #222;
+      color: #eee;
+    }
+    .consent-btn.primary {
+      background: #2b6cb0;
+      border-color: #2b6cb0;
+    }
+    .consent-btn:hover {
+      filter: brightness(1.1);
+    }
+    .consent-hidden {
+      display: none !important;
+    }
+  </style>
+  <div
+    id="consent-banner"
+    class="consent-banner consent-hidden"
+    role="dialog"
+    aria-live="polite"
+    aria-label="Privacy options"
+  >
+    <div>
+      I use Google Analytics (GA4) and Cloudflare Web Analytics to measure site
+      usage. You can accept or reject GA4 analytics at any time. See my <a
+        href="/privacy/">Privacy</a
+      > page for more details.
+    </div>
+    <div class="consent-actions">
+      <button id="consent-accept" class="consent-btn primary" type="button"
+        >Accept analytics</button
+      >
+      <button id="consent-reject" class="consent-btn" type="button"
+        >Reject</button
+      >
+    </div>
+    <span class="sr-only" aria-hidden="true"></span>
+    <script>
+      (function () {
+        var MID = "G-1F9WKFBP24";
+        var dnt =
+          navigator.doNotTrack === "1" ||
+          window.doNotTrack === "1" ||
+          navigator.msDoNotTrack === "1";
+        var $banner = document.getElementById("consent-banner");
+        var $accept = document.getElementById("consent-accept");
+        var $reject = document.getElementById("consent-reject");
+
+        window.privacyConsent = window.privacyConsent || {};
+        function setPref(v) {
+          try {
+            localStorage.setItem("consent.analytics", v);
+          } catch (e) {}
+        }
+        function getPref() {
+          try {
+            return localStorage.getItem("consent.analytics");
+          } catch (e) {
+            return null;
+          }
+        }
+        function hide() {
+          if ($banner) $banner.classList.add("consent-hidden");
+        }
+        function show() {
+          if ($banner) $banner.classList.remove("consent-hidden");
+        }
+        function hasGtag() {
+          return typeof window.gtag === "function";
+        }
+        function updateConsent(val) {
+          if (!hasGtag()) return;
+          window.gtag("consent", "update", {
+            analytics_storage: val,
+          });
+        }
+
+        window.privacyConsent.reset = function () {
+          setPref("");
+          show();
+          if (hasGtag()) updateConsent("denied");
+        };
+
+        if (dnt) {
+          hide();
+          if (MID) {
+            window["ga-disable-" + MID] = true;
+          }
+          if (hasGtag()) updateConsent("denied");
+          return;
+        }
+
+        var pref = getPref();
+        if (pref === "granted") {
+          if (hasGtag()) updateConsent("granted");
+          hide();
+        } else if (pref === "denied") {
+          if (hasGtag()) updateConsent("denied");
+          hide();
+        } else {
+          show();
+        }
+
+        if ($accept)
+          $accept.addEventListener("click", function () {
+            setPref("granted");
+            if (hasGtag()) updateConsent("granted");
+            hide();
+          });
+        if ($reject)
+          $reject.addEventListener("click", function () {
+            setPref("denied");
+            if (hasGtag()) updateConsent("denied");
+            hide();
+          });
+      })();
+    </script>
+  </div>
+  &copy; {copyrightYears}
+  {SITE_TITLE}. All rights reserved.
+  <div class="social-links">
+    <a
+      href="https://www.linkedin.com/in/trevor-lauder"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="sr-only">Connect with Trevor on LinkedIn</span>
+      <Icon name="fa7-brands:linkedin" width="32" height="32" />
+    </a>
+    <a
+      href="https://github.com/trevorlauder"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="sr-only">Go to Trevor's GitHub repo</span>
+      <Icon name="fa7-brands:github" width="32" height="32" />
+    </a>
+  </div>
 </footer>
