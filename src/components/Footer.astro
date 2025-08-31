@@ -9,53 +9,6 @@ const copyrightYears =
 ---
 
 <footer>
-  <style>
-    .consent-banner {
-      position: fixed;
-      left: 1rem;
-      right: 1rem;
-      bottom: 1rem;
-      z-index: 9999;
-      max-width: 46rem;
-      margin: 0 auto;
-      padding: 0.85rem 1rem;
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 0.5rem;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
-      color: #eee;
-      font-size: 0.95rem;
-      line-height: 1.35;
-    }
-    .consent-banner a {
-      color: #9ecbff;
-      text-decoration: underline;
-    }
-    .consent-actions {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 0.65rem;
-      flex-wrap: wrap;
-    }
-    .consent-btn {
-      cursor: pointer;
-      padding: 0.5rem 0.8rem;
-      border-radius: 0.35rem;
-      border: 1px solid #444;
-      background: #222;
-      color: #eee;
-    }
-    .consent-btn.primary {
-      background: #2b6cb0;
-      border-color: #2b6cb0;
-    }
-    .consent-btn:hover {
-      filter: brightness(1.1);
-    }
-    .consent-hidden {
-      display: none !important;
-    }
-  </style>
   <div
     id="consent-banner"
     class="consent-banner consent-hidden"
@@ -70,15 +23,15 @@ const copyrightYears =
       > page for more details.
     </div>
     <div class="consent-actions">
-      <button id="consent-accept" class="consent-btn primary" type="button"
-        >Accept analytics</button
+      <button id="consent-accept" class="consent-btn" type="button"
+        >Accept</button
       >
       <button id="consent-reject" class="consent-btn" type="button"
         >Reject</button
       >
     </div>
     <span class="sr-only" aria-hidden="true"></span>
-    <script>
+    <script is:inline>
       (function () {
         var MID = "G-1F9WKFBP24";
         var dnt =

@@ -3,10 +3,9 @@ import { useEffect, useState } from 'preact/hooks';
 export default function DarkModeToggle() {
   const [isDark, setIsDark] = useState(false);
 
-  // Sync with <html> class on mount
   useEffect(() => {
     setIsDark(document.documentElement.classList.contains('dark'));
-    // Listen for changes from other scripts/tabs
+
     const observer = new MutationObserver(() => {
       setIsDark(document.documentElement.classList.contains('dark'));
     });

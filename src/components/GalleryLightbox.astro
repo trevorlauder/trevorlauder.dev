@@ -13,7 +13,7 @@ const { images } = Astro.props;
     aria-label="Close"
     id="gallery-lightbox-close"
     style="position:absolute;top:1rem;right:2rem;font-size:2rem;background:none;border:none;cursor:pointer;z-index:10;"
-  >&times;</button>
+  >x</button>
 
   <div id="gallery-lightbox-images" style="text-align:center;margin-top:3rem;position:relative;background:none;box-shadow:none;">
     {images.map((img, i) => (
@@ -38,7 +38,7 @@ const { images } = Astro.props;
   </div>
 </div>
 
-<script type="module">
+<script is:inline type="module">
   let currentIndex = -1;
 
   function showLightbox(idx) {

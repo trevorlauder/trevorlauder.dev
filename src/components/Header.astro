@@ -3,11 +3,11 @@ import ProfileImage from "../assets/profile.webp";
 import { Image } from "astro:assets";
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
-import DarkModeToggle from "../components/DarkModeToggle.jsx";
 import { Icon } from "astro-icon/components";
 ---
 
 <header>
+  <script src="../scripts/dark-mode-toggle.js"></script>
   <nav class="theme-background-dark">
     <div class="header-left">
       <Image
@@ -54,7 +54,7 @@ import { Icon } from "astro-icon/components";
       </a>
     </div>
     <div class="darkmode-toggle">
-      <DarkModeToggle client:load />
+      <button id="dark-mode-toggle" type="button" aria-pressed="false" aria-label="Switch to dark mode">🌙 Dark Mode</button>
     </div>
   </nav>
 </header>
