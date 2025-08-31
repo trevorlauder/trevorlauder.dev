@@ -83,7 +83,8 @@
   transform: rotate(-45deg) translateY(100%);
 }
 
-.index-hr-top-index {
+.index-hr-top-index,
+.index-hr-bottom-index {
   display: block;
   border: none;
   width: 100%;
@@ -255,7 +256,6 @@ nav a {
 }
 
 .dark .index-markdown {
-  padding: 2em 1em 6em 1em;
   text-align: center;
   background: transparent;
   font-weight: bold;
