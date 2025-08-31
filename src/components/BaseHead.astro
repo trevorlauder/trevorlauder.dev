@@ -35,8 +35,8 @@ const { title, description, image } = Astro.props;
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 
-{image && image.src && (
-  <meta property="og:image" content={new URL(image.src, Astro.url)} />
+{image && (
+  <meta property="og:image" content={new URL(typeof image === 'string' ? image : image.src, Astro.url)} />
 )}
 
 <!-- Twitter -->
@@ -45,8 +45,8 @@ const { title, description, image } = Astro.props;
 <meta property="twitter:title" content={title} />
 <meta property="twitter:description" content={description} />
 
-{image && image.src && (
-  <meta property="twitter:image" content={new URL(image.src, Astro.url)} />
+{image && (
+  <meta property="twitter:image" content={new URL(typeof image === 'string' ? image : image.src, Astro.url)} />
 )}
 
 <script is:inline>
