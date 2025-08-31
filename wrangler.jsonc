@@ -4,12 +4,11 @@
   "preview_urls": false,
   "send_metrics": false,
   "assets": {
-    "directory": "./_site",
-    "not_found_handling": "404-page"
+    "directory": "./dist"
   },
   "compatibility_date": "2025-08-15",
   "build": {
-    "command": "npm run build:jekyll"
+    "command": "npm run build"
   },
   "routes": [
     {

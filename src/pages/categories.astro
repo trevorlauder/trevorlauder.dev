@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Default.astro';
+const rawPosts = Object.values({
+  ...import.meta.glob("../content/blog/*.mdx", { eager: true }),
+  ...import.meta.glob("../content/blog/*.md", { eager: true })
+});
+const categoryMap = new Map();
+for (const post of rawPosts) {
+  if (post.frontmatter?.categories) {
+    for (const cat of post.frontmatter.categories) {
+      if (!categoryMap.has(cat)) categoryMap.set(cat, []);
+      categoryMap.get(cat).push(post);
+    }
+  }
+}
+const categories = Array.from(categoryMap.keys()).sort();
+---
+<Layout
+    title="Categories"
+    description="Browse blog posts by category"
+>
+  <main style="max-width: 900px; margin: auto;">
+    <ul style="list-style: none; padding: 0; columns: 2;">
+      {categories.map(cat => (
+        <li style="margin-bottom: 0.5em;">
+          <a href={`#${cat.replace(/\s+/g, '-').toLowerCase()}`} style="font-size: 1.1em;">{cat}</a> <span style="color:#888; font-size:0.95em;">({categoryMap.get(cat).length})</span>
+        </li>
+      ))}
+    </ul>
+    {categories.map(cat => (
+      <section style="margin-top: 2.5em;" id={cat.replace(/\s+/g, '-').toLowerCase()}>
+        <h2>{cat}</h2>
+        <ul style="list-style: none; padding: 0;">
+          {categoryMap.get(cat).map(post => {
+            const fileName = post.file?.split("/").pop() || "";
+            const [year, month, day, ...rest] = fileName.replace(/\.(mdx|md)$/, "").split("-");
+            const rawTitle = rest.join("-");
+            const titleSlug = rawTitle.toLowerCase().replace(/\s+/g, "-").replace(/_+/g, "-").replace(/[^a-z0-9-]/g, "");
+            // Always use the first category from frontmatter for the slug
+            const firstCategory = Array.isArray(post.frontmatter.categories) && post.frontmatter.categories.length > 0
+              ? post.frontmatter.categories[0]
+              : (post.frontmatter.categories || "uncategorized");
+            const slug = `blog/${year}/${month}/${day}/${titleSlug}`;
+            return (
+              <li style="margin-bottom: 1em;">
+                <a href={`/${slug}/`} style="font-size: 1.1em; font-weight: bold;">{post.frontmatter.title}</a>
+                <div style="color: #888; font-size: 0.95em;">{post.frontmatter.description}</div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
+  </main>
+</Layout>

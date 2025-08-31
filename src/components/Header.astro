@@ -1,0 +1,61 @@
+---
+import ProfileImage from "../assets/profile.webp";
+import { Image } from "astro:assets";
+import { SITE_TITLE } from "../consts";
+import HeaderLink from "./HeaderLink.astro";
+import DarkModeToggle from "../components/DarkModeToggle.jsx";
+import { Icon } from "astro-icon/components";
+---
+
+<header>
+  <nav class="theme-background-dark">
+    <div class="header-left">
+      <Image
+        src={ProfileImage}
+        alt="Trevor Lauder"
+        class="avatar"
+        style="width:48px;height:48px;border-radius:50%;object-fit:cover;"
+        width={96}
+        height={96}
+        widths={[48, 64, 96, 128]}
+        format="webp"
+        loading="eager"
+        decoding="async"
+      />
+      <h2>
+        <a href="/">{SITE_TITLE}</a>
+      </h2>
+    </div>
+    <div class="internal-links">
+      <HeaderLink href="/">Home</HeaderLink>
+      <HeaderLink href="/blog/page/1">Blog</HeaderLink>
+      <HeaderLink href="/categories">Categories</HeaderLink>
+      <HeaderLink href="/tags">Tags</HeaderLink>
+      <HeaderLink href="/about">About</HeaderLink>
+      <HeaderLink href="/privacy">Privacy</HeaderLink>
+      <HeaderLink href="/404">404</HeaderLink>
+    </div>
+    <div class="social-links-top">
+      <a
+        href="https://www.linkedin.com/in/trevor-lauder"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="sr-only">Connect with Trevor on LinkedIn</span>
+        <Icon name="fa7-brands:linkedin" width="32" height="32" />
+      </a>
+      <a
+        href="https://github.com/trevorlauder"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span class="sr-only">Go to Trevor's GitHub repo</span>
+        <Icon name="fa7-brands:github" width="32" height="32" />
+      </a>
+    </div>
+    <div class="darkmode-toggle">
+      <DarkModeToggle client:load />
+    </div>
+  </nav>
+</header>
+<hr />

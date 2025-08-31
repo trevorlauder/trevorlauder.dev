@@ -1,0 +1,34 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+
+
+// Support both MDX (content) and Astro (frontmatter) props
+const content = Astro.props.content || Astro.props.frontmatter || {};
+const title = content.title;
+const description = content.description;
+---
+
+<html lang="en" class={Astro.props.class}>
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body class="theme-background-dark min-h-screen">
+    <Header />
+    <main>
+      <div
+        class={`prose dark:prose-invert mx-auto p-4 ${Astro.props.containerClass ?? "max-w-4xl"}`}
+      >
+        <div class="mb-4 py-4 text-center leading-tight">
+          <h1 class="mb-2 text-4xl font-bold">{title}</h1>
+          <hr class="index-hr-top" />
+        </div>
+          <slot />
+         <hr class="index-hr-bottom" />
+      </div>
+     
+    </main>
+    <Footer />
+  </body>
+</html>

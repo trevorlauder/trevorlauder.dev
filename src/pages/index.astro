@@ -1,0 +1,73 @@
+---
+import IndexLayout from "../layouts/Index.astro";
+import { marked } from "marked";
+import SplashImage from "../assets/splash.svg";
+import AstroGallery from "../components/AstroGallery.astro";
+import img1 from "../assets/gallery/DSC_0041-Max_Value.webp";
+import img2 from "../assets/gallery/DSC_0047-Max_Value.webp";
+import img3 from "../assets/gallery/DSC_0053-Min_Horizon_Noise.webp";
+import img4 from "../assets/gallery/DSC_5856.webp";
+import img5 from "../assets/gallery/DSC_6005.webp";
+import img6 from "../assets/gallery/DSC_6007.webp";
+import img7 from "../assets/gallery/DSC_6008.webp";
+import img8 from "../assets/gallery/DSC_6011.webp";
+import img9 from "../assets/gallery/DSC_6076.webp";
+import img10 from "../assets/gallery/DSC_6106.webp";
+import img11 from "../assets/gallery/DSC_6110.webp";
+import img12 from "../assets/gallery/DSC_6119.webp";
+import img13 from "../assets/gallery/DSC_6146.webp";
+import img14 from "../assets/gallery/DSC_6156.webp";
+import img15 from "../assets/gallery/DSC_6181.webp";
+import img16 from "../assets/gallery/P6050177.webp";
+import img17 from "../assets/gallery/P7160043.webp";
+import img18 from "../assets/gallery/P7250020.webp";
+
+const galleryImages = [
+	{
+		full: img1,
+		caption: "Milky Way @ Dry Island Buffalo Jump Provincial Park",
+	},
+	{
+		full: img2,
+		caption: "Milky Way @ Dry Island Buffalo Jump Provincial Park",
+	},
+	{
+		full: img3,
+		caption:
+			"Milky Way w/ Andromeda @ Dry Island Buffalo Jump Provincial Park",
+	},
+	{ full: img4, caption: "Comet C/2020 F3 (NEOWISE)" },
+	{ full: img5, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img6, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img7, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img8, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img9, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img10, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img11, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img12, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img13, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img14, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img15, caption: "Dry Island Buffalo Jump Provincial Park" },
+	{ full: img16, caption: "Sylvan Lake, Alberta, Canada" },
+	{ full: img17, caption: "Comet C/2020 F3 (NEOWISE)" },
+	{ full: img18, caption: "Sylvan Lake, Alberta, Canada" },
+];
+
+const indexMarkdown = `
+All photos are © Trevor Lauder.<br>[Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
+`;
+
+const indexHtml = marked(indexMarkdown);
+---
+
+<IndexLayout
+	title="Home"
+	description="DevOps • Code • Photography"
+	heroImage={SplashImage}
+	heroImageWidth={2400}
+	heroImageHeight={450}
+	heroImageAlt="Splash image"
+	markdownHtml={indexHtml}
+>
+	<AstroGallery images={galleryImages} aboveTheFoldCount={1} />
+</IndexLayout>

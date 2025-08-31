@@ -1,0 +1,134 @@
+---
+import Layout from "../../../layouts/Default.astro";
+import FormattedDate from "../../../components/FormattedDate.astro";
+import { getPosts } from "../../../utils/getPosts";
+
+const posts = getPosts();
+const featured = posts[0];
+const rest = posts.slice(1, 4);
+
+const allCategories = Array.from(new Set(posts.flatMap((p) => p.categories)));
+const allTags = Array.from(new Set(posts.flatMap((p) => p.tags || [])));
+---
+
+<Layout title="Blog Posts" containerClass="max-w-7xl">
+  <main class="max-w-7xl mx-auto px-4 sm:px-8">
+    <section>
+      <form
+        id="filters"
+        class="blog-index-filter flex flex-wrap gap-4 mb-8 items-center"
+      >
+        <label>
+          Category:
+          <select id="categoryFilter" class="ml-2 p-1 rounded border">
+            <option value="">All</option>
+            {allCategories.map((cat) => <option value={cat}>{cat}</option>)}
+          </select>
+        </label>
+        <label>
+          Tag:
+          <select id="tagFilter" class="ml-2 p-1 rounded border">
+            <option value="">All</option>
+            {allTags.map((tag) => <option value={tag}>{tag}</option>)}
+          </select>
+        </label>
+      </form>
+      <a
+        id="featuredPost"
+        href={`/${featured.slug}/`}
+        class="block mb-10"
+        style="text-decoration:none;"
+        data-categories={(featured.categories || []).join(",")}
+        data-tags={(featured.tags || []).join(",")}
+      >
+        <div class="max-w-2xl flex flex-col items-center mx-auto w-full mt-10">
+          <div
+            class="blog-card max-w-2xl flex flex-col mx-auto w-full overflow-hidden brand-card-shadow rounded-2xl"
+            style="position:relative;"
+          >
+            <div class="holographic-effect" />
+            {(featured.featuredImage || featured.indexImage) && (
+              <img
+                class="block w-full align-top m-0 p-0 mt-6"
+                src={featured.featuredImage || featured.indexImage}
+                alt=""
+              />
+            )}
+            <div
+              class="featured-content w-full px-3 py-2"
+              style="position:relative;z-index:2;"
+            >
+              <h3 class="title mb-1">{featured.title}</h3>
+              <p class="date mt-1 mb-0">
+                <FormattedDate date={featured.date} />
+              </p>
+            </div>
+          </div>
+        </div>
+      </a>
+      <ul id="postList" class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        {[featured, ...rest].map((post, idx) => (
+          <li
+            class="blog-card rounded-xl p-3 text-sm relative overflow-hidden"
+            data-categories={(post.categories || []).join(",")}
+            data-tags={(post.tags || []).join(",")}
+            data-featured={idx === 0 ? "true" : "false"}
+            style={idx === 0 ? "display: none;" : "display: block;"}
+          >
+            <div class="holographic-effect" />
+            <a href={`/${post.slug}/`} style="text-decoration:none;">
+              {post.indexImage && (
+                <img
+                  class="index-thumb mb-2 rounded-lg"
+                  src={post.indexImage}
+                  alt=""
+                />
+              )}
+              <h3 class="title mb-1" style="position:relative;z-index:2;">
+                {post.title}
+              </h3>
+              <p class="date text-xs" style="position:relative;z-index:2;">
+                <FormattedDate date={post.date} />
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <script type="text/javascript">
+        // Filter: hide featured post when filtering, but include it in the list if it matches
+        const categoryFilter = document.getElementById("categoryFilter");
+        const tagFilter = document.getElementById("tagFilter");
+        const postList = document.getElementById("postList");
+        const posts = postList.querySelectorAll("li");
+        const featuredPost = document.getElementById("featuredPost");
+        function filterPosts() {
+          const cat = categoryFilter.value;
+          const tag = tagFilter.value;
+          // Only show featured post if no filter is applied
+          if (featuredPost) {
+            featuredPost.style.display = !cat && !tag ? "block" : "none";
+          }
+          posts.forEach((post, idx) => {
+            const cats = post.dataset.categories.split(",");
+            const tags = post.dataset.tags.split(",");
+            const catMatch = !cat || cats.includes(cat);
+            const tagMatch = !tag || tags.includes(tag);
+            // Hide the first (featured) post in the list if no filter, otherwise show if matches
+            if (idx === 0) {
+              post.style.display = !cat && !tag ? "none" : catMatch && tagMatch ? "block" : "none";
+            } else {
+              post.style.display = catMatch && tagMatch ? "block" : "none";
+            }
+          });
+        }
+        categoryFilter.addEventListener("change", filterPosts);
+        tagFilter.addEventListener("change", filterPosts);
+      </script>
+      <div class="w-full flex justify-end mt-10">
+        <nav>
+          <a href="/blog/page/2/">Older Posts →</a>
+        </nav>
+      </div>
+    </section>
+  </main>
+</Layout>

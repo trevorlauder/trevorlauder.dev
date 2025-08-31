@@ -1,0 +1,32 @@
+---
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  return posts.map((post) => {
+    const [year, month, day, ...rest] = post.id.split("-");
+    const rawTitle = rest.join("-");
+    const slugArr = [year, month, day, rest.join("-").toLowerCase()];
+
+    return {
+      params: { slug: slugArr.join("/") },
+      props: { post },
+    };
+  });
+}
+
+type Props = {
+  post: CollectionEntry<"blog">;
+};
+
+const { post } = Astro.props;
+
+const [year, month, day, ...rest] = post.id.split("-");
+const date = post.data.date ?? new Date(`${year}-${month}-${day}`);
+
+const { Content } = await render(post);
+---
+
+<BlogPost {...post.data} date={date} Content={Content} />

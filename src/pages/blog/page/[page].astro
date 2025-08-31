@@ -1,0 +1,46 @@
+---
+import Layout from "../../../layouts/Default.astro";
+import FormattedDate from "../../../components/FormattedDate.astro";
+import { getPosts } from "../../../utils/getPosts";
+
+export async function getStaticPaths({ paginate }) {
+  const posts = getPosts();
+
+  return paginate(posts, { pageSize: 3 });
+}
+
+const { page } = Astro.props;
+const paginatedPosts = page.data;
+---
+
+<Layout title="Blog Posts">
+  <main class="max-w-7xl mx-auto px-4 sm:px-8">
+    <section>
+      <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        {paginatedPosts.map((post) => (
+          <li class="blog-card rounded-xl p-3 text-sm relative overflow-hidden">
+            <div class="holographic-effect" />
+            <a href={`/${post.slug}/`} style="text-decoration:none;">
+              {post.indexImage && (
+                <img
+                  class="index-thumb mb-2 rounded-lg"
+                  src={post.indexImage}
+                  alt=""
+                />
+              )}
+              <h3 class="title mb-1">{post.title}</h3>
+              <p class="date text-xs">
+                <FormattedDate date={post.date} />
+              </p>
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      <nav class="flex justify-between mt-10">
+        {page.url.prev && <a href={page.url.prev}>← Newer Posts</a>}
+        {page.url.next && <a href={page.url.next}>Older Posts →</a>}
+      </nav>
+    </section>
+  </main>
+</Layout>

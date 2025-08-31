@@ -1,0 +1,35 @@
+---
+import { Image } from "astro:assets";
+import GalleryLightbox from "./GalleryLightbox.astro";
+const { images, aboveTheFoldCount = 0 } = Astro.props;
+---
+
+<div class="gallery-island not-prose">
+  <div class="masonry loaded">
+    {
+      images.map((image, i) => (
+        <div class="masonry-item">
+          <button
+            type="button"
+            class="gallery-image-btn"
+            data-gallery-index={i}
+          >
+            <Image
+              src={image.full}
+              alt=""
+              widths={[160, 180, 200, 220, 240, 260, 280, 300, 320, 360, 400, 440, 480]}
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+              quality={50}
+              loading={i < aboveTheFoldCount ? "eager" : "lazy"}
+            />
+            {image.caption && (
+              <div class="gallery-caption-overlay">{image.caption}</div>
+            )}
+          </button>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<GalleryLightbox images={images} />

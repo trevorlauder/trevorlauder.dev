@@ -1,0 +1,51 @@
+---
+import Layout from '../layouts/Default.astro';
+const rawPosts = Object.values({
+  ...import.meta.glob("../content/blog/*.mdx", { eager: true }),
+  ...import.meta.glob("../content/blog/*.md", { eager: true })
+});
+const tagMap = new Map();
+for (const post of rawPosts) {
+  if (post.frontmatter?.tags) {
+    for (const tag of post.frontmatter.tags) {
+      if (!tagMap.has(tag)) tagMap.set(tag, []);
+      tagMap.get(tag).push(post);
+    }
+  }
+}
+const tags = Array.from(tagMap.keys()).sort();
+---
+<Layout
+    title="Tags"
+    description="Browse blog posts by tag"
+>
+  <main style="max-width: 900px; margin: auto;">
+    <ul style="list-style: none; padding: 0; columns: 2;">
+      {tags.map(tag => (
+        <li style="margin-bottom: 0.5em;">
+          <a href={`#${tag.replace(/\s+/g, '-').toLowerCase()}`} style="font-size: 1.1em;">{tag}</a> <span style="color:#888; font-size:0.95em;">({tagMap.get(tag).length})</span>
+        </li>
+      ))}
+    </ul>
+    {tags.map(tag => (
+      <section style="margin-top: 2.5em;" id={tag.replace(/\s+/g, '-').toLowerCase()}>
+        <h2>{tag}</h2>
+        <ul style="list-style: none; padding: 0;">
+          {tagMap.get(tag).map(post => {
+            const fileName = post.file?.split("/").pop() || "";
+            const [year, month, day, ...rest] = fileName.replace(/\.(mdx|md)$/, "").split("-");
+            const rawTitle = rest.join("-");
+            const titleSlug = rawTitle.toLowerCase().replace(/\s+/g, "-").replace(/_+/g, "-").replace(/[^a-z0-9-]/g, "");
+            const slug = `blog/${year}/${month}/${day}/${titleSlug}`;
+            return (
+              <li style="margin-bottom: 1em;">
+                <a href={`/${slug}/`} style="font-size: 1.1em; font-weight: bold;">{post.frontmatter.title}</a>
+                <div style="color: #888; font-size: 0.95em;">{post.frontmatter.description}</div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    ))}
+  </main>
+</Layout>
