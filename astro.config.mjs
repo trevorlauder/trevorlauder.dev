@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import { defineConfig } from 'astro/config';
 import preact from '@astrojs/preact';
 import tailwindcss from '@tailwindcss/vite';
-import rehypeExternalIconify from './plugins/rehype-external-iconify.js'
+import externalIconify from './plugins/external-iconify.js'
 
 import icon from 'astro-icon';
 
@@ -25,7 +25,7 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   markdown: {
-    rehypePlugins: [rehypeExternalIconify],
+    rehypePlugins: [externalIconify],
   },
   mdx: {
     remarkPlugins: [remarkGfm],

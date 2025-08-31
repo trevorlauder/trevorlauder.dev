@@ -1,4 +1,3 @@
-// rehype-external-iconify.ts
 import { visit } from 'unist-util-visit'
 
 export default function rehypeExternalIconify() {
