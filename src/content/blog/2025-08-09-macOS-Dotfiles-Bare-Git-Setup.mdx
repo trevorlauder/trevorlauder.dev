@@ -22,7 +22,7 @@ Benefits:
 
 - No `.git` directory cluttering `$HOME`
 - Standard `git` workflow via a simple alias
-- Fine‑grained control over exactly which files are versioned
+- Fine-grained control over exactly which files are versioned
 - New machine setup becomes a quick clone + checkout
 
 ## Core idea
@@ -41,12 +41,12 @@ With the alias defined, any `dotfiles <command>` behaves like a normal Git invoc
 
 ## Local overrides: `~/.dotfiles-local-settings`
 
-For per‑machine or private tweaks (tokens or secrets, work vs. personal settings), keep a non‑tracked overrides file. I use `~/.dotfiles-local-settings`.
+For per-machine or private tweaks (tokens or secrets, work vs. personal settings), keep a non-tracked overrides file. I use `~/.dotfiles-local-settings`.
 
 Why:
 
-- Prevents leaking credentials or machine‑specific paths
-- Lets you layer host‑specific aliases or env vars without branching
+- Prevents leaking credentials or machine-specific paths
+- Lets you layer host-specific aliases or env vars without branching
 - Keeps the main tracked files portable and minimal
 
 Make sure it is NOT tracked:
@@ -66,7 +66,7 @@ Source it near the end of `~/.zshrc` (after exported defaults) so it can overrid
 
 ## Creating the bare repo for the first time
 
-If you are starting from scratch with dotfiles scattered through your home directory and want to publish them via a bare repository, use this one‑time sequence.
+If you are starting from scratch with dotfiles scattered through your home directory and want to publish them via a bare repository, use this one-time sequence.
 
 ```sh
 # Create the bare repo directory (do NOT use git init in $HOME)
