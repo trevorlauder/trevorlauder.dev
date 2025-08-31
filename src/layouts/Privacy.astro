@@ -2,9 +2,8 @@
 import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
-import ogImage from "../assets/og.svg";
+import ogImage from "../assets/og.png";
 
-// Support both MDX (content) and Astro (frontmatter) props
 const content = Astro.props.content || Astro.props.frontmatter || {};
 const title = content.title;
 const description = content.description;
