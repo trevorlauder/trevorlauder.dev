@@ -23,7 +23,7 @@ repos:
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.28.0
     hooks:
-      - id: gitleaks-system
+      - id: gitleaks-docker
         pass_filenames: false
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
