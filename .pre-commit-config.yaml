@@ -8,10 +8,8 @@ repos:
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-        exclude: ^(feed\.json|_data/teasers\.json|assets/images/teasers/teasers-manifest\.json)$
       - id: check-yaml
       - id: check-json
-        exclude: ^(feed\.json|_data/teasers\.json)$
       - id: mixed-line-ending
       - id: check-added-large-files
         exclude: ^(src/assets/.*)$
@@ -23,7 +21,7 @@ repos:
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.28.0
     hooks:
-      - id: gitleaks-system
+      - id: gitleaks-docker
         pass_filenames: false
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
@@ -42,3 +40,10 @@ repos:
     rev: v3.1.0
     hooks:
       - id: prettier
+  - repo: local
+    hooks:
+      - id: npm-lint-fix
+        name: npm run lint:fix
+        entry: npm run lint:fix
+        language: system
+        pass_filenames: false

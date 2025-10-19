@@ -1,7 +1,10 @@
 import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+export type BlogPost = CollectionEntry<"blog">;
 
 export interface BlogPageProps {
-  posts: any[];
+  posts: BlogPost[];
   currentPage: number;
   totalPages: number;
   totalPosts: number;
@@ -14,19 +17,46 @@ export interface BlogPath {
 
 const POSTS_PER_PAGE = 3;
 
-export async function getBlogStaticPaths(): Promise<BlogPath[]> {
-  const allPosts = (await getCollection("blog"))
-    .map((post) => {
-      if (!post.data.pubDate) {
-        const dateMatch = post.id.match(/^(\d{4})-(\d{2})-(\d{2})/);
-        if (dateMatch) {
-          post.data.pubDate = new Date(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`);
-        }
+/**
+ * Normalize a label by converting kebab-case to Title Case
+ */
+export function normalizeLabel(slug: string): string {
+  return slug.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+}
+
+/**
+ * Normalize a label to kebab-case slug format
+ */
+export function normalizeSlug(label: string): string {
+  return label.toLowerCase().replace(/\s+/g, "-");
+}
+
+/**
+ * Ensure all posts have valid pubDate, extracted from filename if needed
+ */
+export function enrichPostsWithDates(posts: CollectionEntry<"blog">[]): CollectionEntry<"blog">[] {
+  return posts.map((post) => {
+    if (!post.data.pubDate) {
+      const dateMatch = post.id.match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if (dateMatch) {
+        post.data.pubDate = new Date(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`);
       }
-      return post;
-    })
-    .filter((post) => post.data.pubDate)
-    .sort((a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0));
+    }
+    return post;
+  });
+}
+
+/**
+ * Sort posts by publication date (newest first)
+ */
+export function sortPostsByDate(posts: CollectionEntry<"blog">[]): CollectionEntry<"blog">[] {
+  return posts.sort((a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0));
+}
+
+export async function getBlogStaticPaths(): Promise<BlogPath[]> {
+  const allPosts = sortPostsByDate(enrichPostsWithDates(await getCollection("blog"))).filter(
+    (post) => post.data.pubDate
+  );
 
   const paths: BlogPath[] = [];
 

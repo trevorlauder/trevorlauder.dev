@@ -117,6 +117,34 @@ const { images } = Astro.props;
     if (e.key === "ArrowRight") nextImage();
   });
 
+  // Touch/Swipe navigation
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function handleSwipe() {
+    const swipeThreshold = 50; // minimum distance for a swipe
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+      if (diff > 0) {
+        // Swiped left, show next image
+        nextImage();
+      } else {
+        // Swiped right, show previous image
+        prevImage();
+      }
+    }
+  }
+
+  lightboxContainer.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, false);
+
+  lightboxContainer.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, false);
+
   window.openGalleryLightbox = openLightbox;
 </script>
 

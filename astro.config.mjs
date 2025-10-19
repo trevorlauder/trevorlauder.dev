@@ -1,14 +1,11 @@
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import remarkGfm from "remark-gfm";
+import expressiveCode from "astro-expressive-code";
+import icon from "astro-icon";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "astro/config";
 import externalIconify from "./plugins/external-iconify.js";
-
-import expressiveCode from "astro-expressive-code";
-
-import icon from "astro-icon";
-
-import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   site: "https://trevorlauder.dev",
