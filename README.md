@@ -1,5 +1,7 @@
 # https://trevorlauder.dev
 
-[![ci](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/ci.yml?query=branch%3Amain)
+[![ci](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/ci.yml/badge.svg)](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/ci.yml)
 
-[![CodeQL](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/github-code-scanning%2Fcodeql/badge.svg?branch=main)](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/github-code-scanning%2Fcodeql?query=branch%3Amain)
+[![CodeQL](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/github-code-scanning/codeql)
+
+[![Dependabot Updates](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/trevorlauder/trevorlauder.dev/actions/workflows/dependabot/dependabot-updates)
