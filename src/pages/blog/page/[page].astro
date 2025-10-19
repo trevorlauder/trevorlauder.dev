@@ -1,46 +1,126 @@
 ---
-import Layout from "../../../layouts/Default.astro";
-import FormattedDate from "../../../components/FormattedDate.astro";
-import { getPosts } from "../../../utils/getPosts";
+import { Image } from 'astro:assets';
+import BaseHead from '../../../components/BaseHead.astro';
+import Footer from '../../../components/Footer.astro';
+import FormattedDate from '../../../components/FormattedDate.astro';
+import Header from '../../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
+import { getBlogStaticPaths, getPostSlug, type BlogPageProps } from '../../../utils/blog';
 
-export async function getStaticPaths({ paginate }) {
-  const posts = getPosts().slice(1);
+export const getStaticPaths = getBlogStaticPaths;
+type Props = BlogPageProps;
 
-  return paginate(posts, { pageSize: 3 });
-}
-
-const { page } = Astro.props;
-const paginatedPosts = page.data;
+const { posts, currentPage, totalPages } = Astro.props;
+const featuredPost = currentPage === 1 ? posts[0] : null;
+const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
 ---
 
-<Layout title="Blog Posts">
-  <main class="max-w-7xl mx-auto px-4 sm:px-8">
-    <section>
-      <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-        {paginatedPosts.map((post) => (
-          <li class="blog-card rounded-xl p-3 text-sm relative overflow-hidden">
-            <div class="holographic-effect" />
-            <a href={`/${post.slug}/`} style="text-decoration:none;">
-              {post.indexImage && (
-                <img
-                  class="index-thumb mb-2 rounded-lg"
-                  src={post.indexImage}
-                  alt=""
-                />
-              )}
-              <h3 class="title mb-1">{post.title}</h3>
-              <p class="date text-xs">
-                <FormattedDate date={post.date} />
-              </p>
-            </a>
-          </li>
-        ))}
-      </ul>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="flex flex-col min-h-screen">
+		<Header />
+		<main class="flex-grow max-w-6xl mx-auto w-full px-4 md:px-6 py-8 md:py-12">
+			<section>
+			<h1 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900 dark:text-slate-50 text-center">
+				Blog Posts
+			</h1>
+			<hr class="border-t border-[var(--border)] mb-12" />				{/* Featured post on page 1 */}
+				{featuredPost && (
+					<div class="mb-12">
+						<a
+							href={`/blog/${getPostSlug(featuredPost.id)}/`}
+							class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-gray-300 dark:hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-white dark:bg-[var(--surface-secondary)] group"
+						>
+							{(featuredPost.data.featuredImage || featuredPost.data.indexImage || featuredPost.data.heroImage) && (
+								<div class="overflow-hidden -mx-px">
+									<Image
+										width={1000}
+										height={500}
+										src={featuredPost.data.featuredImage || featuredPost.data.indexImage || featuredPost.data.heroImage}
+										alt={featuredPost.data.title}
+										loading="lazy"
+										class="w-full h-auto"
+									/>
+								</div>
+							)}
+							<div class="p-4 md:p-6">
+								<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-slate-50 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+									{featuredPost.data.title}
+								</h2>
+								<p class="text-sm text-gray-600 dark:text-slate-400">
+									<FormattedDate date={featuredPost.data.pubDate!} />
+								</p>
+							</div>
+						</a>
+					</div>
+				)}
 
-      <nav class="flex justify-between mt-10">
-        {page.url.prev && <a href={page.url.prev}>← Newer Posts</a>}
-        {page.url.next && <a href={page.url.next}>Older Posts →</a>}
-      </nav>
-    </section>
-  </main>
-</Layout>
+				{/* Regular posts */}
+				<ul class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+					{
+						regularPosts.map((post) => (
+							<li class="group h-96">
+								<a
+									href={`/blog/${getPostSlug(post.id)}/`}
+									class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-gray-300 dark:hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-white dark:bg-[var(--surface-secondary)] h-full flex flex-col"
+								>
+									{(post.data.indexImage || post.data.heroImage) && (
+										<div class="overflow-hidden -mx-px flex-shrink-0">
+											<Image
+												width={720}
+												height={360}
+												src={post.data.indexImage || post.data.heroImage}
+												alt={post.data.title}
+												loading="lazy"
+												class="w-full h-auto block"
+											/>
+										</div>
+									)}
+									<div class="p-6 md:p-8 flex-grow">
+										<h4 class="text-base md:text-lg font-bold text-gray-900 dark:text-slate-50 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+											{post.data.title}
+										</h4>
+										<p class="text-sm text-gray-600 dark:text-slate-400">
+											<FormattedDate date={post.data.pubDate!} />
+										</p>
+									</div>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+
+				{/* Pagination */}
+				<div class="flex flex-col justify-center items-center gap-4">
+					<div class="flex justify-center items-center gap-4">
+						{currentPage > 1 && (
+							<a
+								href={`/blog/page/${currentPage - 1}`}
+								class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors"
+							>
+								← Previous
+							</a>
+						)}
+
+						{currentPage < totalPages && (
+							<a
+								href={`/blog/page/${currentPage + 1}`}
+								class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors"
+							>
+								Next →
+							</a>
+						)}
+					</div>
+
+					<span class="text-gray-600 dark:text-slate-400">
+						Page {currentPage} of {totalPages}
+					</span>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

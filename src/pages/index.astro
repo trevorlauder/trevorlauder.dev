@@ -1,8 +1,13 @@
 ---
-import IndexLayout from "../layouts/Index.astro";
-import { marked } from "marked";
-import SplashImage from "../assets/splash.svg";
-import AstroGallery from "../components/AstroGallery.astro";
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Lightbox from "../components/Lightbox.astro";
+import { Icon } from "astro-icon/components";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
+import { Image } from "astro:assets";
+import splash from "../assets/splash.svg";
+
 import img1 from "../assets/gallery/DSC_0041-Max_Value.webp";
 import img2 from "../assets/gallery/DSC_0047-Max_Value.webp";
 import img3 from "../assets/gallery/DSC_0053-Min_Horizon_Noise.webp";
@@ -52,22 +57,66 @@ const galleryImages = [
 	{ full: img17, caption: "Comet C/2020 F3 (NEOWISE)" },
 	{ full: img18, caption: "Sylvan Lake, Alberta, Canada" },
 ];
-
-const indexMarkdown = `
-All photos are © Trevor Lauder.<br>[Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)](https://creativecommons.org/licenses/by-nc-nd/4.0/)
-`;
-
-const indexHtml = marked(indexMarkdown);
 ---
 
-<IndexLayout
-	title="Home"
-	description="Welcome to Trevor Lauder's personal site—explore blog posts on DevOps, coding, automation, and photography. Discover technical guides, project showcases, and a gallery of original astrophotography and landscape images."
-	heroImage={SplashImage}
-	heroImageWidth={2400}
-	heroImageHeight={450}
-	heroImageAlt="Splash image"
-	markdownHtml={indexHtml}
->
-	<AstroGallery images={galleryImages} aboveTheFoldCount={1} />
-</IndexLayout>
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<script src="../scripts/quotes.ts"></script>
+	</head>
+	<body class="flex flex-col min-h-screen">
+		<Header />
+		<div class="relative w-full">
+			<Image src={splash} alt="Splash hero image" class="w-full h-auto block" />
+			<div class="absolute left-0 top-0 flex items-center justify-center text-white pl-12 pt-2 text-xl md:text-2xl font-semibold">
+				DevOps • Code • Photography
+			</div>
+			<div
+				id="quote"
+				class="absolute left-0 top-2/5 -translate-y-1/2 flex items-center justify-center text-white pl-48 text-xl md:text-3xl font-semibold"
+			>
+			</div>
+		</div>
+		<main class="flex-grow max-w-6xl mx-auto w-full px-4 md:px-6 py-0">
+		</main>
+		<section class="w-full bg-[var(--background)] py-12 md:py-16">
+			<div class="max-w-6xl mx-auto px-4 md:px-6">
+				<div class="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-6 space-y-6">
+					{galleryImages.map((image, index) => (
+						<button
+							onclick={`window.openGalleryLightbox(${index})`}
+							class="relative overflow-hidden group cursor-pointer text-left block w-full p-0 bg-transparent border-0"
+						>
+							<Image
+								src={image.full}
+								alt={image.caption}
+								widths={[320, 480, 640, 768]}
+								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+								class="w-full h-auto block"
+							/>
+							<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+								<p class="text-white text-sm md:text-base p-3 w-full">
+									{image.caption}
+								</p>
+							</div>
+						</button>
+					))}
+				</div>
+			</div>
+		</section>
+		<Lightbox images={galleryImages} />
+		<section class="w-full bg-[var(--background)] py-12 md:py-16">
+			<div class="max-w-3xl mx-auto px-4 md:px-6 text-center text-gray-600 dark:text-gray-400 text-sm">
+				<p>
+					All photos are © Trevor Lauder.<br />
+					<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300 transition-colors">
+						Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)
+						<Icon name="fa7-solid:external-link" class="w-3.5 h-3.5 ml-1 inline-block align-middle" />
+					</a>
+				</p>
+			</div>
+		</section>
+		<Footer />
+	</body>
+</html>

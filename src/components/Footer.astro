@@ -3,13 +3,15 @@ import { SITE_TITLE, COPYRIGHT_START_YEAR } from "../consts";
 import { Icon } from "astro-icon/components";
 const currentYear = new Date().getFullYear();
 const copyrightYears =
-  COPYRIGHT_START_YEAR === currentYear
-    ? `${COPYRIGHT_START_YEAR}`
-    : `${COPYRIGHT_START_YEAR} – ${currentYear}`;
+	COPYRIGHT_START_YEAR === currentYear
+		? `${COPYRIGHT_START_YEAR}`
+		: `${COPYRIGHT_START_YEAR} – ${currentYear}`;
 ---
 
-<footer>
-  <div
+<footer
+	class="bg-gradient-to-br from-[var(--surface)] to-[var(--surface)] border-t border-[var(--border)] px-4 md:px-6 py-12 md:py-16"
+>
+	<div
     id="consent-banner"
     class="consent-banner consent-hidden"
     role="dialog"
@@ -70,6 +72,11 @@ const copyrightYears =
             analytics_storage: val,
           });
         }
+        function dispatchConsentEvent(val) {
+          try {
+            window.dispatchEvent(new CustomEvent("privacyConsentChanged", { detail: val }));
+          } catch (e) {}
+        }
 
         window.privacyConsent.reset = function () {
           setPref("");
@@ -101,35 +108,41 @@ const copyrightYears =
           $accept.addEventListener("click", function () {
             setPref("granted");
             if (hasGtag()) updateConsent("granted");
+            dispatchConsentEvent("granted");
             hide();
           });
         if ($reject)
           $reject.addEventListener("click", function () {
             setPref("denied");
             if (hasGtag()) updateConsent("denied");
+            dispatchConsentEvent("denied");
             hide();
           });
       })();
     </script>
   </div>
-  &copy; {copyrightYears}
-  {SITE_TITLE}. All rights reserved.
-  <div class="social-links">
-    <a
-      href="https://www.linkedin.com/in/trevor-lauder"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <span class="sr-only">Connect with Trevor on LinkedIn</span>
-      <Icon name="fa7-brands:linkedin" width="32" height="32" />
-    </a>
-    <a
-      href="https://github.com/trevorlauder"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      <span class="sr-only">Go to Trevor's GitHub repo</span>
-      <Icon name="fa7-brands:github" width="32" height="32" />
-    </a>
-  </div>
+	<div class="text-center text-[var(--text-secondary)] mb-6">
+		&copy; {copyrightYears}
+		{SITE_TITLE}. All rights reserved.
+	</div>
+	<div class="flex justify-center gap-1">
+		<a
+			href="https://www.linkedin.com/in/trevor-lauder"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+		>
+			<span class="sr-only">Connect with Trevor on LinkedIn</span>
+			<Icon name="fa7-brands:linkedin" width="28" height="28" />
+		</a>
+		<a
+			href="https://github.com/trevorlauder"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
+		>
+			<span class="sr-only">Go to Trevor's GitHub repo</span>
+			<Icon name="fa7-brands:github" width="28" height="28" />
+		</a>
+	</div>
 </footer>

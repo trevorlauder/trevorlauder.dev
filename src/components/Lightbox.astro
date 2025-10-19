@@ -1,0 +1,127 @@
+---
+interface Props {
+  images: Array<{ full: any; caption: string }>;
+}
+
+const { images } = Astro.props;
+---
+
+<div id="lightbox-container" class="hidden fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/[.90] pointer-events-none p-0">
+  <button
+    id="lightbox-close"
+    class="absolute top-4 right-4 text-white text-3xl hover:text-gray-300 transition-colors z-10 pointer-events-auto"
+    aria-label="Close lightbox"
+  >
+    ✕
+  </button>
+
+  <button
+    id="lightbox-prev"
+    class="absolute left-4 text-white text-4xl hover:text-gray-300 transition-colors disabled:opacity-50 z-10 pointer-events-auto"
+    aria-label="Previous image"
+  >
+    ‹
+  </button>
+
+  <img
+    id="lightbox-image"
+    src=""
+    alt=""
+    class="w-4/5 h-4/5 object-contain z-10 pointer-events-auto rounded-lg"
+  />
+
+  <button
+    id="lightbox-next"
+    class="absolute right-4 text-white text-4xl hover:text-gray-300 transition-colors disabled:opacity-50 z-10 pointer-events-auto"
+    aria-label="Next image"
+  >
+    ›
+  </button>
+
+  <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm z-10">
+    <span id="lightbox-counter"></span>
+  </div>
+
+  <p
+    id="lightbox-caption"
+    class="absolute bottom-12 left-1/2 -translate-x-1/2 text-white text-center px-4 text-sm md:text-base max-w-2xl z-10"
+  >
+  </p>
+</div>
+
+<script define:vars={{ images }}>
+  const lightboxContainer = document.getElementById("lightbox-container");
+  const lightboxImage = document.getElementById("lightbox-image");
+  const lightboxCaption = document.getElementById("lightbox-caption");
+  const lightboxCounter = document.getElementById("lightbox-counter");
+  const lightboxClose = document.getElementById("lightbox-close");
+  const lightboxPrev = document.getElementById("lightbox-prev");
+  const lightboxNext = document.getElementById("lightbox-next");
+
+  let currentIndex = 0;
+
+  const imageList = images.map((img) => ({
+    src: img.full.src,
+    caption: img.caption,
+  }));
+
+  function openLightbox(index) {
+    currentIndex = index;
+    updateLightbox();
+    lightboxContainer.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    lightboxContainer.classList.add("hidden");
+    document.body.style.overflow = "auto";
+  }
+
+  function updateLightbox() {
+    const image = imageList[currentIndex];
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.caption;
+    lightboxCaption.textContent = image.caption;
+    lightboxCounter.textContent = `${currentIndex + 1} / ${imageList.length}`;
+
+    // Update button states
+    lightboxPrev.disabled = currentIndex === 0;
+    lightboxNext.disabled = currentIndex === imageList.length - 1;
+  }
+
+  function nextImage() {
+    if (currentIndex < imageList.length - 1) {
+      currentIndex++;
+      updateLightbox();
+    }
+  }
+
+  function prevImage() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateLightbox();
+    }
+  }
+
+  // Event listeners
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightboxPrev.addEventListener("click", prevImage);
+  lightboxNext.addEventListener("click", nextImage);
+
+  // Keyboard navigation
+  document.addEventListener("keydown", (e) => {
+    if (lightboxContainer.classList.contains("hidden")) return;
+
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowLeft") prevImage();
+    if (e.key === "ArrowRight") nextImage();
+  });
+
+  window.openGalleryLightbox = openLightbox;
+</script>
+
+<style>
+  button:disabled {
+    cursor: not-allowed;
+  }
+</style>

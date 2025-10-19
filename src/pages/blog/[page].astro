@@ -1,0 +1,182 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	const allPosts = (await getCollection('blog')).map((post) => {
+		if (!post.data.pubDate) {
+			const dateMatch = post.id.match(/^(\d{4})-(\d{2})-(\d{2})/);
+			if (dateMatch) {
+				post.data.pubDate = new Date(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`);
+			}
+		}
+		return post;
+	}).filter((post) => post.data.pubDate).sort(
+		(a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0),
+	);
+
+	const postsPerPage = 3;
+	const paths = [];
+
+	// Page 1: 1 featured + 3 others = 4 total
+	paths.push({
+		params: { page: '1' },
+		props: {
+			posts: allPosts.slice(0, 4),
+			currentPage: 1,
+			totalPages: Math.ceil((allPosts.length - 1) / postsPerPage) + 1,
+			totalPosts: allPosts.length,
+		},
+	});
+
+	// Subsequent pages: 3 posts each
+	const remainingPosts = allPosts.slice(4);
+	const numPages = Math.ceil(remainingPosts.length / postsPerPage);
+
+	for (let i = 0; i < numPages; i++) {
+		paths.push({
+			params: { page: String(i + 2) },
+			props: {
+				posts: remainingPosts.slice(i * postsPerPage, (i + 1) * postsPerPage),
+				currentPage: i + 2,
+				totalPages: numPages + 1,
+				totalPosts: allPosts.length,
+			},
+		});
+	}
+
+	return paths;
+}
+
+interface Props {
+	posts: any[];
+	currentPage: number;
+	totalPages: number;
+	totalPosts: number;
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+const featuredPost = currentPage === 1 ? posts[0] : null;
+const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+	</head>
+	<body class="flex flex-col min-h-screen">
+		<Header />
+		<main class="flex-grow max-w-5xl mx-auto w-full px-4 md:px-6 py-8 md:py-12">
+			<section>
+			<h1 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900 dark:text-slate-50 text-center">
+				Blog Posts
+			</h1>
+			<hr class="border-t border-[var(--border)] mb-12" />				{/* Featured post on page 1 */}
+				{featuredPost && (
+					<div class="mb-12">
+						<a
+							href={`/blog/${featuredPost.id}/`}
+							class="block overflow-hidden rounded-lg border border-[var(--border)] hover:border-gray-300 dark:hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-white dark:bg-[var(--surface-secondary)] group"
+						>
+							{featuredPost.data.heroImage && (
+								<div class="relative overflow-hidden h-64 md:h-80 bg-gray-200 dark:bg-slate-800">
+									<Image
+										width={1000}
+										height={500}
+										src={featuredPost.data.heroImage}
+										alt={featuredPost.data.title}
+										loading="lazy"
+										class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+									/>
+								</div>
+							)}
+							<div class="p-8 md:p-10">
+								<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-slate-50 mb-4 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+									{featuredPost.data.title}
+								</h2>
+								<p class="text-sm text-gray-600 dark:text-slate-400 mb-4">
+									<FormattedDate date={featuredPost.data.pubDate!} />
+								</p>
+								{featuredPost.data.description && (
+									<p class="text-gray-700 dark:text-slate-300 text-lg">
+										{featuredPost.data.description}
+									</p>
+								)}
+							</div>
+						</a>
+					</div>
+				)}
+
+				{/* Regular posts */}
+				<ul class="grid gap-6 md:gap-8 mb-12">
+					{
+						regularPosts.map((post) => (
+							<li class="group">
+								<a
+									href={`/blog/${post.id}/`}
+									class="block h-full overflow-hidden rounded-lg border border-[var(--border)] hover:border-gray-300 dark:hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-white dark:bg-[var(--surface-secondary)]"
+								>
+									{post.data.heroImage && (
+										<div class="relative overflow-hidden h-48 md:h-56 bg-gray-200 dark:bg-slate-800">
+											<Image
+												width={720}
+												height={360}
+												src={post.data.heroImage}
+												alt={post.data.title}
+												loading="lazy"
+												class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+											/>
+										</div>
+									)}
+									<div class="p-6 md:p-8">
+										<h4 class="text-lg md:text-xl font-bold text-gray-900 dark:text-slate-50 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+											{post.data.title}
+										</h4>
+										<p class="text-sm text-gray-600 dark:text-slate-400">
+											<FormattedDate date={post.data.pubDate!} />
+										</p>
+										{post.data.description && (
+											<p class="text-gray-700 dark:text-slate-300 mt-4 line-clamp-2">
+												{post.data.description}
+											</p>
+										)}
+									</div>
+								</a>
+							</li>
+						))
+					}
+				</ul>
+
+				{/* Pagination */}
+				<div class="flex justify-center items-center gap-4">
+				{currentPage > 1 && (
+					<a
+						href={currentPage === 2 ? '/blog' : `/blog/${currentPage - 1}`}
+						class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors"
+					>
+						← Previous
+					</a>
+				)}					<span class="text-gray-600 dark:text-slate-400">
+						Page {currentPage} of {totalPages}
+					</span>
+
+					{currentPage < totalPages && (
+						<a
+							href={`/blog/${currentPage + 1}`}
+							class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors"
+						>
+							Next →
+						</a>
+					)}
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

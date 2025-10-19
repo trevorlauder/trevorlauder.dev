@@ -16,14 +16,14 @@ indexImage: /dbeaver-rds-iam.svg
 featuredImage: /dbeaver-rds-iam-featured.svg
 ---
 
-import BlogImage from '../../components/BlogImage.astro';
+import BlogImage from "../../components/BlogImage.astro";
 
 import mySQLDriverSettings from "../../assets/2022-11-02-DBeaver-AWS-RDS-IAM-Authentication/MySQL-Driver-Settings.webp";
 import postgreSQLDriverSettings from "../../assets/2022-11-02-DBeaver-AWS-RDS-IAM-Authentication/PostgreSQL-Driver-Settings.webp";
 import mySQLDriverProperties from "../../assets/2022-11-02-DBeaver-AWS-RDS-IAM-Authentication/MySQL-Driver-Properties.webp";
 import postgreSQLDriverProperties from "../../assets/2022-11-02-DBeaver-AWS-RDS-IAM-Authentication/PostgreSQL-Driver-Properties.webp";
 
-While DBeaver Professional has IAM authentication support out of the box.  This post describes how you can accompish the same thing while using DBeaver CE.
+While DBeaver Professional has IAM authentication support out of the box. This post describes how you can accompish the same thing while using DBeaver CE.
 
 # MySQL
 
@@ -36,9 +36,7 @@ You need to install the [AWS JDBC Driver for MySQL](https://github.com/awslabs/a
   - **URL Template**: jdbc:mysql:aws://&#123;host&#125;:&#123;port&#125;
   - **Default Port**: 3306
 
-  <BlogImage 
-    src={mySQLDriverSettings}
-  />
+  <BlogImage src={mySQLDriverSettings} />
 
 - Click on the `Libraries` tab -> `Add Artifact` and paste in the following:
 
@@ -73,9 +71,7 @@ You need to install the [AWS JDBC Driver](https://github.com/awslabs/aws-advance
   - **URL Template**: jdbc:aws-wrapper:postgresql://&#123;host&#125;:&#123;port&#125;/&#123;database&#125;
   - **Default Port**: 5432
 
-  <BlogImage 
-    src={postgreSQLDriverSettings}
-  />
+  <BlogImage src={postgreSQLDriverSettings} />
 
 - Click on the `Libraries` tab -> `Add Artifact` and paste in the following:
 
@@ -106,22 +102,21 @@ You need to install the [AWS JDBC Driver](https://github.com/awslabs/aws-advance
 
 # Using the driver
 
-- Completely exit DBeaver and re-open it from your terminal window.  This is needed so it loads your `AWS_PROFILE` environment variable.  You will need to remember to open DBeaver this way going forward to use the IAM credentials or find another way to load the environment variable on startup.  On macOS, I open the terminal and type the following to open DBeaver.  Set the profile name to be whatever your AWS profile is called, that has RDS IAM access.
+- Completely exit DBeaver and re-open it from your terminal window. This is needed so it loads your `AWS_PROFILE` environment variable. You will need to remember to open DBeaver this way going forward to use the IAM credentials or find another way to load the environment variable on startup. On macOS, I open the terminal and type the following to open DBeaver. Set the profile name to be whatever your AWS profile is called, that has RDS IAM access.
 
   ```shell
   AWS_PROFILE="my profile" open /Applications/DBeaver.app
   ```
+
 - Add a New Database Connection and use `AWS JDBC Driver for MySQL` or `AWS JDBC Driver for PostgreSQL` as the driver
 - For MySQL: Click on the `Driver properties` tab, scroll down to `useAwsIam` and set it to `true`
 
-  <BlogImage 
-    src={mySQLDriverProperties}
-  />
+  <BlogImage src={mySQLDriverProperties} />
+
 - For PostgreSQL: Click on the `Driver properties` tab, set `wrapperPlugins` to `iam`
 
-  <BlogImage 
-    src={postgreSQLDriverProperties}
-  />
+  <BlogImage src={postgreSQLDriverProperties} />
+
 - Enter your DB connection details in the `Main` tab
   - Use your database username, [that was configured to use IAM auth](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.html), and leave the password field blank
 - Click `Test Connection` and it should connect and authenticate to your RDS database
