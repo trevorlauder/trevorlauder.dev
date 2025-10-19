@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from "astro:content";
+import FormattedDate from "./FormattedDate.astro";
+import { Image } from "astro:assets";
+import { getPostSlug } from "../utils/blog";
+
+interface Props {
+  posts: CollectionEntry<"blog">[];
+  emptyMessage?: string;
+}
+
+const { posts, emptyMessage = "No posts found." } = Astro.props;
+---
+
+{
+  posts.length === 0 ? (
+    <p class="text-center text-gray-600 dark:text-slate-400">{emptyMessage}</p>
+  ) : (
+    <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+      {posts.map((post) => (
+        <li class="group h-96">
+          <a
+            href={`/blog/${getPostSlug(post.id)}/`}
+            class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-[var(--surface-secondary)] dark:bg-[var(--surface-secondary)] h-full flex flex-col"
+          >
+            {(post.data.indexImage || post.data.heroImage) && (
+              <div class="overflow-hidden -mx-px flex-shrink-0">
+                <Image
+                  width={720}
+                  height={360}
+                  src={post.data.indexImage || post.data.heroImage!}
+                  alt={post.data.title}
+                  loading="lazy"
+                  class="w-full h-auto block group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+            )}
+            <div class="p-6 md:p-8 flex-grow">
+              <h4 class="text-base md:text-lg font-bold text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent)] transition-colors">
+                {post.data.title}
+              </h4>
+              <p class="text-sm text-[var(--text-secondary)]">
+                <FormattedDate date={post.data.pubDate!} />
+              </p>
+            </div>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}

@@ -1,9 +1,20 @@
 import { visit } from "unist-util-visit";
 import type { Plugin } from "unified";
+import type { Node } from "unist";
+
+interface ElementNode extends Node {
+  tagName: string;
+  properties?: {
+    href?: string;
+    target?: string;
+    rel?: string;
+  };
+  children: Array<Record<string, unknown>>;
+}
 
 const rehypeExternalIconify: Plugin = () => {
   return (tree: unknown) => {
-    visit(tree, "element", (node: any) => {
+    visit(tree as Node, "element", (node: ElementNode) => {
       if (
         node.tagName === "a" &&
         node.properties?.href &&

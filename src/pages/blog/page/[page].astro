@@ -24,7 +24,7 @@ const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
 		<Header />
 		<main class="flex-grow max-w-6xl mx-auto w-full px-4 md:px-6 py-8 md:py-12">
 			<section>
-			<h1 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900 dark:text-slate-50 text-center">
+			<h1 class="text-3xl md:text-4xl font-bold mb-12 text-[var(--text-primary)] text-center">
 				Blog Posts
 			</h1>
 			<hr class="border-t border-[var(--border)] mb-12" />				{/* Featured post on page 1 */}
@@ -32,7 +32,7 @@ const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
 					<div class="mb-12">
 						<a
 							href={`/blog/${getPostSlug(featuredPost.id)}/`}
-							class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-gray-300 dark:hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-white dark:bg-[var(--surface-secondary)] group"
+							class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-[var(--surface-secondary)] dark:bg-[var(--surface-secondary)] group"
 						>
 							{(featuredPost.data.featuredImage || featuredPost.data.indexImage || featuredPost.data.heroImage) && (
 								<div class="overflow-hidden -mx-px">
@@ -47,10 +47,10 @@ const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
 								</div>
 							)}
 							<div class="p-4 md:p-6">
-								<h2 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-slate-50 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+								<h2 class="text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent)] transition-colors">
 									{featuredPost.data.title}
 								</h2>
-								<p class="text-sm text-gray-600 dark:text-slate-400">
+								<p class="text-sm text-[var(--text-secondary)]">
 									<FormattedDate date={featuredPost.data.pubDate!} />
 								</p>
 							</div>
@@ -65,7 +65,7 @@ const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
 							<li class="group h-96">
 								<a
 									href={`/blog/${getPostSlug(post.id)}/`}
-									class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-gray-300 dark:hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-white dark:bg-[var(--surface-secondary)] h-full flex flex-col"
+									class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-[var(--surface-secondary)] dark:bg-[var(--surface-secondary)] h-full flex flex-col"
 								>
 									{(post.data.indexImage || post.data.heroImage) && (
 										<div class="overflow-hidden -mx-px flex-shrink-0">
@@ -80,10 +80,10 @@ const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
 										</div>
 									)}
 									<div class="p-6 md:p-8 flex-grow">
-										<h4 class="text-base md:text-lg font-bold text-gray-900 dark:text-slate-50 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+										<h4 class="text-base md:text-lg font-bold text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent)] transition-colors">
 											{post.data.title}
 										</h4>
-										<p class="text-sm text-gray-600 dark:text-slate-400">
+										<p class="text-sm text-[var(--text-secondary)]">
 											<FormattedDate date={post.data.pubDate!} />
 										</p>
 									</div>
@@ -99,7 +99,7 @@ const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
 						{currentPage > 1 && (
 							<a
 								href={`/blog/page/${currentPage - 1}`}
-								class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors"
+								class="px-4 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg transition-colors"
 							>
 								← Previous
 							</a>
@@ -108,14 +108,14 @@ const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
 						{currentPage < totalPages && (
 							<a
 								href={`/blog/page/${currentPage + 1}`}
-								class="px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors"
+								class="px-4 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg transition-colors"
 							>
 								Next →
 							</a>
 						)}
 					</div>
 
-					<span class="text-gray-600 dark:text-slate-400">
+					<span class="text-[var(--text-secondary)]">
 						Page {currentPage} of {totalPages}
 					</span>
 				</div>

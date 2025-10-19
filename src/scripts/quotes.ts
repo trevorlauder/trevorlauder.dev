@@ -1,32 +1,6 @@
-(function (): void {
-  const QUOTES_PATH = "/quotes.json";
-  let quotes: string[] = [];
-  let el: HTMLElement | null = null;
+import { initializeRotator } from "./random-content-rotator";
 
-  function setRandomQuote(): void {
-    if (!quotes.length || !el) return;
-    const idx = Math.floor(Math.random() * quotes.length);
-    const t = quotes[idx];
-    if (typeof t !== "string" || !t.length) return;
-    const h = String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;");
-    el.innerHTML = "<p>" + h + "</p>";
-  }
-
-  function startQuoteRotion(): void {
-    setRandomQuote();
-    setInterval(setRandomQuote, 10000);
-  }
-
-  window.addEventListener("DOMContentLoaded", function (): void {
-    el = document.getElementById("quote");
-    if (!el) return;
-    fetch(QUOTES_PATH)
-      .then((r) => r.json())
-      .then((data: unknown) => {
-        if (Array.isArray(data) && data.length) {
-          quotes = data;
-          startQuoteRotion();
-        }
-      });
-  });
-})();
+initializeRotator({
+  jsonPath: "/quotes.json",
+  elementId: "quote",
+});
