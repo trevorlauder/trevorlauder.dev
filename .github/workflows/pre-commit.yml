@@ -14,4 +14,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "24.10.0"
+      - run: npm ci
       - uses: pre-commit/action@v3.0.1
