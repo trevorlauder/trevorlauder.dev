@@ -43,12 +43,10 @@ const description = content.description;
       (function () {
         var $btn = document.getElementById("reset-consent");
         if (!$btn) {
-          console.log("reset-consent button not found");
           return;
         }
-        console.log("reset-consent button found");
+
         $btn.addEventListener("click", function () {
-          console.log("reset-consent button clicked");
           if (
             window.privacyConsent &&
             typeof window.privacyConsent.reset === "function"
