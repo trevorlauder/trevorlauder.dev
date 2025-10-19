@@ -6,6 +6,7 @@ import Lightbox from "../components/Lightbox.astro";
 import { Icon } from "astro-icon/components";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import { Image } from "astro:assets";
+const { aboveTheFoldCount = 0 } = Astro.props;
 import splash from "../assets/splash.svg";
 
 import img1 from "../assets/gallery/DSC_0041-Max_Value.webp";
@@ -90,9 +91,11 @@ const galleryImages = [
 						>
 							<Image
 								src={image.full}
-								alt={image.caption}
-								widths={[320, 480, 640, 768]}
-								sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+								alt=""
+								widths={[160, 180, 200, 220, 240, 260, 280, 300, 320, 360, 400, 440, 480]}
+								sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+								quality={50}
+								loading={index < aboveTheFoldCount ? "eager" : "lazy"}
 								class="w-full h-auto block"
 							/>
 							<div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
