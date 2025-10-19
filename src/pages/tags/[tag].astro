@@ -1,0 +1,119 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+import { getPostSlug } from '../../utils/blog';
+import { Image } from 'astro:assets';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+
+	// Extract all unique tags
+	const tags = new Set<string>();
+	posts.forEach((post) => {
+		if (post.data.tags && Array.isArray(post.data.tags)) {
+			post.data.tags.forEach((tag) => {
+				tags.add(tag.toLowerCase().replace(/\s+/g, '-'));
+			});
+		}
+	});
+
+	return Array.from(tags).map((tag) => ({
+		params: { tag },
+		props: { tag },
+	}));
+}
+
+interface Props {
+	tag: string;
+}
+
+const { tag } = Astro.props;
+const posts = await getCollection('blog');
+
+// Filter posts by tag
+const tagLabel = tag.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+const filteredPosts = posts
+	.filter((post) =>
+		post.data.tags?.some(
+			(t) => t.toLowerCase().replace(/\s+/g, '-') === tag
+		)
+	)
+	.map((post) => {
+		if (!post.data.pubDate) {
+			const dateMatch = post.id.match(/^(\d{4})-(\d{2})-(\d{2})/);
+			if (dateMatch) {
+				post.data.pubDate = new Date(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`);
+			}
+		}
+		return post;
+	})
+	.filter((post) => post.data.pubDate)
+	.sort((a, b) => (b.data.pubDate?.valueOf() ?? 0) - (a.data.pubDate?.valueOf() ?? 0));
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`${tagLabel} | ${SITE_TITLE}`}
+			description={`Blog posts tagged with ${tagLabel}`}
+		/>
+	</head>
+	<body class="flex flex-col min-h-screen">
+		<Header />
+		<main class="flex-grow max-w-6xl mx-auto w-full px-4 md:px-6 py-8 md:py-12">
+			<section>
+			<h1 class="text-3xl md:text-4xl font-bold mb-12 text-gray-900 dark:text-slate-50 text-center">
+				{tagLabel}
+			</h1>
+			<hr class="border-t border-[var(--border)] mb-12" />			{filteredPosts.length === 0 ? (
+				<p class="text-center text-gray-600 dark:text-slate-400">No posts found with this tag.</p>
+			) : (
+				<ul class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+					{filteredPosts.map((post) => (
+						<li class="group h-96">
+							<a
+								href={`/blog/${getPostSlug(post.id)}/`}
+								class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-gray-300 dark:hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-white dark:bg-[var(--surface-secondary)] h-full flex flex-col"
+							>
+								{(post.data.indexImage || post.data.heroImage) && (
+									<div class="overflow-hidden -mx-px flex-shrink-0">
+										<Image
+											width={720}
+											height={360}
+											src={post.data.indexImage || post.data.heroImage!}
+											alt={post.data.title}
+											loading="lazy"
+											class="w-full h-auto block group-hover:scale-105 transition-transform duration-300"
+										/>
+									</div>
+								)}
+								<div class="p-6 md:p-8 flex-grow">
+									<h4 class="text-base md:text-lg font-bold text-gray-900 dark:text-slate-50 mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+										{post.data.title}
+									</h4>
+									<p class="text-sm text-gray-600 dark:text-slate-400">
+										<FormattedDate date={post.data.pubDate!} />
+									</p>
+								</div>
+							</a>
+						</li>
+					))}
+				</ul>
+			)}				<div class="mt-8 text-center">
+					<a
+						href="/tags"
+						class="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 text-white rounded-lg transition-colors"
+					>
+						← Back to Tags
+					</a>
+				</div>
+			</section>
+		</main>
+		<Footer />
+	</body>
+</html>

@@ -1,7 +1,7 @@
-<section class="mx-auto mt-12">
+<section class="mt-12 pt-8 border-t border-[var(--border)]">
   <script is:inline>
-    // Dynamically inject Giscus with the correct theme on initial load
-    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+    const theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+
     const script = document.createElement('script');
     script.src = 'https://giscus.app/client.js';
     script.setAttribute('data-repo', 'trevorlauder/trevorlauder.dev');
@@ -20,15 +20,3 @@
     document.currentScript.parentElement.appendChild(script);
   </script>
 </section>
-
-<script is:inline>
-  function updateGiscusTheme() {
-    const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-    const iframe = document.querySelector('iframe.giscus-frame');
-    if (!iframe) return;
-    iframe.contentWindow.postMessage({ giscus: { setConfig: { theme } } }, 'https://giscus.app');
-  }
-
-  const observer = new MutationObserver(updateGiscusTheme);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-</script>

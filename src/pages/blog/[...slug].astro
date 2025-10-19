@@ -1,32 +1,40 @@
 ---
-import { type CollectionEntry, getCollection, render } from "astro:content";
-import BlogPost from "../../layouts/BlogPost.astro";
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import BlogPost from '../../layouts/BlogPost.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+	const posts = await getCollection('blog');
+	return posts.map((post) => {
+		if (!post.data.pubDate) {
+			const dateMatch = post.id.match(/^(\d{4})-(\d{2})-(\d{2})/);
+			if (dateMatch) {
+				post.data.pubDate = new Date(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`);
+			}
+		}
+		// Extract date and slug from post.id (format: YYYY-MM-DD-slug-with-dashes)
+		const dateMatch = post.id.match(/^(\d{4})-(\d{2})-(\d{2})-(.+)$/);
+		let slug = post.id;
+		let year = '';
+		let month = '';
+		let day = '';
 
-  return posts.map((post) => {
-    const [year, month, day, ...rest] = post.id.split("-");
-    const rawTitle = rest.join("-");
-    const slugArr = [year, month, day, rest.join("-").toLowerCase()];
+		if (dateMatch && dateMatch.length >= 5) {
+			year = dateMatch[1] || '';
+			month = dateMatch[2] || '';
+			day = dateMatch[3] || '';
+			slug = (dateMatch[4] || '').toLowerCase();
+		}
 
-    return {
-      params: { slug: slugArr.join("/") },
-      props: { post },
-    };
-  });
+		return {
+			params: { slug: `${year}/${month}/${day}/${slug}` },
+			props: post,
+		};
+	});
 }
+type Props = CollectionEntry<'blog'>;
 
-type Props = {
-  post: CollectionEntry<"blog">;
-};
-
-const { post } = Astro.props;
-
-const [year, month, day, ...rest] = post.id.split("-");
-const date = post.data.date ?? new Date(`${year}-${month}-${day}`);
-
+const post = Astro.props;
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data} date={date} Content={Content} ogImage={post.data.ogImage} />
+<BlogPost {...post.data} Content={Content} />

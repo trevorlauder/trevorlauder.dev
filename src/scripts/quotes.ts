@@ -1,9 +1,9 @@
-
-(function () {
+(function (): void {
   const QUOTES_PATH = "/quotes.json";
-  let quotes = [];
-  let el = null;
-  function setRandomQuote() {
+  let quotes: string[] = [];
+  let el: HTMLElement | null = null;
+
+  function setRandomQuote(): void {
     if (!quotes.length || !el) return;
     const idx = Math.floor(Math.random() * quotes.length);
     const t = quotes[idx];
@@ -11,16 +11,18 @@
     const h = String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;");
     el.innerHTML = "<p>" + h + "</p>";
   }
-  function startQuoteRotion() {
+
+  function startQuoteRotion(): void {
     setRandomQuote();
     setInterval(setRandomQuote, 10000);
   }
-  window.addEventListener("DOMContentLoaded", function () {
+
+  window.addEventListener("DOMContentLoaded", function (): void {
     el = document.getElementById("quote");
     if (!el) return;
     fetch(QUOTES_PATH)
       .then((r) => r.json())
-      .then((data) => {
+      .then((data: unknown) => {
         if (Array.isArray(data) && data.length) {
           quotes = data;
           startQuoteRotion();

@@ -67,7 +67,7 @@
 
   <!-- command line (aligned baselines) -->
   <text x="0" y="42" class="mono" font-size="28" fill="#9efdaa" font-weight="700">❯</text>
-  <text x="28" y="42" class="mono" font-size="17" fill="#E2E8F0" font-weight="700">curl https://trevor.lauder.family/404</text>
+  <text x="28" y="42" class="mono" font-size="17" fill="#E2E8F0" font-weight="700">curl https://trevorlauder.dev/404</text>
 
   <!-- output line (lower for breathing room) -->
   <text x="0" y="86" class="mono" font-size="28" fill="#ff6b6b" font-weight="700">COMPUTER SAYS NO</text>
