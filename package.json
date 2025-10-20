@@ -18,7 +18,7 @@
     "@fontsource/inter": "^5.2.8",
     "@iconify-json/fa7-brands": "^1.2.0",
     "@iconify-json/fa7-solid": "^1.2.2",
-    "@tailwindcss/vite": "^4.1.14",
+    "@tailwindcss/vite": "^4.1.15",
     "astro": "^5.14.6",
     "astro-expressive-code": "^0.41.3",
     "astro-icon": "^1.1.5",
