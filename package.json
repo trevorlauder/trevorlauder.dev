@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.7",
-    "@astrojs/rss": "^4.0.12",
+    "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
     "@expressive-code/plugin-line-numbers": "^0.41.3",
     "@fontsource/inter": "^5.2.8",
