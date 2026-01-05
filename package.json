@@ -26,9 +26,9 @@
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
-    "npm-check-updates": "^19.2.0",
+    "npm-check-updates": "^19.3.0",
     "@tailwindcss/typography": "^0.5.19",
-    "@typescript-eslint/eslint-plugin": "^8.50.1",
+    "@typescript-eslint/eslint-plugin": "^8.51.0",
     "@typescript-eslint/parser": "^8.50.1",
     "astro-eslint-parser": "^1.2.2",
     "eslint": "^9.39.2",
