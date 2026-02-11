@@ -16,13 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-python@v6
+      - uses: jdx/mise-action@v3
         with:
-          cache: "pip"
-      - uses: actions/setup-node@v6
-        with:
-          node-version: "24.10.0"
-          cache: "npm"
+          version: 2026.2.9
+          install: true
+          cache: true
       - uses: actions/cache@v5
         with:
           path: ~/.cache/pre-commit
@@ -35,9 +33,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: actions/setup-node@v6
+      - uses: jdx/mise-action@v3
         with:
-          node-version: "24.10.0"
-          cache: "npm"
+          version: 2026.2.9
+          install: true
+          cache: true
       - run: npm ci
       - run: npm run build
