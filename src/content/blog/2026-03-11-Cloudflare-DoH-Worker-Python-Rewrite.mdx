@@ -1,0 +1,32 @@
+---
+title: Cloudflare DoH Worker (Python Rewrite)
+categories:
+  - Home Projects
+tags:
+  - Python
+  - Personal Projects
+  - Cloudflare Workers
+  - DNS over HTTPS (DoH)
+  - NextDNS
+  - Quad9
+  - Cloudflare DNS
+  - Grafana Loki
+description: A quick tour of the Python rewrite of my Cloudflare DoH Worker.
+ogImage: /doh-avoidance.png
+indexImage: /doh-avoidance.svg
+featuredImage: /doh-avoidance-featured.svg
+---
+
+I've completed a full Python rewrite of my Cloudflare DoH Worker. I originally used JavaScript because Python support in Workers wasn't mature enough at the time, but it has improved and Python is my preferred language. If you're still running the JavaScript build, that version ends at the 0.9.0 release.
+
+## What's new in the Python rewrite
+
+- Grafana dashboard included
+- Retry logic for upstream connection issues
+- Configurable ECS truncation for privacy
+- DNS rebind protection
+- DNS JSON client support
+- Per-domain blocklist and allowlist with wildcard support (not intended for large community lists due to Worker resource limits)
+  - Allowed domains skip fan-out and go directly to a non-filtering bypass provider
+
+Code and deployment instructions are on [GitHub](https://github.com/trevorlauder/cloudflare-doh-worker).
