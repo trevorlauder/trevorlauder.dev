@@ -26,7 +26,7 @@ I've completed a full Python rewrite of my Cloudflare DoH Worker. I originally u
 - Configurable ECS truncation for privacy
 - DNS rebind protection
 - DNS JSON client support
-- Per-domain blocklist and allowlist with wildcard support (not intended for large community lists due to Worker resource limits)
+- Domain blocklist and allowlist with wildcard support (not intended for large community lists due to Worker resource limits)
   - Allowed domains skip fan-out and go directly to a non-filtering bypass provider
 
 Code and deployment instructions are on [GitHub](https://github.com/trevorlauder/cloudflare-doh-worker).
