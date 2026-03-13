@@ -1,6 +1,6 @@
 name = "trevorlauder-dev"
 workers_dev = false
-preview_urls = true
+preview_urls = false
 send_metrics = false
 compatibility_date = "2025-08-13"
 
