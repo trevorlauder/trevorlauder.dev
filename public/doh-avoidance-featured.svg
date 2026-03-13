@@ -42,5 +42,5 @@
     <rect x="-160" y="120" width="320" height="70" rx="20" fill="#1F5F8B"/>
   </g>
   <text x="100" y="80" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="44" fill="#E6ECF1" font-weight="600">Avoiding DoH Detection</text>
-  <text x="100" y="120" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#7F9DBD">Aurora, privacy, and DNS security</text>
+  <text x="100" y="120" font-family="'Inter', 'Helvetica Neue', Arial, sans-serif" font-size="22" fill="#7F9DBD">Privacy and DNS security</text>
 </svg>
