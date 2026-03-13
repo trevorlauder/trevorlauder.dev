@@ -24,12 +24,13 @@ The project proxies DNS-over-HTTPS queries to multiple upstream providers in par
 This originally started as a workaround when our school division blocked DoH on my kids' devices. At first it was just a simple Cloudflare Worker proxying requests to NextDNS on a custom domain that the school didn't block. That eventually turned into this project, which I originally built in JavaScript because Python support in Cloudflare Workers wasn't good enough at the time. Now that it is, I've rewritten the worker in Python (my preferred language) and added some improvements.
 
 Some of the improvements include:
-• Retry logic for upstream connection issues
-• Configurable ECS truncation for privacy
-• DNS rebind protection
-• Support for DNS JSON clients
-• Optional Loki logging with a Grafana dashboard
-• Domain blocklist and allowlist overrides
+
+- Retry logic for upstream connection issues
+- Configurable ECS truncation for privacy
+- DNS rebind protection
+- Support for DNS JSON clients
+- Optional Loki logging with a Grafana dashboard
+- Domain blocklist and allowlist overrides
 
 Allowed domains can skip fan-out entirely and go straight to a configurable non-filtering provider, while blocked domains are enforced regardless of upstream responses.
 
