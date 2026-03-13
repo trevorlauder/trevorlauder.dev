@@ -39,7 +39,17 @@ export function enrichPostsWithDates(posts: CollectionEntry<"blog">[]): Collecti
     if (!post.data.pubDate) {
       const dateMatch = post.id.match(/^(\d{4})-(\d{2})-(\d{2})/);
       if (dateMatch) {
-        post.data.pubDate = new Date(`${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`);
+        return {
+          ...post,
+          data: {
+            ...post.data,
+            pubDate: new Date(
+              parseInt(dateMatch[1]!),
+              parseInt(dateMatch[2]!) - 1,
+              parseInt(dateMatch[3]!)
+            ),
+          },
+        };
       }
     }
     return post;
