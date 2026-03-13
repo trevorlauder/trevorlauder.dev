@@ -17,16 +17,20 @@ indexImage: /doh-avoidance.svg
 featuredImage: /doh-avoidance-featured.svg
 ---
 
-I've completed a full Python rewrite of my Cloudflare DoH Worker. I originally used JavaScript because Python support in Workers wasn't mature enough at the time, but it has improved and Python is my preferred language. If you're still running the JavaScript build, that version ends at the 0.9.0 release.
+I just finished a full rewrite of my Cloudflare DoH Worker, this time in Python.
 
-## What's new in the Python rewrite
+The project proxies DNS-over-HTTPS queries to multiple upstream providers in parallel and returns the most restrictive result. In other words, if any provider flags a domain as malicious, it gets blocked.
 
-- Grafana dashboard included
-- Retry logic for upstream connection issues
-- Configurable ECS truncation for privacy
-- DNS rebind protection
-- DNS JSON client support
-- Domain blocklist and allowlist with wildcard support (not intended for large community lists due to Worker resource limits)
-  - Allowed domains skip fan-out and go directly to a non-filtering bypass provider
+[This originally started as a workaround](https://trevorlauder.dev/blog/2021/09/25/avoiding-doh-detection-and-blocking/) when our school division blocked DoH on my kids' devices. At first it was just a simple Cloudflare Worker proxying requests to NextDNS on a custom domain that the school didn't block. That eventually turned into this project, which I originally built in JavaScript because Python support in Cloudflare Workers wasn't good enough at the time. Now that it is, I've fully rewritten the worker in Python (my preferred language) and added some improvements.
+
+Some highlights:
+• Retry logic for upstream connection issues
+• Configurable ECS truncation for privacy
+• DNS rebind protection
+• Support for DNS JSON clients
+• Optional Loki logging with a Grafana dashboard
+• Domain blocklist and allowlist overrides
+
+Allowed domains can skip fan-out entirely and go straight to a configurable non-filtering provider, while blocked domains are enforced regardless of upstream responses.
 
 Code and deployment instructions are on [GitHub](https://github.com/trevorlauder/cloudflare-doh-worker).
