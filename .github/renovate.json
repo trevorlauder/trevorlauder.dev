@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "schedule": ["every weekend"],
+  "mise": {
+    "managerFilePatterns": ["/(^|/)mise\\.toml$/"]
+  },
+  "packageRules": [
+    {
+      "matchManagers": ["github-actions"],
+      "groupName": "github-actions"
+    },
+    {
+      "matchManagers": ["mise"],
+      "groupName": "mise"
+    },
+    {
+      "matchManagers": ["npm"],
+      "groupName": "npm"
+    }
+  ]
+}
