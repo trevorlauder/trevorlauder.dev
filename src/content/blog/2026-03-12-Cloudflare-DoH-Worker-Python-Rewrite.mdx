@@ -11,7 +11,7 @@ tags:
   - Quad9
   - Cloudflare DNS
   - Grafana Loki
-updatedDate: 2026-03-20
+updatedDate: 2026-03-24
 description: A quick tour of the Python rewrite of my Cloudflare DoH Worker.
 ogImage: /doh-avoidance.png
 indexImage: /doh-avoidance.svg
@@ -32,10 +32,10 @@ Some of the improvements include:
 - Support for DNS JSON clients
 - Optional Loki logging with a Grafana dashboard
 - Domain blocklist and allowlist overrides
-- Community block lists via bloom filters stored in Cloudflare KV
+- Community block lists via bloom filters
 
 Allowed domains can skip fan-out entirely and go straight to a configurable non-filtering provider, while blocked domains are enforced regardless of upstream responses.
 
-The community block list support lets you point the worker at large curated lists (like Steven Black's hosts list) that are too big to put in config. A build script fetches the sources, deduplicates them, and generates a bloom filter that gets stored in Cloudflare KV. At runtime, the worker loads the filter once on cold start and checks it in memory on every request. The default false-positive rate target is one-in-ten-billion, and with ~4.2 million domains the filter is around 25MB. A GitHub Action can keep the lists updated automatically by opening a PR when sources change.
+The community block list support lets you point the worker at large curated lists (like Steven Black's hosts list) that are too big to put in config. A build script fetches the sources, deduplicates them, and generates a bloom filter that gets deployed as a Workers Asset. Filters under 25 MB are stored as a single file and loaded entirely into memory on first request. Filters up to 50 MB are split into two shards that both fit in the LRU cache, effectively loading the full filter into memory over time. Anything larger is sharded into ~512 KB chunks, fetching only the relevant shard per query with an in-memory LRU cache. The default false-positive rate target is one-in-ten-billion, and with ~4.2 million domains the filter is around 25MB. A GitHub Action can keep the lists updated automatically by opening a PR when sources change.
 
 Code and deployment instructions are on [GitHub](https://github.com/trevorlauder/cloudflare-doh-worker).
