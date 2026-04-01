@@ -4,6 +4,7 @@
 import '../styles/global.css';
 import "@fontsource/inter";
 import type { ImageMetadata } from 'astro';
+import { ClientRouter } from 'astro:transitions';
 import { SITE_TITLE } from '../consts';
 
 interface Props {
@@ -34,6 +35,9 @@ const { title, description, image, og_type = "website", author = "Trevor Lauder"
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalURL} />
+
+<!-- View Transitions -->
+<ClientRouter />
 
 <!-- Primary Meta Tags -->
 <title>{title}</title>
