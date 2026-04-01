@@ -1,5 +1,5 @@
 ---
-title: macOS dotfiles — bare Git repo, fast bootstrap, and reproducible dev environment
+title: macOS dotfiles
 categories:
   - Home Projects
   - DevOps
@@ -10,11 +10,19 @@ tags:
   - Homebrew
   - WezTerm
   - Git
+updatedDate: 2026-03-31
 description: A detailed guide to managing a reproducible macOS development environment using a bare Git repository, custom aliases, and curated dotfiles for Zsh, WezTerm, Homebrew, and more. Includes setup, automation, and best practices for fast onboarding.
 ogImage: /dotfiles.png
 indexImage: /dotfiles.svg
 featuredImage: /dotfiles-featured.svg
 ---
+
+import Note from "../../components/Note.astro";
+
+<Note>
+  I have since moved to [chezmoi](https://www.chezmoi.io/). The [dotfiles
+  repo](https://github.com/trevorlauder/dotfiles) reflects the current setup.
+</Note>
 
 I manage my macOS environment with a **bare Git [repository](https://github.com/trevorlauder/dotfiles)** stored at `$HOME/.dotfiles`, using my actual home directory as the working tree. The approach is minimal—no extra tooling required.
 

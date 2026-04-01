@@ -1,0 +1,11 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<div class="not-prose my-6 flex gap-3 rounded-lg border border-[var(--accent-light)] bg-[var(--accent-light)] p-4">
+    <Icon name="fa7-solid:circle-info" class="mt-0.5 h-5 w-5 shrink-0 text-[var(--accent)]" />
+    <div class="text-sm text-[var(--text-primary)]">
+        <span class="font-semibold">Note</span>
+        <div class="mt-1 text-[var(--text-secondary)]"><slot /></div>
+    </div>
+</div>
