@@ -58,7 +58,7 @@ For per-machine or private tweaks (tokens or secrets, work vs. personal settings
 - Lets you layer host-specific aliases or env vars without branching
 - Keeps the main tracked files portable and minimal
 
-Make sure it is NOT tracked.
+Make sure it is NOT tracked:
 
 ```sh
 echo '.dotfiles/' >> ~/.gitignore
@@ -67,7 +67,7 @@ dotfiles add ~/.gitignore
 dotfiles commit -m "chore: ignore local settings file" && dotfiles push
 ```
 
-Source it near the end of `~/.zshrc` (after exported defaults) so it can override any defaults.
+Source it near the end of `~/.zshrc` (after exported defaults) so it can override any defaults:
 
 ```sh
 [ -f "$HOME/.dotfiles-local-settings" ] && source "$HOME/.dotfiles-local-settings"
