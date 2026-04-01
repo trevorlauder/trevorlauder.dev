@@ -1,0 +1,34 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate?: Date | undefined;
+  updatedDate?: Date | undefined;
+  url: URL;
+  siteUrl: string;
+}
+
+const { title, description, pubDate, updatedDate, url, siteUrl } = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: title,
+  description,
+  url: url.href,
+  ...(pubDate && { datePublished: pubDate.toISOString() }),
+  ...(updatedDate && { dateModified: updatedDate.toISOString() }),
+  author: {
+    "@type": "Person",
+    name: "Trevor Lauder",
+    url: siteUrl,
+  },
+  publisher: {
+    "@type": "Person",
+    name: "Trevor Lauder",
+    url: siteUrl,
+  },
+};
+---
+
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
