@@ -25,9 +25,9 @@ import Note from "../../components/Note.astro";
   [devcontainers](https://github.com/trevorlauder/devcontainers) setup.
 </Note>
 
-I manage my macOS environment with a **bare Git [repository](https://github.com/trevorlauder/dotfiles)** stored at `$HOME/.dotfiles`, using my actual home directory as the working tree. The approach is minimal—no extra tooling required.
+I manage my macOS environment with a **bare Git [repository](https://github.com/trevorlauder/dotfiles)** stored at `$HOME/.dotfiles`, using my actual home directory as the working tree. The approach is minimal. No extra tooling required.
 
-Benefits:
+### Benefits
 
 - No `.git` directory cluttering `$HOME`
 - Standard `git` workflow via a simple alias
@@ -46,13 +46,13 @@ The examples below assume Git was installed via Homebrew on Apple Silicon, so th
 
 If your path differs, adjust the path inside the alias definition.
 
-With the alias defined, any `dotfiles <command>` behaves like a normal Git invocation—only the repository metadata stays hidden in `~/.dotfiles/`.
+With the alias defined, any `dotfiles <command>` behaves like a normal Git invocation. Only the repository metadata stays hidden in `~/.dotfiles/`.
 
-## Local overrides: `~/.dotfiles-local-settings`
+## Local overrides via `~/.dotfiles-local-settings`
 
 For per-machine or private tweaks (tokens or secrets, work vs. personal settings), keep a non-tracked overrides file. I use `~/.dotfiles-local-settings`.
 
-Why:
+### Why
 
 - Prevents leaking credentials or machine-specific paths
 - Lets you layer host-specific aliases or env vars without branching
@@ -67,7 +67,7 @@ dotfiles add ~/.gitignore
 dotfiles commit -m "chore: ignore local settings file" && dotfiles push
 ```
 
-Source it near the end of `~/.zshrc` (after exported defaults) so it can override:
+Source it near the end of `~/.zshrc` (after exported defaults) so it can override any defaults:
 
 ```sh
 [ -f "$HOME/.dotfiles-local-settings" ] && source "$HOME/.dotfiles-local-settings"

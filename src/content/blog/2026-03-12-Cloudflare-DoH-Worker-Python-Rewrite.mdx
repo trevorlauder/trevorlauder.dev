@@ -11,7 +11,7 @@ tags:
   - Quad9
   - Cloudflare DNS
   - Grafana Loki
-updatedDate: 2026-03-24
+updatedDate: 2026-03-31
 description: A quick tour of the Python rewrite of my Cloudflare DoH Worker.
 ogImage: /doh-avoidance.png
 indexImage: /doh-avoidance.svg
@@ -24,7 +24,7 @@ The project proxies DNS-over-HTTPS queries to multiple upstream providers in par
 
 This originally started as a workaround when our school division blocked DoH on my kids' devices. At first it was just a simple Cloudflare Worker proxying requests to NextDNS on a custom domain that the school didn't block. That eventually turned into this project, which I originally wrote in JavaScript because Python support in Cloudflare Workers wasn't good enough at the time. Now that it is, I've rewritten the worker in Python (my preferred language) and added some improvements.
 
-Some of the improvements include:
+## Improvements
 
 - Retry logic for upstream connection issues
 - Configurable ECS truncation for privacy
