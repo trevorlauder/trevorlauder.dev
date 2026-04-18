@@ -7,7 +7,7 @@
   },
   "packageRules": [
     {
-      "matchUpdateTypes": ["minor", "patch"],,
+      "matchUpdateTypes": ["minor", "patch"],
       "automerge": true
     },
     {
