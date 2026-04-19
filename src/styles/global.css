@@ -17,12 +17,12 @@
   --color-ink-900: #0b0d10;
 
   --color-blue-400: #5fa8d9;
-  --color-blue-600: #1d6fe0;
-  --color-blue-700: #1757b3;
+  --color-blue-600: #1a5fc6;
+  --color-blue-700: #12468f;
 
   --color-amber-400: #f0a954;
-  --color-amber-600: #c2610a;
-  --color-amber-700: #9a4d06;
+  --color-amber-600: #a4530a;
+  --color-amber-700: #7a3c05;
 
   --color-night-900: #0b0d10;
   --color-night-800: #111418;
@@ -32,8 +32,8 @@
   --color-night-200: #a6adb7;
   --color-night-50: #e8e6e1;
 
-  --color-accent: #1d6fe0;
-  --color-accent-dark: #1757b3;
+  --color-accent: #1a5fc6;
+  --color-accent-dark: #12468f;
 }
 
 @layer base {
@@ -147,6 +147,17 @@
 
   .card {
     @apply bg-[var(--surface-secondary)] dark:bg-[var(--surface-secondary)] border border-[var(--border)] rounded-lg;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  a:focus-visible,
+  button:focus-visible {
+    outline-offset: 3px;
   }
 }
 
