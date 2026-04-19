@@ -2,13 +2,7 @@ import sharp from "sharp";
 import path from "path";
 import fs from "fs";
 
-const images: string[] = [
-  "src/assets/og.svg",
-  "public/adjustable-bed-api.svg",
-  "public/dbeaver-rds-iam.svg",
-  "public/doh-avoidance.svg",
-  "public/dotfiles.svg",
-];
+const images: string[] = ["src/assets/og.svg"];
 
 async function convertSvgToPng(svgPath: string): Promise<void> {
   const ext = path.extname(svgPath);

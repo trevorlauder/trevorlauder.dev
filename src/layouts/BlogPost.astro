@@ -1,5 +1,4 @@
 ---
-import { Image } from "astro:assets";
 import { Icon } from "astro-icon/components";
 import type { CollectionEntry } from "astro:content";
 import BaseHead from "../components/BaseHead.astro";
@@ -8,12 +7,13 @@ import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
 import JsonLd from "../components/JsonLd.astro";
 import Comments from '../components/Comments.astro'
+import { normalizeSlug } from "../utils/blog";
 
 type Props = CollectionEntry<"blog">["data"] & {
 	Content: any;
 };
 
-const { title, description, pubDate, updatedDate, heroImage, Content } = Astro.props;
+const { title, description, pubDate, updatedDate, categories, tags, Content } = Astro.props;
 ---
 
 <html lang="en">
@@ -29,52 +29,63 @@ const { title, description, pubDate, updatedDate, heroImage, Content } = Astro.p
 		/>
 	</head>
 
-	<body class="flex flex-col min-h-screen">
+	<body class="min-h-screen">
 		<Header />
-		<main class="flex-grow max-w-6xl mx-auto w-full px-4 md:px-6 py-8 md:py-12">
-			<article class="prose dark:prose-invert max-w-none">
-				{
-					heroImage && (
-						<div class="mb-8 rounded-lg overflow-hidden">
-							<Image
-								width={1020}
-								height={510}
-								src={heroImage}
-								alt=""
-								loading="lazy"
-								class="w-full h-auto"
-							/>
-						</div>
-					)
-				}
-				<div class="mb-12 text-center">
-					<h1 class="text-xl md:text-2xl font-bold text-[var(--text-primary)] mb-12">
-						{title}
-					</h1>
-					<hr class="border-t border-[var(--border)] mb-12" />
+		<main id="main" class="max-w-[820px] mx-auto px-6 md:px-12 pt-16 md:pt-[64px] pb-24">
+			<a href="/blog/page/1" class="inline-flex items-center gap-1.5 mb-8 text-[13px] text-[var(--text-secondary)] no-underline hover:text-[var(--accent)]">← All writing</a>
+			<article>
+				<h1 class="font-serif font-normal text-[clamp(34px,4.5vw,48px)] leading-[1.1] tracking-[-0.02em] text-[var(--text-primary)] m-0 mb-5 text-balance">
+					{title}
+				</h1>
+				<div class="flex flex-wrap items-center gap-x-3 gap-y-2 pb-6 mb-10 border-b border-[var(--border-subtle)] text-[13px] text-[var(--text-muted)]">
+					{pubDate && (
+						<span class="text-[var(--text-primary)] font-medium"><FormattedDate date={pubDate} /></span>
+					)}
+					{updatedDate && (
+						<>
+							<span class="text-[var(--border-subtle)]" aria-hidden="true">·</span>
+							<span>Updated <FormattedDate date={updatedDate} /></span>
+						</>
+					)}
+					{categories && categories.length > 0 && (
+						<>
+							<span class="text-[var(--border-subtle)]" aria-hidden="true">·</span>
+							{categories.map((c: string) => (
+								<a
+									href={`/categories/${normalizeSlug(c)}/`}
+									class="text-[11px] py-0.5 px-2.5 border border-[var(--border-subtle)] rounded-full bg-[var(--surface)] text-[var(--text-secondary)] no-underline hover:border-[var(--accent)] hover:text-[var(--accent)]"
+								>{c}</a>
+							))}
+						</>
+					)}
 				</div>
-				<div class="flex flex-col gap-2 mb-6">
-					{
-						pubDate ? (
-							<div class="text-sm text-[var(--text-secondary)]">
-								Published: <FormattedDate date={pubDate} />
-							</div>
-						) : null
-					}
-					{
-						updatedDate ? (
-							<div class="text-sm text-[var(--text-secondary)]">
-								Last updated: <FormattedDate date={updatedDate} />
-							</div>
-						) : null
-					}
-				</div>
-				<div class="text-[var(--text-secondary)] leading-relaxed">
+				<div class="prose prose-article max-w-none text-[var(--text-primary)]">
 					<Content components={{ Icon }} />
 				</div>
+				{tags && tags.length > 0 && (
+					<div class="mt-10 pt-6 border-t border-[var(--border-subtle)] flex flex-wrap gap-2 items-center">
+						<span class="font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--text-muted)] mr-1">Tags</span>
+						{tags.map((t: string) => (
+							<a
+								href={`/tags/${normalizeSlug(t)}/`}
+								class="text-[12px] py-1 px-2.5 border border-[var(--border-subtle)] rounded-full text-[var(--text-secondary)] no-underline bg-[var(--surface)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+							>{t}</a>
+						))}
+					</div>
+				)}
 			</article>
-			<Comments/>
+			<div class="mt-12 pt-8 border-t border-[var(--border-subtle)] grid grid-cols-[auto_1fr_auto] gap-4 items-center">
+				<span class="w-[42px] h-[42px] rounded-full flex items-center justify-center text-[15px] font-semibold text-[var(--background)]" style="background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, var(--text-primary)));">TL</span>
+				<span class="flex flex-col">
+					<b class="font-medium text-[14px] text-[var(--text-primary)]">Trevor Lauder</b>
+					<span class="text-[13px] text-[var(--text-muted)]">Senior Site Reliability Engineer at Jobber &middot; Sylvan Lake, AB</span>
+				</span>
+				<a href="/rss.xml" class="text-[13px] text-[var(--text-secondary)] no-underline py-2 px-3.5 border border-[var(--border-subtle)] rounded-full bg-[var(--surface)] hover:border-[var(--accent)] hover:text-[var(--accent)] whitespace-nowrap">Subscribe via RSS</a>
+			</div>
+			<div class="mt-12 pt-8 border-t border-[var(--border-subtle)]">
+				<Comments />
+			</div>
+			<Footer />
 		</main>
-		<Footer />
 	</body>
 </html>

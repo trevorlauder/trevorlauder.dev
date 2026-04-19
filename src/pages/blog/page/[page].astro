@@ -1,126 +1,83 @@
 ---
-import { Image } from 'astro:assets';
 import BaseHead from '../../../components/BaseHead.astro';
 import Footer from '../../../components/Footer.astro';
-import FormattedDate from '../../../components/FormattedDate.astro';
 import Header from '../../../components/Header.astro';
+import PostGrid from '../../../components/PostGrid.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../../../consts';
-import { getBlogStaticPaths, getPostSlug, type BlogPageProps } from '../../../utils/blog';
+import { getBlogStaticPaths, type BlogPageProps } from '../../../utils/blog';
+import { getCollection } from 'astro:content';
+import { normalizeSlug } from '../../../utils/blog';
 
 export const getStaticPaths = getBlogStaticPaths;
 type Props = BlogPageProps;
 
 const { posts, currentPage, totalPages } = Astro.props;
-const featuredPost = currentPage === 1 ? posts[0] : null;
-const regularPosts = currentPage === 1 ? posts.slice(1) : posts;
+
+// Build the category filter row from ALL posts (not just this page), so chips
+// don't appear/disappear when paginating.
+const all = await getCollection('blog');
+const categories = Array.from(
+	new Set(all.flatMap((p) => p.data.categories ?? []))
+).sort();
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+		<BaseHead title={`Writing | ${SITE_TITLE}`} description={SITE_DESCRIPTION} />
 	</head>
-	<body class="flex flex-col min-h-screen">
+	<body class="min-h-screen">
 		<Header />
-		<main class="flex-grow max-w-6xl mx-auto w-full px-4 md:px-6 py-8 md:py-12">
-			<section>
-			<h1 class="text-3xl md:text-4xl font-bold mb-12 text-[var(--text-primary)] text-center">
-				Blog Posts
-			</h1>
-			<hr class="border-t border-[var(--border)] mb-12" />				{/* Featured post on page 1 */}
-				{featuredPost && (
-					<div class="mb-12">
+		<main id="main" class="max-w-7xl mx-auto px-6 md:px-12 pt-[72px] pb-24">
+			<header class="pb-10 border-b border-[var(--border-subtle)] mb-8">
+				<h1 class="font-serif font-normal text-[clamp(40px,5.4vw,56px)] leading-[1.05] tracking-[-0.025em] text-[var(--text-primary)] m-0 text-balance">
+					Writing
+				</h1>
+			</header>
+
+			{categories.length > 0 && (
+				<nav aria-label="Filter by category" class="flex flex-wrap gap-2 mb-8 pb-6 border-b border-[var(--border-subtle)]">
+					<a
+						href="/blog/page/1"
+						class="text-[12px] py-1.5 px-3 rounded-full border transition-colors bg-[var(--text-primary)] text-[var(--background)] border-[var(--text-primary)]"
+					>All</a>
+					{categories.map((c) => (
 						<a
-							href={`/blog/${getPostSlug(featuredPost.id)}/`}
-							class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-[var(--surface-secondary)] dark:bg-[var(--surface-secondary)] group"
-						>
-							{(featuredPost.data.featuredImage || featuredPost.data.indexImage || featuredPost.data.heroImage) && (
-								<div class="overflow-hidden -mx-px">
-									<Image
-										width={1000}
-										height={500}
-										src={featuredPost.data.featuredImage || featuredPost.data.indexImage || featuredPost.data.heroImage}
-										alt={featuredPost.data.title}
-										loading="lazy"
-										class="w-full h-auto"
-									/>
-								</div>
-							)}
-							<div class="p-4 md:p-6">
-								<h2 class="text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-2 group-hover:text-[var(--accent)] transition-colors">
-									{featuredPost.data.title}
-								</h2>
-								<p class="text-sm text-[var(--text-secondary)]">
-									<FormattedDate date={featuredPost.data.pubDate!} />
-								</p>
-							</div>
-						</a>
-					</div>
-				)}
+							href={`/categories/${normalizeSlug(c)}/`}
+							class="text-[12px] py-1.5 px-3 rounded-full border transition-colors border-[var(--border-subtle)] text-[var(--text-secondary)] bg-[var(--surface)] hover:border-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+						>{c}</a>
+					))}
+				</nav>
+			)}
 
-				{/* Regular posts */}
-				<ul class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
-					{
-						regularPosts.map((post) => (
-							<li class="group h-96">
-								<a
-									href={`/blog/${getPostSlug(post.id)}/`}
-									class="card-hover block overflow-hidden rounded-lg border border-[var(--border)] hover:border-[var(--border-hover)] transition-all duration-300 hover:shadow-lg dark:hover:shadow-xl bg-[var(--surface-secondary)] dark:bg-[var(--surface-secondary)] h-full flex flex-col"
-								>
-									{(post.data.indexImage || post.data.heroImage) && (
-										<div class="overflow-hidden -mx-px flex-shrink-0">
-											<Image
-												width={720}
-												height={360}
-												src={post.data.indexImage || post.data.heroImage}
-												alt={post.data.title}
-												loading="lazy"
-												class="w-full h-auto block"
-											/>
-										</div>
-									)}
-									<div class="p-6 md:p-8 flex-grow">
-										<h4 class="text-base md:text-lg font-bold text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent)] transition-colors">
-											{post.data.title}
-										</h4>
-										<p class="text-sm text-[var(--text-secondary)]">
-											<FormattedDate date={post.data.pubDate!} />
-										</p>
-									</div>
-								</a>
-							</li>
-						))
-					}
-				</ul>
+			<PostGrid posts={posts} groupByYear={true} emptyMessage="No posts yet." />
 
-				{/* Pagination */}
-				<div class="flex flex-col justify-center items-center gap-4">
-					<div class="flex justify-center items-center gap-4">
-						{currentPage > 1 && (
+			{totalPages > 1 && (
+				<section class="pt-10 mt-2">
+					<div class="flex items-center justify-between">
+						{currentPage > 1 ? (
 							<a
 								href={`/blog/page/${currentPage - 1}`}
-								class="px-4 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg transition-colors"
+								class="font-mono text-[13px] text-[var(--text-secondary)] hover:text-[var(--accent)] no-underline"
 							>
 								← Previous
 							</a>
-						)}
-
-						{currentPage < totalPages && (
+						) : <span></span>}
+						<span class="font-mono text-[12px] uppercase tracking-[0.08em] text-[var(--text-muted)]">
+							Page {currentPage} / {totalPages}
+						</span>
+						{currentPage < totalPages ? (
 							<a
 								href={`/blog/page/${currentPage + 1}`}
-								class="px-4 py-2 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg transition-colors"
+								class="font-mono text-[13px] text-[var(--text-secondary)] hover:text-[var(--accent)] no-underline"
 							>
 								Next →
 							</a>
-						)}
+						) : <span></span>}
 					</div>
-
-					<span class="text-[var(--text-secondary)]">
-						Page {currentPage} of {totalPages}
-					</span>
-				</div>
-			</section>
+				</section>
+			)}
+			<Footer />
 		</main>
-		<Footer />
 	</body>
 </html>

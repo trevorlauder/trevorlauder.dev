@@ -1,0 +1,108 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import Lightbox from "../components/Lightbox.astro";
+import { Icon } from "astro-icon/components";
+import { SITE_TITLE } from "../consts";
+import { Image } from "astro:assets";
+
+import img1 from "../assets/gallery/DSC_0041-Max_Value.webp";
+import img2 from "../assets/gallery/DSC_0047-Max_Value.webp";
+import img3 from "../assets/gallery/DSC_0053-Min_Horizon_Noise.webp";
+import img4 from "../assets/gallery/DSC_5856.webp";
+import img5 from "../assets/gallery/DSC_6005.webp";
+import img6 from "../assets/gallery/DSC_6007.webp";
+import img7 from "../assets/gallery/DSC_6008.webp";
+import img8 from "../assets/gallery/DSC_6011.webp";
+import img9 from "../assets/gallery/DSC_6076.webp";
+import img10 from "../assets/gallery/DSC_6106.webp";
+import img11 from "../assets/gallery/DSC_6110.webp";
+import img12 from "../assets/gallery/DSC_6119.webp";
+import img13 from "../assets/gallery/DSC_6146.webp";
+import img14 from "../assets/gallery/DSC_6156.webp";
+import img15 from "../assets/gallery/DSC_6181.webp";
+import img16 from "../assets/gallery/P6050177.webp";
+import img17 from "../assets/gallery/P7160043.webp";
+import img18 from "../assets/gallery/P7250020.webp";
+
+const { aboveTheFoldCount = 0 } = Astro.props;
+
+const galleryImages = [
+  { full: img1, caption: "Milky Way @ Dry Island Buffalo Jump Provincial Park" },
+  { full: img2, caption: "Milky Way @ Dry Island Buffalo Jump Provincial Park" },
+  { full: img3, caption: "Milky Way w/ Andromeda @ Dry Island Buffalo Jump Provincial Park" },
+  { full: img4, caption: "Comet C/2020 F3 (NEOWISE)" },
+  { full: img5, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img6, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img7, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img8, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img9, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img10, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img11, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img12, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img13, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img14, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img15, caption: "Dry Island Buffalo Jump Provincial Park" },
+  { full: img16, caption: "Sylvan Lake, Alberta, Canada" },
+  { full: img17, caption: "Comet C/2020 F3 (NEOWISE)" },
+  { full: img18, caption: "Sylvan Lake, Alberta, Canada" },
+];
+
+const title = "Photography";
+const description = "Astrophotography and landscape work from southern Alberta.";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <BaseHead title={`${title} | ${SITE_TITLE}`} description={description} />
+  </head>
+  <body class="min-h-screen">
+    <Header />
+    <main id="main" class="max-w-[1280px] mx-auto px-6 md:px-12 pt-[72px] pb-24">
+      <header class="pb-10 border-b border-[var(--border-subtle)] mb-10">
+        <h1 class="font-serif font-normal text-[clamp(40px,5.4vw,56px)] leading-[1.05] tracking-[-0.025em] text-[var(--text-primary)] m-0 text-balance">
+          Photography
+        </h1>
+      </header>
+
+      <div class="columns-1 sm:columns-2 lg:columns-4 gap-2 space-y-2">
+        {galleryImages.map((image, index) => (
+          <button
+            onclick={`window.openGalleryLightbox(${index})`}
+            class="relative overflow-hidden group cursor-pointer text-left block w-full p-0 bg-transparent border-0"
+          >
+            <Image
+              src={image.full}
+              alt=""
+              widths={[200, 300, 400, 500, 600, 700, 800]}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              quality={60}
+              loading={index < aboveTheFoldCount ? "eager" : "lazy"}
+              class="w-full h-auto block"
+            />
+            <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
+              <p class="text-white text-xs md:text-sm p-3 w-full">{image.caption}</p>
+            </div>
+          </button>
+        ))}
+      </div>
+
+      <div class="mt-12 text-sm text-[var(--text-muted)]">
+        <a
+          href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-[var(--text-secondary)] hover:text-[var(--accent)]"
+        >
+          Licensed CC BY-NC-ND 4.0
+          <Icon name="fa7-solid:external-link" class="w-3 h-3 align-middle" />
+        </a>
+      </div>
+
+      <Footer />
+    </main>
+    <Lightbox images={galleryImages} />
+  </body>
+</html>

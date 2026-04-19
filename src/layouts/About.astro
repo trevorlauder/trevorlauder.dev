@@ -11,52 +11,94 @@ const content = Astro.props.content || Astro.props.frontmatter || {};
 const title = content.title;
 const description = content.description;
 
-const heroImage = profileImage;
-const heroImageWidth = 180;
-const heroImageHeight = 180;
+const companies = [
+  { name: "Jobber", url: "https://www.getjobber.com/" },
+  { name: "Guestlogix", url: "https://www.guestlogix.com/" },
+  { name: "SkipTheDishes", url: "https://www.skipthedishes.com/" },
+  { name: "Intuit", url: "https://www.intuit.com/ca/" },
+  { name: "TELUS", url: "https://www.telus.com/" },
+  { name: "LAN Solutions", url: "https://lansolutions.com/" },
+  { name: "Wireless Networks Inc.", url: null },
+  { name: "Lethbridge College", url: "https://lethbridgecollege.ca/" },
+];
+
+const connect = [
+  { label: "LinkedIn", handle: "trevor-lauder", url: "https://www.linkedin.com/in/trevor-lauder" },
+  { label: "GitHub", handle: "@trevorlauder", url: "https://github.com/trevorlauder" },
+];
 ---
 
 <html lang="en">
   <head>
     <BaseHead title={title} description={description} image={ogImage} />
   </head>
-  <body class="flex flex-col min-h-screen">
+  <body class="min-h-screen">
     <Header />
-    <main class="flex-grow max-w-6xl mx-auto w-full px-4 md:px-6 py-8 md:py-12">
-      <div>
-        <div class="mb-12 text-center">
-          <h1 class="text-3xl md:text-4xl font-bold text-[var(--text-primary)] mb-12">{title}</h1>
-          <hr class="border-t border-[var(--border)] mb-12" />
+    <main id="main" class="max-w-[1040px] mx-auto px-6 md:px-12 pt-[72px] pb-24">
+      <section class="pb-10 border-b border-[var(--border-subtle)] mb-12 flex flex-col md:flex-row md:items-end md:gap-8 gap-6">
+        <a
+          href="https://www.linkedin.com/in/trevor-lauder"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Trevor Lauder on LinkedIn"
+          class="profile-hover rounded-full overflow-hidden block border border-[var(--border-subtle)] shrink-0 self-start"
+        >
+          <Image
+            src={profileImage}
+            width={128}
+            height={128}
+            alt="Profile picture"
+            loading="lazy"
+            class="rounded-full block w-[128px] h-[128px]"
+          />
+        </a>
+        <div>
+          <h1 class="font-serif font-normal text-[clamp(36px,4.8vw,52px)] leading-[1.05] tracking-[-0.025em] text-[var(--text-primary)] m-0 text-balance">
+            About Me
+          </h1>
         </div>
-        {
-          heroImage && (
-            <div class="flex justify-center mb-12">
-              <a
-                href="https://www.linkedin.com/in/trevor-lauder"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Trevor Lauder on LinkedIn"
-                class="profile-hover rounded-full overflow-hidden"
-              >
-                <Image
-                  src={heroImage}
-                  width={heroImageWidth}
-                  height={heroImageHeight}
-                  alt="Profile picture"
-                  loading="lazy"
-                  class="rounded-full"
-                />
-              </a>
-            </div>
-          )
-        }
-        <div class="prose dark:prose-invert max-w-none">
-          <Prose>
-            <slot />
-          </Prose>
-        </div>
+      </section>
+
+      <div class="prose prose-article max-w-none text-[var(--text-primary)]">
+        <Prose>
+          <slot />
+        </Prose>
       </div>
+
+      <section class="mt-14 py-8 border-t border-b border-[var(--border-subtle)]">
+        <h2 class="text-xs font-medium uppercase tracking-[0.08em] text-[var(--text-muted)] mb-5">Companies</h2>
+        <ul class="list-none p-0 m-0 grid grid-cols-1 sm:grid-cols-2 gap-y-1 gap-x-6">
+          {companies.map((c) => (
+            <li class="font-serif text-[19px] tracking-[-0.005em] text-[var(--text-primary)] py-1">
+              {c.url ? (
+                <a href={c.url} target="_blank" rel="noopener noreferrer" class="no-underline text-[var(--text-primary)] hover:text-[var(--accent)]">{c.name}</a>
+              ) : (
+                <span>{c.name}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="mt-12">
+        <h2 class="text-xs font-medium uppercase tracking-[0.08em] text-[var(--text-muted)] mb-4">Connect</h2>
+        <ul class="list-none p-0 m-0 flex flex-col">
+          {connect.map((s) => (
+            <li>
+              <a
+                href={s.url}
+                class="grid grid-cols-[100px_1fr_auto] gap-4 py-3.5 border-b border-[var(--border-faint)] no-underline text-[var(--text-primary)] hover:text-[var(--accent)] items-center transition-colors"
+              >
+                <span class="text-[13px] text-[var(--text-muted)]">{s.label}</span>
+                <span class="text-[15px]">{s.handle}</span>
+                <span class="text-[var(--text-muted)]">→</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <Footer />
     </main>
-    <Footer />
   </body>
 </html>
