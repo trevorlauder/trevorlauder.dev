@@ -33,7 +33,7 @@ const sorted = sortPostsByDate(enrichPostsWithDates(posts));
 
 <html lang="en">
   <head>
-    <BaseHead title={`#${tag}`} description={SITE_DESCRIPTION} />
+    <BaseHead title={`${tag}`} description={SITE_DESCRIPTION} />
   </head>
   <body class="min-h-screen">
     <Header />
@@ -42,7 +42,7 @@ const sorted = sortPostsByDate(enrichPostsWithDates(posts));
         <a href="/tags/" class="inline-flex items-center gap-1.5 text-[13px] text-[var(--text-secondary)] no-underline hover:text-[var(--accent)] mb-6">← All tags</a>
         <span class="block text-xs font-medium uppercase tracking-[0.08em] text-[var(--text-muted)] mb-4">Tag</span>
         <h1 class="font-serif font-normal text-[clamp(40px,5.4vw,56px)] leading-[1.05] tracking-[-0.025em] text-[var(--text-primary)] m-0 text-balance">
-          #{tag}
+          {tag}
         </h1>
         <p class="text-[var(--text-secondary)] mt-4 text-[15px]">{sorted.length} {sorted.length === 1 ? 'post' : 'posts'}.</p>
       </header>
