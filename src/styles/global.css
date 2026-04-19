@@ -348,6 +348,10 @@
   border-radius: 3px;
   color: var(--text-primary);
 }
+.prose-article code::before,
+.prose-article code::after {
+  content: none;
+}
 
 .prose-article pre {
   font-family: var(--font-mono);
