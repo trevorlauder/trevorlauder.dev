@@ -39,7 +39,7 @@ const { title, description, pubDate, updatedDate, categories, tags, Content } = 
 				</h1>
 				<div class="flex flex-wrap items-center gap-x-3 gap-y-2 pb-6 mb-10 border-b border-[var(--border-subtle)] text-[13px] text-[var(--text-muted)]">
 					{pubDate && (
-						<span class="text-[var(--text-primary)] font-medium"><FormattedDate date={pubDate} /></span>
+						<span class="text-[var(--accent-warm)] font-medium"><FormattedDate date={pubDate} /></span>
 					)}
 					{updatedDate && (
 						<>
@@ -53,7 +53,7 @@ const { title, description, pubDate, updatedDate, categories, tags, Content } = 
 							{categories.map((c: string) => (
 								<a
 									href={`/categories/${normalizeSlug(c)}/`}
-									class="text-[11px] py-0.5 px-2.5 border border-[var(--border-subtle)] rounded-full bg-[var(--surface)] text-[var(--text-secondary)] no-underline hover:border-[var(--accent)] hover:text-[var(--accent)]"
+									class="text-[11px] py-0.5 px-2.5 border border-[var(--border-subtle)] rounded-full bg-[var(--surface)] text-[var(--text-secondary)] no-underline hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)]"
 								>{c}</a>
 							))}
 						</>
@@ -64,11 +64,11 @@ const { title, description, pubDate, updatedDate, categories, tags, Content } = 
 				</div>
 				{tags && tags.length > 0 && (
 					<div class="mt-10 pt-6 border-t border-[var(--border-subtle)] flex flex-wrap gap-2 items-center">
-						<span class="font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--text-muted)] mr-1">Tags</span>
+						<span class="font-mono text-[11px] uppercase tracking-[0.08em] text-[var(--accent-warm)] mr-1">Tags</span>
 						{tags.map((t: string) => (
 							<a
 								href={`/tags/${normalizeSlug(t)}/`}
-								class="text-[12px] py-1 px-2.5 border border-[var(--border-subtle)] rounded-full text-[var(--text-secondary)] no-underline bg-[var(--surface)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+								class="text-[12px] py-1 px-2.5 border border-[var(--border-subtle)] rounded-full text-[var(--text-secondary)] no-underline bg-[var(--surface)] hover:border-[var(--accent-warm)] hover:text-[var(--accent-warm)]"
 							>{t}</a>
 						))}
 					</div>

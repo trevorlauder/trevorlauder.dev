@@ -18,16 +18,28 @@ Recently the school board started blocking NextDNS, which essentially broke all 
 To get around the restrictions, I spun up a [Cloudflare Worker](https://workers.cloudflare.com) that reverse-proxies connections to NextDNS. Now their devices point to that worker over TLS 1.3. Problem solved!
 
 ```javascript
-addEventListener("fetch", event => {
-  event.respondWith(handleRequest(event.request))
-})
+addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+});
 
 async function handleRequest(request) {
-  var url = new URL(request.url)
+  var url = new URL(request.url);
 
   if (/^\/masked\/path\/.*/.test(url.pathname)) {
-    url.hostname = "dns.nextdns.io"
-    url.pathname = url.pathname.replace("/masked/path", "")
+    url.hostname = "dns.nextdns.io";
+    url.pathname = url.pathname.replace("/masked/path", "");
 
-    let response = await fetch(url, request)
+    let response = await fetch(url, request);
+
+    return response;
+  } else {
+    let init = {
+      status: 404,
+    };
+
+    let body = "Nope, Nope, Nope!";
+
+    return new Response(body, init);
+  }
+}
 ```
