@@ -2,77 +2,74 @@
 @plugin "@tailwindcss/typography";
 
 @theme inline {
-  --font-sans: "Inter", "sans-serif";
+  --font-sans: "Inter Variable", "Inter", system-ui, sans-serif;
+  --font-serif: "Source Serif 4 Variable", "Source Serif 4", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-  --color-light-50: #fafafa;
-  --color-light-100: #f5f5f5;
-  --color-light-200: #e5e5e5;
-  --color-light-300: #d4d4d4;
-  --color-light-400: #a3a3a3;
-  --color-light-500: #737373;
-  --color-light-600: #525252;
-  --color-light-700: #404040;
-  --color-light-800: #262626;
-  --color-light-900: #171717;
+  --color-paper-50: #ffffff;
+  --color-paper-100: #fafaf8;
+  --color-paper-200: #f4f3ef;
+  --color-paper-300: #efeeea;
+  --color-paper-400: #e6e5e1;
+  --color-ink-300: #76787d;
+  --color-ink-500: #3b3d42;
+  --color-ink-700: #1a1b1e;
+  --color-ink-900: #0f1012;
 
-  --color-dark-50: #fafafa;
-  --color-dark-100: #f5f5f5;
-  --color-dark-200: #e5e5e5;
-  --color-dark-300: #d4d4d4;
-  --color-dark-400: #a3a3a3;
-  --color-dark-500: #737373;
-  --color-dark-600: #525252;
-  --color-dark-700: #1a1a1a;
-  --color-dark-800: #0f0f0f;
-  --color-dark-900: #000000;
+  --color-moss-400: #7fb79f;
+  --color-moss-600: #2a5b4a;
+  --color-moss-700: #1f4538;
 
-  --color-blue-50: #eff6ff;
-  --color-blue-100: #dbeafe;
-  --color-blue-500: #3b82f6;
-  --color-blue-600: #2563eb;
-  --color-blue-700: #1d4ed8;
-  --color-blue-900: #1e3a8a;
+  --color-night-900: #0e0f11;
+  --color-night-800: #141518;
+  --color-night-700: #1a1b1e;
+  --color-night-600: #23252a;
+  --color-night-400: #6e6f72;
+  --color-night-200: #a8a8a4;
+  --color-night-50: #edece8;
 
-  --color-accent: #3b82f6;
-  --color-accent-dark: #1e40af;
+  --color-accent: #2a5b4a;
+  --color-accent-dark: #1f4538;
 }
 
 @layer base {
   :root {
     color-scheme: light;
-    --background: theme(--color-light-50);
-    --surface: theme(--color-light-50);
-    --surface-secondary: #ffffff;
-    --text-primary: theme(--color-light-900);
-    --text-secondary: theme(--color-light-600);
-    --text-muted: theme(--color-light-500);
-    --border: theme(--color-light-400);
-    --border-subtle: theme(--color-light-100);
-    --border-hover: theme(--color-light-500);
-    --accent: theme(--color-blue-600);
-    --accent-hover: theme(--color-blue-700);
-    --accent-light: theme(--color-blue-100);
-    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-    --shadow-md: 0 2px 8px 0 rgb(0 0 0 / 0.08);
+    --background: theme(--color-paper-100);
+    --surface: theme(--color-paper-50);
+    --surface-secondary: theme(--color-paper-200);
+    --text-primary: theme(--color-ink-900);
+    --text-secondary: theme(--color-ink-500);
+    --text-muted: theme(--color-ink-300);
+    --border: theme(--color-paper-400);
+    --border-subtle: theme(--color-paper-400);
+    --border-faint: theme(--color-paper-300);
+    --border-hover: theme(--color-ink-300);
+    --accent: theme(--color-moss-600);
+    --accent-hover: theme(--color-moss-700);
+    --accent-light: color-mix(in srgb, theme(--color-moss-600) 15%, transparent);
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.04);
+    --shadow-md: 0 2px 8px 0 rgb(0 0 0 / 0.06);
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
       color-scheme: dark;
-      --background: theme(--color-dark-900);
-      --surface: theme(--color-dark-800);
-      --surface-secondary: theme(--color-dark-900);
-      --text-primary: theme(--color-dark-50);
-      --text-secondary: theme(--color-dark-400);
-      --text-muted: theme(--color-dark-500);
-      --border: #374151;
-      --border-subtle: theme(--color-dark-900);
-      --border-hover: #4b5563;
-      --accent: theme(--color-blue-500);
-      --accent-hover: theme(--color-blue-400);
-      --accent-light: theme(--color-blue-900);
-      --shadow-sm: 0 1px 2px 0 rgb(255 255 255 / 0.1);
-      --shadow-md: 0 2px 8px 0 rgb(255 255 255 / 0.15);
+      --background: theme(--color-night-900);
+      --surface: theme(--color-night-800);
+      --surface-secondary: theme(--color-night-700);
+      --text-primary: theme(--color-night-50);
+      --text-secondary: theme(--color-night-200);
+      --text-muted: theme(--color-night-400);
+      --border: theme(--color-night-600);
+      --border-subtle: theme(--color-night-600);
+      --border-faint: theme(--color-night-700);
+      --border-hover: theme(--color-night-400);
+      --accent: theme(--color-moss-400);
+      --accent-hover: #a3cfbb;
+      --accent-light: color-mix(in srgb, theme(--color-moss-400) 20%, transparent);
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.4);
+      --shadow-md: 0 2px 8px 0 rgb(0 0 0 / 0.5);
     }
   }
 
@@ -82,50 +79,40 @@
 
   body {
     @apply bg-[var(--background)] text-[var(--text-primary)] transition-colors duration-300;
-    background-image: repeating-radial-gradient(
-        circle at 0 0,
-        transparent 0,
-        rgba(59, 130, 246, 0.02) 1px,
-        transparent 1px
-      ),
-      repeating-radial-gradient(
-        circle at 4px 6px,
-        transparent 0,
-        rgba(59, 130, 246, 0.015) 1px,
-        transparent 1px
-      );
-    background-size:
-      50px 50px,
-      80px 80px;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    body {
-      background-image: repeating-radial-gradient(
-          circle at 0 0,
-          transparent 0,
-          rgba(59, 130, 246, 0.025) 1px,
-          transparent 1px
-        ),
-        repeating-radial-gradient(
-          circle at 4px 6px,
-          transparent 0,
-          rgba(59, 130, 246, 0.02) 1px,
-          transparent 1px
-        );
-      background-size:
-        50px 50px,
-        80px 80px;
-    }
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv11";
   }
 
   h1,
   h2,
-  h3,
+  h3 {
+    @apply text-[var(--text-primary)];
+    font-family: var(--font-serif);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    font-size: clamp(40px, 5.4vw, 60px);
+    line-height: 1.08;
+  }
+
+  h2 {
+    font-size: clamp(28px, 3vw, 34px);
+    line-height: 1.15;
+  }
+
+  h3 {
+    font-size: 22px;
+    line-height: 1.3;
+  }
+
   h4,
   h5,
   h6 {
-    @apply text-[var(--text-primary)] font-bold;
+    @apply text-[var(--text-primary)] font-medium;
   }
 
   a {
@@ -133,11 +120,13 @@
   }
 
   code {
-    @apply bg-[var(--surface)] dark:bg-[var(--surface-secondary)] px-2 py-1 rounded text-sm font-mono text-[var(--text-primary)];
+    @apply bg-[var(--surface)] dark:bg-[var(--surface-secondary)] px-2 py-1 rounded text-sm text-[var(--text-primary)];
+    font-family: var(--font-mono);
   }
 
   pre {
     @apply bg-[var(--surface)] dark:bg-[var(--surface-secondary)] border border-[var(--border)] rounded-lg p-4 overflow-x-auto;
+    font-family: var(--font-mono);
   }
 
   blockquote {
@@ -151,94 +140,9 @@
   .card {
     @apply bg-[var(--surface-secondary)] dark:bg-[var(--surface-secondary)] border border-[var(--border)] rounded-lg;
   }
-
-  .card-hover {
-    position: relative;
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-    box-shadow:
-      0 2px 4px rgba(0, 0, 0, 0.1),
-      0 6px 12px rgba(0, 0, 0, 0.08),
-      0 12px 24px rgba(0, 0, 0, 0.06);
-  }
-
-  .card-hover:hover {
-    transform: scale(1.05);
-    box-shadow:
-      0 4px 8px rgba(0, 0, 0, 0.15),
-      0 8px 16px rgba(0, 0, 0, 0.2),
-      0 16px 32px rgba(0, 0, 0, 0.25),
-      0 24px 48px rgba(0, 0, 0, 0.3),
-      0 32px 64px rgba(0, 0, 0, 0.35);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .card-hover {
-      box-shadow:
-        0 2px 4px rgba(255, 255, 255, 0.1),
-        0 6px 12px rgba(255, 255, 255, 0.08),
-        0 12px 24px rgba(255, 255, 255, 0.06);
-    }
-
-    .card-hover:hover {
-      transform: scale(1.05);
-      box-shadow:
-        0 4px 8px rgba(255, 255, 255, 0.15),
-        0 8px 16px rgba(255, 255, 255, 0.2),
-        0 16px 32px rgba(255, 255, 255, 0.25),
-        0 24px 48px rgba(255, 255, 255, 0.3),
-        0 32px 64px rgba(255, 255, 255, 0.35);
-    }
-  }
-
-  .profile-hover {
-    display: inline-block;
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-    box-shadow:
-      0 8px 16px rgba(0, 0, 0, 0.2),
-      0 16px 32px rgba(0, 0, 0, 0.15);
-  }
-
-  .profile-hover:hover {
-    transform: scale(1.05);
-    box-shadow:
-      0 12px 24px rgba(0, 0, 0, 0.25),
-      0 24px 48px rgba(0, 0, 0, 0.2),
-      0 32px 64px rgba(0, 0, 0, 0.25);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    .profile-hover {
-      box-shadow:
-        0 8px 16px rgba(255, 255, 255, 0.2),
-        0 16px 32px rgba(255, 255, 255, 0.15);
-    }
-
-    .profile-hover:hover {
-      box-shadow:
-        0 12px 24px rgba(255, 255, 255, 0.25),
-        0 24px 48px rgba(255, 255, 255, 0.2),
-        0 32px 64px rgba(255, 255, 255, 0.25);
-    }
-  }
 }
 
 @layer components {
-  @media (prefers-color-scheme: dark) {
-    .card-hover:hover {
-      transform: scale(1.05);
-      box-shadow:
-        0 4px 8px rgba(255, 255, 255, 0.1),
-        0 8px 16px rgba(255, 255, 255, 0.08),
-        0 16px 32px rgba(255, 255, 255, 0.06),
-        0 24px 48px rgba(255, 255, 255, 0.05),
-        0 32px 64px rgba(255, 255, 255, 0.04) !important;
-    }
-  }
-
   /* Consent Banner Styles */
   .consent-banner {
     display: flex;
@@ -268,7 +172,7 @@
   }
 
   .consent-banner a {
-    color: var(--color-blue-600);
+    color: var(--accent);
     text-decoration: underline;
     transition: opacity 0.2s ease;
   }
@@ -291,7 +195,7 @@
     flex: 1;
     min-width: 120px;
     padding: 0.5rem 1rem;
-    background-color: var(--color-blue-600);
+    background-color: var(--accent);
     color: white;
     border: none;
     border-radius: 0.375rem;
@@ -301,7 +205,7 @@
   }
 
   .consent-btn:hover {
-    background-color: var(--color-blue-500);
+    background-color: var(--accent-hover);
   }
 
   .sr-only {
@@ -315,4 +219,172 @@
     white-space: nowrap;
     border-width: 0;
   }
+}
+
+/* ============================================================
+   Article prose — long-form content (blog posts, about, privacy, 404)
+   ============================================================ */
+
+.prose-article {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.72;
+  color: var(--text-primary);
+}
+
+/* Paragraph spacing — works through any wrapper depth (e.g. Prose.astro's .prose div) */
+.prose-article p,
+.prose-article ul,
+.prose-article ol,
+.prose-article blockquote,
+.prose-article pre,
+.prose-article hr,
+.prose-article table,
+.prose-article figure {
+  margin-top: 0;
+  margin-bottom: 1.25em;
+}
+.prose-article > *:last-child,
+.prose-article .prose > *:last-child {
+  margin-bottom: 0;
+}
+
+.prose-article h1,
+.prose-article h2,
+.prose-article h3,
+.prose-article h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-top: 2em;
+  margin-bottom: 0.5em;
+  text-wrap: balance;
+}
+.prose-article h1 {
+  font-size: 34px;
+}
+.prose-article h2 {
+  font-size: 28px;
+}
+.prose-article h3 {
+  font-size: 22px;
+}
+.prose-article h4 {
+  font-size: 18px;
+}
+
+.prose-article a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--accent) 40%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.15s ease;
+}
+.prose-article a:hover {
+  text-decoration-color: var(--accent);
+}
+
+.prose-article strong {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.prose-article em {
+  font-style: italic;
+}
+
+.prose-article ul,
+.prose-article ol {
+  padding-left: 1.5em;
+}
+.prose-article ul {
+  list-style: disc;
+}
+.prose-article ol {
+  list-style: decimal;
+}
+.prose-article li {
+  margin-top: 0.4em;
+}
+.prose-article li::marker {
+  color: var(--text-muted);
+}
+
+.prose-article blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1.2em;
+  margin-left: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 19px;
+  color: var(--text-secondary);
+}
+
+.prose-article code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 0.15em 0.4em;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 3px;
+  color: var(--text-primary);
+}
+
+.prose-article pre {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  line-height: 1.6;
+  padding: 1.1em 1.3em;
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  overflow-x: auto;
+}
+.prose-article pre code {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  font-size: inherit;
+}
+
+.prose-article hr {
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+  margin: 2.5em 0;
+}
+
+.prose-article img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-subtle);
+  border-radius: 2px;
+  margin: 1.5em 0;
+}
+
+.prose-article table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+.prose-article th,
+.prose-article td {
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.7em 1em;
+  text-align: left;
+}
+.prose-article th {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+/* Paragraph rhythm outside prose contexts — catches <p> inside <main> on
+   index/photography/tag/category pages that aren't wrapped in .prose-article */
+main > * p + p {
+  margin-top: 1em;
 }

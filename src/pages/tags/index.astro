@@ -1,61 +1,52 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseHead from '../../components/BaseHead.astro';
-import Footer from '../../components/Footer.astro';
-import Header from '../../components/Header.astro';
-import { SITE_TITLE } from '../../consts';
+import BaseHead from "../../components/BaseHead.astro";
+import Footer from "../../components/Footer.astro";
+import Header from "../../components/Header.astro";
+import { SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import { normalizeSlug } from "../../utils/blog";
 
-const posts = await getCollection('blog');
-
-// Extract and count all tags
-const tagCounts: Record<string, number> = {};
-posts.forEach((post) => {
-	if (post.data.tags && Array.isArray(post.data.tags)) {
-		post.data.tags.forEach((tag) => {
-			tagCounts[tag] = (tagCounts[tag] || 0) + 1;
-		});
-	}
-});
-
-// Sort tags alphabetically
-const sortedTags = Object.entries(tagCounts).sort(([a], [b]) => a.localeCompare(b));
+const allPosts = await getCollection("blog");
+const counts = new Map<string, number>();
+for (const post of allPosts) {
+  for (const tag of post.data.tags ?? []) {
+    counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+}
+const tags = Array.from(counts.entries())
+  .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const max = Math.max(1, ...tags.map(([, n]) => n));
 ---
 
-<!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={`Tags | ${SITE_TITLE}`} description={`Browse blog posts by tags on ${SITE_TITLE}`} />
-	</head>
-	<body class="flex flex-col min-h-screen">
-		<Header />
-		<main class="flex-grow max-w-6xl mx-auto w-full px-4 md:px-6 py-8 md:py-12">
-			<section>
-			<h1 class="text-3xl md:text-4xl font-bold mb-12 text-[var(--text-primary)] text-center">
-				Tags
-			</h1>
-			<hr class="border-t border-[var(--border)] mb-12" />				{sortedTags.length === 0 ? (
-					<p class="text-center text-[var(--text-secondary)]">No tags found.</p>
-				) : (
-					<div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-						{sortedTags.map(([tag, count]) => (
-							<div class="group">
-								<a
-									href={`/tags/${encodeURIComponent(tag.toLowerCase().replace(/\s+/g, '-'))}/`}
-									class="card-hover flex flex-col items-center justify-center p-8 md:p-10 rounded-lg border border-[var(--border)] bg-[var(--surface-secondary)] dark:bg-[var(--surface-secondary)] hover:border-[var(--border-hover)] dark:hover:border-[var(--border-hover)] hover:shadow-lg dark:hover:shadow-xl transition-all duration-300 h-40"
-								>
-									<h2 class="text-2xl md:text-3xl font-bold text-[var(--text-primary)] mb-3 group-hover:text-[var(--accent)] transition-colors text-center">
-										{tag}
-									</h2>
-									<span class="inline-block px-4 py-2 bg-[var(--accent-light)] dark:bg-[var(--accent-light)] text-[var(--accent)] dark:text-[var(--accent)] text-sm font-semibold rounded-full">
-										{count} {count === 1 ? 'post' : 'posts'}
-									</span>
-								</a>
-							</div>
-						))}
-					</div>
-				)}
-			</section>
-		</main>
-		<Footer />
-	</body>
+  <head>
+    <BaseHead title="Tags" description={SITE_DESCRIPTION} />
+  </head>
+  <body class="min-h-screen">
+    <Header />
+    <main id="main" class="max-w-7xl mx-auto px-6 md:px-12 pt-[72px] pb-24">
+      <header class="pb-10 border-b border-[var(--border-subtle)] mb-10">
+        <h1 class="font-serif font-normal text-[clamp(40px,5.4vw,56px)] leading-[1.05] tracking-[-0.025em] text-[var(--text-primary)] m-0 text-balance">
+          Tags
+        </h1>
+        <p class="text-[var(--text-secondary)] mt-4 text-[15px]">{tags.length} tags across {allPosts.length} posts.</p>
+      </header>
+      <section class="flex flex-wrap gap-2">
+        {tags.map(([tag, count]) => {
+          const ratio = count / max;
+          return (
+            <a
+              href={`/tags/${normalizeSlug(tag)}/`}
+              class="inline-flex items-baseline gap-2 py-1.5 px-3 border border-[var(--border-subtle)] rounded-full bg-[var(--surface)] text-[var(--text-primary)] no-underline hover:border-[var(--accent)] hover:text-[var(--accent)] transition-colors"
+              style={`font-size: ${13 + ratio * 6}px;`}
+            >
+              <span>{tag}</span>
+              <span class="font-mono text-[11px] text-[var(--text-muted)]">{count}</span>
+            </a>
+          );
+        })}
+      </section>
+      <Footer />
+    </main>
+  </body>
 </html>

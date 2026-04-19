@@ -3,5 +3,5 @@
 
 export const SITE_TITLE = "Trevor Lauder";
 export const SITE_DESCRIPTION =
-  "DevOps and SRE topics—automation, monitoring, tooling—plus a personal mix of coding projects, photography, and astrophotography.";
+  "DevOps and SRE topics, coding projects, photography, and astrophotography.";
 export const COPYRIGHT_START_YEAR = 2020;
