@@ -6,6 +6,7 @@ import Lightbox from "../components/Lightbox.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 import { Image } from "astro:assets";
+import { Icon } from "astro-icon/components";
 import { getCollection } from "astro:content";
 import {
   enrichPostsWithDates,
@@ -41,11 +42,17 @@ const recentPosts = sortPostsByDate(enrichPostsWithDates(allPosts))
     <Header />
     <main id="main" class="max-w-[1080px] mx-auto px-6 md:px-12 pt-[72px] pb-24">
       <section class="pb-14 border-b border-[var(--border-subtle)]">
-        <div class="inline-flex items-center gap-2 text-[13px] text-[var(--text-secondary)] mb-7 py-1.5 px-3 border border-[var(--border-subtle)] rounded-full bg-[var(--surface)]">
-          <span class="w-[7px] h-[7px] rounded-full bg-[var(--accent)] shadow-[0_0_0_3px_color-mix(in_srgb,var(--accent)_25%,transparent)]"></span>
-          Senior Site Reliability Engineer at Jobber &middot; Sylvan Lake, AB
-        </div>
         <p class="font-serif text-[clamp(44px,6vw,68px)] leading-[1.02] tracking-[-0.028em] text-[var(--text-primary)] m-0 mb-4 text-balance">Trevor Lauder</p>
+        <div class="flex flex-wrap items-center gap-x-5 gap-y-1.5 text-[14px] text-[var(--text-secondary)] mb-7">
+          <span class="inline-flex items-center gap-2">
+            <Icon name="fa7-solid:briefcase" class="w-3.5 h-3.5 text-[var(--text-muted)]" />
+            Senior Site Reliability Engineer at <a href="https://www.getjobber.com/" class="text-[var(--text-secondary)] no-underline hover:text-[var(--accent)]">Jobber</a>
+          </span>
+          <span class="inline-flex items-center gap-2">
+            <Icon name="fa7-solid:location-dot" class="w-3.5 h-3.5 text-[var(--text-muted)]" />
+            Sylvan Lake, AB
+          </span>
+        </div>
         <h1 id="quote" class="font-serif font-normal italic text-[clamp(26px,3.2vw,36px)] leading-[1.25] tracking-[-0.015em] text-[var(--accent)] m-0 text-balance min-h-[1.25em]"></h1>
       </section>
 
