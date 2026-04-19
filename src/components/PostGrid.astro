@@ -17,7 +17,7 @@ const groups: Group[] = [];
 if (groupByYear) {
   const byYear = new Map<string, CollectionEntry<"blog">[]>();
   for (const p of posts) {
-    const y = p.data.pubDate ? String(p.data.pubDate.getFullYear()) : "—";
+    const y = p.data.pubDate ? String(p.data.pubDate.getFullYear()) : "-";
     if (!byYear.has(y)) byYear.set(y, []);
     byYear.get(y)!.push(p);
   }

@@ -251,7 +251,6 @@
   color: var(--text-primary);
 }
 
-/* Paragraph spacing — works through any wrapper depth (e.g. Prose.astro's .prose div) */
 .prose-article p,
 .prose-article ul,
 .prose-article ol,
@@ -402,8 +401,6 @@
   color: var(--text-muted);
 }
 
-/* Paragraph rhythm outside prose contexts — catches <p> inside <main> on
-   index/photography/tag/category pages that aren't wrapped in .prose-article */
 main > * p + p {
   margin-top: 1em;
 }
