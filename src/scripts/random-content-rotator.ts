@@ -13,23 +13,23 @@ export function initializeRotator(config: RotatorConfig): void {
   const { jsonPath, elementId, rotationInterval = 10000 } = config;
   let items: string[] = [];
   let el: HTMLElement | null = null;
+  let intervalId: number | null = null;
 
   function setRandomItem(): void {
     if (!items.length || !el) return;
     const idx = Math.floor(Math.random() * items.length);
     const item = items[idx];
     if (typeof item !== "string" || !item.length) return;
-    // HTML-safe escaping
     const sanitized = String(item).replace(/&/g, "&amp;").replace(/</g, "&lt;");
     el.innerHTML = `<p>${sanitized}</p>`;
   }
 
   function startRotation(): void {
     setRandomItem();
-    setInterval(setRandomItem, rotationInterval);
+    intervalId = window.setInterval(setRandomItem, rotationInterval);
   }
 
-  window.addEventListener("DOMContentLoaded", function (): void {
+  function init(): void {
     el = document.getElementById(elementId);
     if (!el) return;
     fetch(jsonPath)
@@ -40,5 +40,16 @@ export function initializeRotator(config: RotatorConfig): void {
           startRotation();
         }
       });
-  });
+  }
+
+  function cleanup(): void {
+    if (intervalId !== null) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+    el = null;
+  }
+
+  document.addEventListener("astro:page-load", init);
+  document.addEventListener("astro:before-swap", cleanup);
 }
