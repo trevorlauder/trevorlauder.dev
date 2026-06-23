@@ -2,7 +2,7 @@ import js from "@eslint/js";
 import typescript from "@typescript-eslint/eslint-plugin";
 import typescriptParser from "@typescript-eslint/parser";
 import astro from "eslint-plugin-astro";
-import astroParser from "astro-eslint-parser";
+import * as astroParser from "astro-eslint-parser";
 import globals from "globals";
 
 export default [
