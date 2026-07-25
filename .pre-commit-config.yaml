@@ -15,11 +15,6 @@ repos:
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
-  - repo: https://github.com/gitleaks/gitleaks
-    rev: v8.28.0
-    hooks:
-      - id: gitleaks-docker
-        pass_filenames: false
   - repo: https://github.com/shellcheck-py/shellcheck-py
     rev: v0.11.0.1
     hooks:
@@ -43,4 +38,14 @@ repos:
         name: npm run lint:fix
         entry: npm run lint:fix
         language: system
+        pass_filenames: false
+      - id: dprint
+        name: dprint
+        language: system
+        entry: dprint fmt
+        pass_filenames: false
+      - id: trufflehog
+        name: trufflehog
+        language: system
+        entry: trufflehog git file://. --only-verified --fail
         pass_filenames: false
