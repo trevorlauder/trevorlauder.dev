@@ -1,5 +1,5 @@
 [tools]
 node = { version = "24.18.0", postinstall = "npm install --include dev" }
 dprint = "0.55.2"
-trufflehog = "v3.95.9"
-prek = "0.4.9"
+trufflehog = "v3.96.0"
+prek = "0.4.11"
