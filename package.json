@@ -35,6 +35,6 @@
     "astro-eslint-parser": "^3.0.0",
     "eslint": "^10.5.0",
     "eslint-plugin-astro": "^3.0.0",
-    "npm-check-updates": "^22.2.7"
+    "npm-check-updates": "^23.0.0"
   }
 }
