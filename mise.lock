@@ -58,20 +58,20 @@ url_api = "https://api.github.com/repos/j178/prek/releases/assets/560889174"
 provenance = "github-attestations"
 
 [[tools.trufflehog]]
-version = "v3.97.4"
+version = "v3.97.5"
 backend = "aqua:trufflesecurity/trufflehog"
 
 [tools.trufflehog."platforms.linux-arm64"]
-checksum = "sha256:7e65e771d2a247964056aa5edba0f8ae3945895e5dce867fe0ffbc7b0128239a"
-url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.97.4/trufflehog_3.97.4_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/543298487"
+checksum = "sha256:e5c8b2418b0a7c78cf4c47ac783c52c63f989e4e536cfe328b5271e819b6d52d"
+url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.97.5/trufflehog_3.97.5_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/568484680"
 
 [tools.trufflehog."platforms.linux-x64"]
-checksum = "sha256:dc24007c2f233bd61c05beabeb44aa27ea9b43288166279209abe0458c5ce76b"
-url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.97.4/trufflehog_3.97.4_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/543298488"
+checksum = "sha256:e3d97199c565c37ca6152750197f667e08ae6a1edf5911fbdec168622b28620c"
+url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.97.5/trufflehog_3.97.5_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/568484678"
 
 [tools.trufflehog."platforms.macos-arm64"]
-checksum = "sha256:57e2a41c1e196cf96cae49ca2151f5e9207be2f5c41349b5ea49cb5dcfc606b7"
-url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.97.4/trufflehog_3.97.4_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/543298485"
+checksum = "sha256:b4e5fd54aaea368342b226cbea228e7a33898b177598d1d8cd66edb14f87444e"
+url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.97.5/trufflehog_3.97.5_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/568484750"
