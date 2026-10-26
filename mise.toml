@@ -3,7 +3,7 @@ lockfile = true
 minimum_release_age = "7d"
 
 [tools]
-node = { version = "24.21.0", postinstall = "npm install --include dev" }
-dprint = "0.63.0"
+node = { version = "24.22.0", postinstall = "npm install --include dev" }
+dprint = "0.64.0"
 trufflehog = "v3.99.2"
 prek = "0.5.5"
