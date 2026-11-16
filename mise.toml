@@ -5,5 +5,5 @@ minimum_release_age = "7d"
 [tools]
 node = { version = "24.22.2", postinstall = "npm install --include dev" }
 dprint = "0.64.3"
-trufflehog = "v3.99.7"
-prek = "0.5.9"
+trufflehog = "v3.99.8"
+prek = "0.5.10"

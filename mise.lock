@@ -39,45 +39,45 @@ checksum = "sha256:aa9549349e47dffaa42dcf95d6e06ade8c4bdafc980979883b88767670df3
 url = "https://nodejs.org/dist/v24.22.2/node-v24.22.2-darwin-arm64.tar.gz"
 
 [[tools.prek]]
-version = "0.5.9"
+version = "0.5.10"
 backend = "aqua:j178/prek"
 
 [tools.prek."platforms.linux-arm64"]
-checksum = "sha256:cf9cb3eeb5537064c9d73d78313a79ee707f3faa340ca0db1f5646d7897bc7dd"
-url = "https://github.com/j178/prek/releases/download/v0.5.9/prek-aarch64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/j178/prek/releases/assets/691760439"
+checksum = "sha256:6ee3e5696f0b76bb4c95708579a54714aabd9a20e89c998f69a1a5cc41dbbbee"
+url = "https://github.com/j178/prek/releases/download/v0.5.10/prek-aarch64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/j178/prek/releases/assets/707839366"
 provenance = "github-attestations"
 
 [tools.prek."platforms.linux-x64"]
-checksum = "sha256:2fee13923018dd517c19dba032ddcae8010cadfb81bc47e742ad5e8981a3f126"
-url = "https://github.com/j178/prek/releases/download/v0.5.9/prek-x86_64-unknown-linux-gnu.tar.gz"
-url_api = "https://api.github.com/repos/j178/prek/releases/assets/691760524"
+checksum = "sha256:5c832a9ccd0855b7c054320d8921d90165a37459d3ac175923bdf121ff1aa9b1"
+url = "https://github.com/j178/prek/releases/download/v0.5.10/prek-x86_64-unknown-linux-gnu.tar.gz"
+url_api = "https://api.github.com/repos/j178/prek/releases/assets/707839458"
 provenance = "github-attestations"
 
 [tools.prek."platforms.macos-arm64"]
-checksum = "sha256:cc9020726b7c86cce420b75d70f48b9ffa161bb5095a99678c0a87218f48d493"
-url = "https://github.com/j178/prek/releases/download/v0.5.9/prek-aarch64-apple-darwin.tar.gz"
-url_api = "https://api.github.com/repos/j178/prek/releases/assets/691760404"
+checksum = "sha256:28186099374a3158e7b27e82fedb0bd20723658dc8ee24a841bdffe8a91b1ad9"
+url = "https://github.com/j178/prek/releases/download/v0.5.10/prek-aarch64-apple-darwin.tar.gz"
+url_api = "https://api.github.com/repos/j178/prek/releases/assets/707839320"
 provenance = "github-attestations"
 
 [[tools.trufflehog]]
-version = "v3.99.7"
+version = "v3.99.8"
 backend = "aqua:trufflesecurity/trufflehog"
 
 [tools.trufflehog."platforms.linux-arm64"]
-checksum = "sha256:3060f7c9f18c70afdc432984cacabdd1e9103729b5d5fee7fb6755a90d1c59d4"
+checksum = "sha256:a0382d83dd58c967af5dd0175cc732c62c836ab1d15dc9ae71b01a2d3f0911b2"
 checksum_source = "mise-versions"
-url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.99.7/trufflehog_3.99.7_linux_arm64.tar.gz"
-url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/671473558"
+url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.99.8/trufflehog_3.99.8_linux_arm64.tar.gz"
+url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/702807617"
 
 [tools.trufflehog."platforms.linux-x64"]
-checksum = "sha256:bdbea0508e439b144f49de14e775908de5f902f3d14ea7ae8354bae72b0b72ef"
+checksum = "sha256:7c3b02f160f28929a467e29e20fba98746e0729f6e37c3c25761e4f8789abe08"
 checksum_source = "mise-versions"
-url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.99.7/trufflehog_3.99.7_linux_amd64.tar.gz"
-url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/671473557"
+url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.99.8/trufflehog_3.99.8_linux_amd64.tar.gz"
+url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/702807616"
 
 [tools.trufflehog."platforms.macos-arm64"]
-checksum = "sha256:5540ef352fc88b1f580e91603689782c0107ca7d4a96c1aeb2714b3a98c766ce"
+checksum = "sha256:85724f221bc390f6e0bdf65df245468c8426350de85aa9290ea5491c6d4ec35a"
 checksum_source = "mise-versions"
-url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.99.7/trufflehog_3.99.7_darwin_arm64.tar.gz"
-url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/671473559"
+url = "https://github.com/trufflesecurity/trufflehog/releases/download/v3.99.8/trufflehog_3.99.8_darwin_arm64.tar.gz"
+url_api = "https://api.github.com/repos/trufflesecurity/trufflehog/releases/assets/702807615"
